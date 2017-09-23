@@ -1,1 +1,11 @@
-<h1>create-request works!</h1>
+<div class="container">
+  <h2>Create Request</h2>
+  <form [formGroup]="requestForm" #formDir="ngForm">
+
+    <div [hidden]="formDir.submitted">
+
+      <div class="form-group">
+      </div>
+    </div>
+  </form>
+</div>

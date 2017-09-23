@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-request',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../../assets/styles/create-request.component.css']
 })
 export class CreateRequestComponent implements OnInit {
+  requestForm: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
+    this.requestForm = new FormGroup({
+
+    });
   }
 
 }
