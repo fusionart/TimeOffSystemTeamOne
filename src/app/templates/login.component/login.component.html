@@ -1,0 +1,18 @@
+<div class="login-page">
+  <div class="form">
+    <form class="login-form" [formGroup]="loginForm" novalidate>
+      <input type="text" placeholder="username" formControlName="username"/>
+      <div *ngIf="username.errors.required || (username.dirty || username.touched)" 
+      class="alert-danger">
+        Username is required.
+      </div>
+      <input type="password" placeholder="password" formControlName="password"/>
+      <div *ngIf="password.errors.required || (password.dirty || password.touched)" 
+      class="alert-danger">
+        Upassword is required.
+      </div>
+      <button type="submit">Login</button>
+      <p class="message">Not registered? <a href="#/register">Create an account</a></p>
+    </form>
+  </div>
+</div>
