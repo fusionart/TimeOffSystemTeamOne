@@ -2,88 +2,88 @@ import { Request } from "./request";
 
 export const REQUESTS: Request[] = [
   {
-    request_id: 1,
+    requestId: 1,
     type: "PTO",
     days: 4,
-    date_start: "13.11.2017",
-    date_end: "16.11.2017",
+    dateStart: "13.11.2017",
+    dateEnd: "16.11.2017",
     status: "approved",
     reason: "I'm going safari to Africa.",
     note: "It's going to be dangerous.",
-    submit_date: "02.10.2017"
+    submitDate: "02.10.2017"
   },
   {
-    request_id: 2,
+    requestId: 2,
     type: "PTO",
     days: 10,
-    date_start: "6.12.2017",
-    date_end: "17.12.2017",
+    dateStart: "6.12.2017",
+    dateEnd: "17.12.2017",
     status: "approved",
     reason: "Holyday",
     note: "Don't call me.",
-    submit_date: "05.10.2017"
+    submitDate: "05.10.2017"
   },
   {
-    request_id: 3,
+    requestId: 3,
     type: "Sick Leave",
     days: 3,
-    date_start: "6.10.2017",
-    date_end: "10.10.2017",
+    dateStart: "6.10.2017",
+    dateEnd: "10.10.2017",
     status: "approved",
     reason: "Fly",
     note: "",
-    submit_date: "06.10.2017"
+    submitDate: "06.10.2017"
   },
   {
-    request_id: 4,
+    requestId: 4,
     type: "UPTO",
     days: 1,
-    date_start: "13.10.2017",
-    date_end: "16.11.2017",
+    dateStart: "13.10.2017",
+    dateEnd: "16.11.2017",
     status: "approved",
     reason: "I'm superstitious.",
     note: "It's Friday 13th.",
-    submit_date: "02.10.2017"
+    submitDate: "02.10.2017"
   },   {
-    request_id: 5,
+    requestId: 5,
     type: "PTO",
     days: 4,
-    date_start: "12.11.2017",
-    date_end: "16.11.2017",
+    dateStart: "12.11.2017",
+    dateEnd: "16.11.2017",
     status: "approved",
     reason: "I'm going safari to Africa.",
     note: "It's going to be dangerous.",
-    submit_date: "02.10.2017"
+    submitDate: "02.10.2017"
   },   {
-    request_id: 6,
+    requestId: 6,
     type: "PTO",
     days: 4,
-    date_start: "12.11.2017",
-    date_end: "16.11.2017",
+    dateStart: "12.11.2017",
+    dateEnd: "16.11.2017",
     status: "approved",
     reason: "I'm going safari to Africa.",
     note: "It's going to be dangerous.",
-    submit_date: "02.10.2017"
+    submitDate: "02.10.2017"
   },   {
-    request_id: 7,
+    requestId: 7,
     type: "PTO",
     days: 4,
-    date_start: "12.11.2017",
-    date_end: "16.11.2017",
+    dateStart: "12.11.2017",
+    dateEnd: "16.11.2017",
     status: "approved",
     reason: "I'm going safari to Africa.",
     note: "It's going to be dangerous.",
-    submit_date: "02.10.2017"
+    submitDate: "02.10.2017"
   },
   {
-    request_id: 8,
+    requestId: 8,
     type: "PTO",
     days: 4,
-    date_start: "12.11.2017",
-    date_end: "16.11.2017",
+    dateStart: "12.11.2017",
+    dateEnd: "16.11.2017",
     status: "approved",
     reason: "I'm going safari to Africa.",
     note: "It's going to be dangerous.",
-    submit_date: "02.10.2017"
+    submitDate: "02.10.2017"
   }
 ];

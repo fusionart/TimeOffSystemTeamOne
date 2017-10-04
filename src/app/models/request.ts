@@ -1,11 +1,11 @@
 export class Request {
-  public request_id: number;
+  public requestId: number;
   public type: string;
   public days: number;
-  public date_start: string;
-  public date_end: string;
+  public dateStart: string;
+  public dateEnd: string;
   public status: string;
   public reason: string;
   public note: string;
-  public submit_date: string;
+  public submitDate: string;
 }
