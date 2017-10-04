@@ -1,3 +1,13 @@
-<p>
-  requests-list works!
-</p>
+<div class="container">
+  <h1>Requests</h1>
+  <button type="button" class="btn btn-success" routerLink="/createRequest" routerLinkActive="active">Create Request</button>
+  <table class="table table-striped table-bordered ">
+    <tr *ngFor="let user of users">
+      <td>Username: {{user.username}}</td>
+      <td>First name: {{user.firstName}}</td>
+      <td>Last name: {{user.lastName}}</td>
+    </tr>
+  </table>
+  <div class="text-right"><span class="label label-info">Total {{users.length}} users.</span></div>
+
+</div>
