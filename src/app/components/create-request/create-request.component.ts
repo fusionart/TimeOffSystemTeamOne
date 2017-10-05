@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-request',
@@ -8,13 +8,26 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateRequestComponent implements OnInit {
   requestForm: FormGroup;
+  absenceType: string[] = [
+    'Paid Time Off',
+    'Unpaid Time Off',
+    'Sick Leave'
+  ];
 
-  constructor() { }
-
-  ngOnInit() {
-    this.requestForm = new FormGroup({
-
-    });
+  constructor(private fb: FormBuilder) {
+    this.createForm();
   }
 
+  ngOnInit() {
+  }
+
+  createForm() {
+    this.requestForm = this.fb.group({
+      'absTypes': ''
+    });
+  }
+  onSubmit() {
+    console.log(this.requestForm);
+   // this.registerForm.reset();
+  }
 }

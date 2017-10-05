@@ -1,11 +1,12 @@
 <div class="container">
   <h2>Create Request</h2>
-  <form [formGroup]="requestForm" #formDir="ngForm">
-
-    <div [hidden]="formDir.submitted">
-
-      <div class="form-group">
-      </div>
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <h5><i>Absence Type</i></h5>
+      <select class="form-control" formControlName="absTypes">
+        <option *ngFor="let absType of absenceType">{{absType}}</option>
+      </select>
     </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
