@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CreateRequestComponent } from './create-request.component'
+import { CreateRequestComponent } from './create-request.component';
 
 export const appRoutes: Routes = [{
     path: 'createRequest', component: CreateRequestComponent
@@ -11,4 +11,5 @@ export const appRoutes: Routes = [{
     exports: [RouterModule]
 })
 
-export class CreateRequestRoute { }
+export class CreateRequestRoute {
+}
