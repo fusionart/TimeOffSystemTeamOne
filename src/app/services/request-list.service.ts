@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { USERS } from "../models/mock-user";
-import { REQUESTS } from "../models/mock-request";
-import { User } from "../models/user";
-import { Request } from "../models/request";
+import { USERS } from '../models/mock-user';
+import { REQUESTS } from '../models/mock-request';
+import { User } from '../models/user';
+import { Request } from '../models/request';
 
 @Injectable()
 export class RequestListService {
@@ -23,17 +23,17 @@ export class RequestListService {
             .then(requests => requests.find(request => request.requestId === requestId));
     }
     getTOFimage(typeTO: string): Promise<String> {
-        let imageFileName = "/assets/images/";
-        if (typeTO=="PTO") {
-            imageFileName += "PTO.png";
-        } if (typeTO=="UPTO") {
-            imageFileName += "UPTO.png";
+        let imageFileName = '/assets/images/';
+        if (typeTO === 'PTO') {
+            imageFileName += 'PTO.png';
+        } if (typeTO === 'UPTO') {
+            imageFileName += 'UPTO.png';
         } else {
-            imageFileName += "sick_leave.png";
+            imageFileName += 'sick_leave.png';
         }
-        return  Promise.resolve(imageFileName);  
+        return Promise.resolve(imageFileName);
     }
 
-constructor() { }
+    constructor() { }
 
 }
