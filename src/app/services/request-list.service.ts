@@ -22,6 +22,17 @@ export class RequestListService {
         return this.getRequests()
             .then(requests => requests.find(request => request.requestId === requestId));
     }
+    getTOFimage(typeTO: string): Promise<String> {
+        let imageFileName = "/assets/images/";
+        if (typeTO=="PTO") {
+            imageFileName += "PTO.png";
+        } if (typeTO=="UPTO") {
+            imageFileName += "UPTO.png";
+        } else {
+            imageFileName += "sick_leave.png";
+        }
+        return  Promise.resolve(imageFileName);  
+    }
 
 constructor() { }
 
