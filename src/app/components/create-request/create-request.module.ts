@@ -2,8 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CreateRequestRoute } from './create-request.route';
+import { CalendarModule } from 'primeng/primeng';
+import { CalendarNModule } from '../calendar/calendar.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CreateRequestComponent } from './create-request.component'
+import { CreateRequestComponent } from './create-request.component';
 
 
 @NgModule({
@@ -14,7 +17,10 @@ import { CreateRequestComponent } from './create-request.component'
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        CreateRequestRoute
+        CreateRequestRoute,
+        CalendarModule,
+        BrowserAnimationsModule,
+        CalendarNModule
     ],
     providers: [
 

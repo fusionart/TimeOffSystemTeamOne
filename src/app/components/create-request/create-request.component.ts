@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CalendarComponent } from './../calendar/calendar.component';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -7,7 +8,10 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['../../../assets/styles/create-request.component.css']
 })
 export class CreateRequestComponent implements OnInit {
+  @ViewChild(CalendarComponent)
+  private cal: CalendarComponent;
   requestForm: FormGroup;
+
   absenceType: string[] = [
     'Paid Time Off',
     'Unpaid Time Off',
@@ -19,6 +23,7 @@ export class CreateRequestComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   createForm() {
@@ -28,6 +33,8 @@ export class CreateRequestComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.requestForm);
-   // this.registerForm.reset();
+    // this.registerForm.reset();
+    console.log(this.cal.rangeNewDates[0].getDate());
   }
+
 }
