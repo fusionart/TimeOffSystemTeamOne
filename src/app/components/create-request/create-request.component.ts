@@ -1,6 +1,8 @@
+import { DropdownComponent } from './../dropdown/dropdown.component';
 import { CalendarComponent } from './../calendar/calendar.component';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { InputTextareaModule, InputTextModule } from 'primeng/primeng';
 
 @Component({
   selector: 'app-create-request',
@@ -10,31 +12,20 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 export class CreateRequestComponent implements OnInit {
   @ViewChild(CalendarComponent)
   private cal: CalendarComponent;
-  requestForm: FormGroup;
+  @ViewChild(DropdownComponent)
+  private ddc: DropdownComponent;
 
-  absenceType: string[] = [
-    'Paid Time Off',
-    'Unpaid Time Off',
-    'Sick Leave'
-  ];
-
-  constructor(private fb: FormBuilder) {
-    this.createForm();
+  constructor() {
   }
 
   ngOnInit() {
 
   }
 
-  createForm() {
-    this.requestForm = this.fb.group({
-      'absTypes': ''
-    });
-  }
   onSubmit() {
-    console.log(this.requestForm);
+    console.log(this.ddc.selectedTot);
     // this.registerForm.reset();
-    console.log(this.cal.rangeNewDates[0].getDate());
+    console.log(this.cal.dates);
   }
 
 }

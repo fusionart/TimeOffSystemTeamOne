@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem, Message } from 'primeng/components/common/api';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-calendar',
@@ -7,7 +8,7 @@ import { SelectItem, Message } from 'primeng/components/common/api';
   styleUrls: ['../../../assets/styles/calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
-  rangeNewDates: Date[];
+  dates: Date[];
   basicDateInput: Date;
   localizedDateInput: Date;
   advancedDateInput: Date;
@@ -29,22 +30,36 @@ export class CalendarComponent implements OnInit {
   selectedHourFormat: string = '12';
   msgs: Message[] = [];
   activeIndex: number = 0;
+  inputDates: String;
+
 
   onSelect() {
-    this.msgs.push({ severity: 'info', summary: 'The calendar date is selected ' });
+    this.dates.sort;
+    console.log(this.dates);
+    this.populateDates();
   }
 
-  onBlur() {
-    this.msgs.push({ severity: 'info', summary: 'Calendar lost the focus' });
+  populateDates() {
+    let commar: String = ", ";
+    this.inputDates = "";
+    for (var i = 0; i < this.dates.length; i++) {
+      if (i == this.dates.length-1) {
+        commar = "";
+      }
+      this.inputDates += this.dates[i].getDate() + "/" + this.dates[i].getMonth() + "/" + this.dates[i].getFullYear() + commar;
+    }
   }
 
-  onFocus() {
-    this.msgs.push({ severity: 'info', summary: 'Calendar got the focus' });
+  onBlur($event) {
+    console.log("blur"+this.dates);
+  }
+
+  onFocus($event) {
+    console.log("focus"+this.dates);
   }
 
   onClear() {
-    this.msgs = [];
-    this.msgs.push({ severity: 'info', summary: 'The Calendar is closed' });
+    this.inputDates = "";
   }
 
   set hourFormat(hourFormat: string) {
@@ -63,9 +78,9 @@ export class CalendarComponent implements OnInit {
       firstDayOfWeek: 1,
       dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-      dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
-      monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
-      monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+      dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+      monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       today: 'Today',
       clear: 'Clear'
     };
@@ -89,14 +104,8 @@ export class CalendarComponent implements OnInit {
     this.maxDate.setFullYear(nextYear);
 
     let invalidDate = new Date();
-    invalidDate.setDate(today.getDate() - 3);
+    invalidDate.setDate(today.getDate());
     this.invalidDates = [today, invalidDate];
 
   }
-
-  onChangeStep(label: string) {
-    this.msgs.length = 0;
-    this.msgs.push({ severity: 'info', summary: label });
-  }
-
 }

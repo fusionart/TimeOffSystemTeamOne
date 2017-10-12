@@ -1,4 +1,9 @@
+<div class="ui-g-12 form-group">
+    <h5>
+        <i>Dates</i>
+      </h5>
+  <input class="ui-g-12" type="text" pInputText [(ngModel)]="inputDates" name="inputDates" [disabled]="true"/>
+</div>
 <div class="ui-g-12 ui-md-4">
-  <h3>Range</h3>
-  <p-calendar [(ngModel)]="rangeNewDates" [locale]="en" selectionMode="multiple" readonlyInput="true" dateFormat="dd/mm/yy"></p-calendar>
+  <p-calendar [(ngModel)]="dates" selectionMode="multiple" [locale]="en" readonlyInput="true" dateFormat="dd/mm/yy" [inline]="true" [disabledDays]="[0,6]" [disabledDates]="invalidDates" yearRange="2000:2030" showButtonBar="true" (onSelect)="onSelect()" (onClearClick)="onClear($event)" dateFormat="dd.mm.yy"></p-calendar>
 </div>

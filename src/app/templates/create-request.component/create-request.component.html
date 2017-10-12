@@ -1,17 +1,32 @@
 <div class="container">
+    <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#">Home</a>
+        <span class="breadcrumb-item active">Create Requests</span>
+      </nav>
   <h2>Create Request</h2>
-  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
+  <form (ngSubmit)="onSubmit()">
+    <app-dropdown></app-dropdown>
+    <div class="ui-g-12 form-group">
       <h5>
-        <i>Absence Type</i>
+        <i>Reason</i>
       </h5>
-      <select class="form-control" formControlName="absTypes">
-        <option *ngFor="let absType of absenceType">{{absType}}</option>
-      </select>
+      <textarea class="ui-g-12 ui-inputtextarea" rows="2" pInputTextarea [(ngModel)]="reasons" [ngModelOptions]="{standalone: true}"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <hr>
+    <div class="ui-g-12 form-group">
+      <h5>
+        <i>Note</i>
+      </h5>
+      <textarea class="ui-g-12 ui-inputtextarea" rows="2" pInputTextarea [(ngModel)]="note" [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
     <app-calendar></app-calendar>
+    <div class="ui-g-12 form-group">
+      <h5>
+        <i>Mail list</i>
+      </h5>
+      <input class="ui-g-6" type="text" pInputText [(ngModel)]="mailList" [ngModelOptions]="{standalone: true}" />
+    </div>
+    <div class="ui-g-12 form-group">
+      <button type="submit" class="btn btn-primary ui-g-2">Create</button>
+    </div>
   </form>
- 
 </div>

@@ -1,3 +1,5 @@
+import { CreateRequestService } from './../../services/create-request/create-request.service';
+import { DropdownNModule } from './../dropdown/dropdown.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -20,10 +22,9 @@ import { CreateRequestComponent } from './create-request.component';
         CreateRequestRoute,
         CalendarModule,
         BrowserAnimationsModule,
-        CalendarNModule
+        CalendarNModule,
+        DropdownNModule
     ],
-    providers: [
-
-    ],
+    providers: [CreateRequestService],
 })
 export class CreateRequestModule { }
