@@ -2,8 +2,8 @@ export class TimeOffRequest {
   public requestId?: number;
   public type: string;
   public days?: number;
-  public startDate: string;
-  public finishDate: string;
+  public dateStart: string;
+  public dateFinish: string;
   public status: string;
   public reason?: string;
   public note: string;

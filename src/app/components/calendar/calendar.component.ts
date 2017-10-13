@@ -34,12 +34,6 @@ export class CalendarComponent implements OnInit {
 
 
   onSelect() {
-    this.dates.sort;
-    console.log(this.dates);
-    this.populateDates();
-  }
-
-  populateDates() {
     let commar: String = ", ";
     this.inputDates = "";
     for (var i = 0; i < this.dates.length; i++) {
@@ -50,12 +44,12 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  onBlur($event) {
-    console.log("blur"+this.dates);
+  onBlur() {
+   
   }
 
-  onFocus($event) {
-    console.log("focus"+this.dates);
+  onFocus() {
+    
   }
 
   onClear() {

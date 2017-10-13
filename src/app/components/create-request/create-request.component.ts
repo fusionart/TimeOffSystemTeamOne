@@ -30,15 +30,14 @@ export class CreateRequestComponent implements OnInit {
 
   onSubmit() {
     this.timeOffRequest = new TimeOffRequest();
+    this.timeOffRequest.days = this.cal.dates.length;
     this.timeOffRequest.type = this.ddc.selectedTot.code;
-    this.timeOffRequest.startDate = this.cal.dates[0].toString();
-    this.timeOffRequest.finishDate = this.cal.dates[this.cal.dates.length-1].toString();
+    //this.timeOffRequest.dateStart = this.cal.dates[0].toString();
+    //this.timeOffRequest.dateFinish = this.cal.dates[this.cal.dates.length-1].toString();
     this.timeOffRequest.reason = this.reasons;
     this.timeOffRequest.note = this.note;
-    var formData = new FormData();
-    formData.append("timeOffRequest", JSON.stringify(this.timeOffRequest));
     
-    this.createRequestService.addRequest(formData).subscribe(
+    this.createRequestService.addRequest(this.timeOffRequest).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
     );
