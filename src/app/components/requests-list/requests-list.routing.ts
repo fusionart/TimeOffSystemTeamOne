@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RequestsListComponent } from './requests-list.component'
-import { LoginFormComponent } from '../login-form/login-form.component'
+import { RequestsListComponent } from './requests-list.component';
+import { LoginFormComponent } from '../login-form/login-form.component';
 
 export const appRoutes: Routes = [
   { path: 'list', component: RequestsListComponent },
@@ -12,6 +12,5 @@ export const appRoutes: Routes = [
 imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
 exports: [RouterModule]
 })
-
 
 export class RequestsListRoutes { }
