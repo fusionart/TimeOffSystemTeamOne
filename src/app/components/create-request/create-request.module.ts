@@ -7,6 +7,7 @@ import { CreateRequestRoute } from './create-request.route';
 import { CalendarModule } from 'primeng/primeng';
 import { CalendarNModule } from '../calendar/calendar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 
 import { CreateRequestComponent } from './create-request.component';
 
@@ -19,6 +20,7 @@ import { CreateRequestComponent } from './create-request.component';
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpModule,
         CreateRequestRoute,
         CalendarModule,
         BrowserAnimationsModule,

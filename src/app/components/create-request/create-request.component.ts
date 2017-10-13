@@ -1,3 +1,6 @@
+import { Router, ActivatedRoute } from '@angular/router';
+import { TimeOffRequest } from './../../models/timeOffRequest';
+import { CreateRequestService } from './../../services/create-request/create-request.service';
 import { DropdownComponent } from './../dropdown/dropdown.component';
 import { CalendarComponent } from './../calendar/calendar.component';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
@@ -15,17 +18,31 @@ export class CreateRequestComponent implements OnInit {
   @ViewChild(DropdownComponent)
   private ddc: DropdownComponent;
 
-  constructor() {
+  timeOffRequest: TimeOffRequest;
+  reasons: string;
+  note: string;
+
+  constructor(private route: ActivatedRoute, private router: Router, private createRequestService: CreateRequestService) {
   }
 
   ngOnInit() {
-
   }
 
   onSubmit() {
-    console.log(this.ddc.selectedTot);
-    // this.registerForm.reset();
-    console.log(this.cal.dates);
+    this.timeOffRequest = new TimeOffRequest();
+    this.timeOffRequest.type = this.ddc.selectedTot.code;
+    this.timeOffRequest.startDate = this.cal.dates[0].toString();
+    this.timeOffRequest.finishDate = this.cal.dates[this.cal.dates.length-1].toString();
+    this.timeOffRequest.reason = this.reasons;
+    this.timeOffRequest.note = this.note;
+    var formData = new FormData();
+    formData.append("timeOffRequest", JSON.stringify(this.timeOffRequest));
+    
+    this.createRequestService.addRequest(formData).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
+    this.router.navigate(['/list']);
   }
 
 }
