@@ -20,7 +20,7 @@ export class RequestsListComponent implements OnInit {
   constructor(
     private requestListService: RequestListService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
