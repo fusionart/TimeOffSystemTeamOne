@@ -19,12 +19,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/primeng/resources/primeng.css",
+        "../node_modules/primeng/resources/themes/bootstrap/theme.css",
+        "styles.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/tether/dist/js/tether.js",
+        "../node_modules/popper.js/dist/umd/popper.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
       "environmentSource": "environments/environment.ts",
