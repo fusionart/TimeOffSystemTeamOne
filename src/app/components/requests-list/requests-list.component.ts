@@ -4,7 +4,7 @@ import { Location } from "@angular/common";
 
 import { User } from "../../models/user";
 import { Request } from "../../models/request";
-import { RequestListService } from "../../services/request-list.service";
+import { RequestListService } from "../../services/request-list/request-list.service";
 import "rxjs/add/operator/switchMap";
 
 @Component({
