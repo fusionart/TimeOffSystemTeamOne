@@ -9,12 +9,10 @@ import { AppRoutes } from './app.routes';
 
 import { CreateRequestModule } from './components/create-request/create-request.module';
 
-import { AppComponent } from './app.component';
-import { AppRoutes } from './app.routes';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RequestsListModule } from './components/requests-list/requests-list.module';
 import { CalendarNModule } from './components/calendar/calendar.module';
-
+import { LoginFormModule } from './components/login-form/login-form.module';
 
 @NgModule({
   declarations: [
@@ -29,8 +27,8 @@ import { CalendarNModule } from './components/calendar/calendar.module';
     RequestsListModule,
     CalendarNModule,
     CalendarModule,
-    DropdownNModule
-
+    DropdownNModule,
+    LoginFormModule
   ],
   providers: [],
   bootstrap: [AppComponent]
