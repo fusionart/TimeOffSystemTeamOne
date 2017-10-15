@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-register-form',
-  templateUrl: '../../templates/register-form.component.html',
+  templateUrl: '../../templates/register-form.component/register-form.component.html',
   styleUrls: ['../../styles/register-form.component.css']
 })
 export class RegisterFormComponent {

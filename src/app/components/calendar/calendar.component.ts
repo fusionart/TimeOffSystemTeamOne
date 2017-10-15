@@ -1,3 +1,5 @@
+import { Holiday } from './../../models/holiday';
+import { CalendarService } from './../../services/calendar/calendar.service';
 import { Component, OnInit } from '@angular/core';
 import { SelectItem, Message } from 'primeng/components/common/api';
 import { Observable } from 'rxjs/Observable';
@@ -31,7 +33,12 @@ export class CalendarComponent implements OnInit {
   msgs: Message[] = [];
   activeIndex: number = 0;
   inputDates: String;
+  holiday: Array<Holiday>;
+  holidayDays: Array<Date>;
 
+  constructor(private calendar: CalendarService){
+    this.holiday = Array<Holiday>();
+  }
 
   onSelect() {
     let commar: String = ", ";
@@ -68,6 +75,8 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getHolidays();
+    
     this.en = {
       firstDayOfWeek: 1,
       dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -97,9 +106,24 @@ export class CalendarComponent implements OnInit {
     this.maxDate.setMonth(nextMonth);
     this.maxDate.setFullYear(nextYear);
 
-    let invalidDate = new Date();
-    invalidDate.setDate(today.getDate());
-    this.invalidDates = [today, invalidDate];
+    let invalidDate = new Date("10, 17, 2017");
+    //invalidDate.setDate(today.getDate());
+    this.invalidDates = [];
+  }
 
+  getHolidays() {
+    this.calendar.getHolidays().subscribe(holiday => {
+        this.holiday = holiday; 
+        this.generateInvalidDatesString();
+    })
+  }
+
+  generateInvalidDatesString(){
+    this.holiday.forEach(element => {
+      element.date = new Date(element.date);
+      this.invalidDates.push(element.date);
+      //console.log(new Date(element.date).getDate());
+      console.log(element.date);
+    });
   }
 }

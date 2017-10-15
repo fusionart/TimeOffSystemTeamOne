@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../../models/user';
-import { Request } from '../../models/request';
-import { RequestListService } from '../../services/request-list.service';
+import { TimeOffRequest } from "../../models/timeOffRequest";
+import { RequestListService } from '../../services/request-list/request-list.service';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['../../../assets/styles/requests-list.component.css']
 })
 export class RequestsListComponent implements OnInit {
-  requests: Request[] = [];
+  requests: TimeOffRequest[] = [];
   user: User;
 
   constructor(

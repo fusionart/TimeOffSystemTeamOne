@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { RequestsListComponent } from './requests-list.component';
 import { RequestsListRoutes } from './requests-list.routing';
-import { RequestListService } from '../../services/request-list.service';
+import { RequestListService } from '../../services/request-list/request-list.service';
 
 @NgModule({
   declarations: [
