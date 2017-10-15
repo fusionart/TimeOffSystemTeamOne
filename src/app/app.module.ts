@@ -3,16 +3,18 @@ import { CalendarModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { RegisterFormModule } from './components/register-form/register-form.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 
+import { RegisterFormModule } from './components/register-form/register-form.module';
 import { CreateRequestModule } from './components/create-request/create-request.module';
 import { AlertComponent } from './components/alert/alert.component';
-
 import { RequestsListModule } from './components/requests-list/requests-list.module';
 import { CalendarNModule } from './components/calendar/calendar.module';
 import { LoginFormModule } from './components/login-form/login-form.module';
+import { AlertService} from './services/alert/alert.service';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,11 @@ import { LoginFormModule } from './components/login-form/login-form.module';
     DropdownNModule,
     LoginFormModule
   ],
-  providers: [],
+  providers: [
+    AlertService,
+    AuthenticationService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
