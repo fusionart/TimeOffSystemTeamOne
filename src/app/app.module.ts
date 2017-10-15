@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 
 import { CreateRequestModule } from './components/create-request/create-request.module';
+import { AlertComponent } from './components/alert/alert.component';
 
-import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RequestsListModule } from './components/requests-list/requests-list.module';
 import { CalendarNModule } from './components/calendar/calendar.module';
 import { LoginFormModule } from './components/login-form/login-form.module';
@@ -17,7 +17,7 @@ import { LoginFormModule } from './components/login-form/login-form.module';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent
+    AlertComponent
   ],
   imports: [
     BrowserModule,
