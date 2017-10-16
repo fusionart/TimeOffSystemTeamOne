@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { LoginFormComponent } from './login-form.component';
 
 export const appRoutes: Routes  = [
-  { path: 'login', component: LoginFormComponent },
+  { path: 'login', component: LoginFormComponent }
 ];
 
 @NgModule({

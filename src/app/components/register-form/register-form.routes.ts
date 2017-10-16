@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { RegisterFormComponent } from './register-form.component';
 
 export const appRoutes: Routes = [
-    { path: '', redirectTo: 'register-form', pathMatch: 'full' },
     { path: 'register-form', component: RegisterFormComponent }
 ];
 

@@ -2,7 +2,7 @@ import { User } from "./user";
 
 export const USERS: User[] = [
     {
-        userId: 1,
+        id: 1,
         personId: "Todor Kostadinov",
         firstName: "Todor",
         secondName: "Todorov",

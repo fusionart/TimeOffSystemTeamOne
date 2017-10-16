@@ -16,7 +16,7 @@ export class RequestListService {
 
     getUser(userId: number): Promise<User> {
         return this.getUsers()
-            .then(users => users.find(user => user.userId === userId));
+            .then(users => users.find(user => user.id === userId));
     }
     
     getRequest(requestId: number): Promise<TimeOffRequest> {
