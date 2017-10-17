@@ -1,3 +1,4 @@
+import { Dates } from './../../models/date';
 import { Holiday } from './../../models/holiday';
 import { CalendarService } from './../../services/calendar/calendar.service';
 import { Component, OnInit } from '@angular/core';
@@ -33,18 +34,26 @@ export class CalendarComponent implements OnInit {
   msgs: Message[] = [];
   activeIndex: number = 0;
   inputDates: String;
+
   holiday: Array<Holiday>;
   holidayDays: Array<Date>;
+  invalidDaysString: string = "";
 
-  constructor(private calendar: CalendarService){
+  constructor(private calendar: CalendarService) {
     this.holiday = Array<Holiday>();
   }
+  onClickEvt($event, date) {
+    // console.log("onClickEvent")
+    // console.log($event);
+    // console.log("onClickEvent")
+    // console.log(date);
+  }
+  onSelect($event) {
 
-  onSelect() {
     let commar: String = ", ";
     this.inputDates = "";
     for (var i = 0; i < this.dates.length; i++) {
-      if (i == this.dates.length-1) {
+      if (i == this.dates.length - 1) {
         commar = "";
       }
       this.inputDates += this.dates[i].getDate() + "/" + this.dates[i].getMonth() + "/" + this.dates[i].getFullYear() + commar;
@@ -52,11 +61,11 @@ export class CalendarComponent implements OnInit {
   }
 
   onBlur() {
-   
+
   }
 
   onFocus() {
-    
+
   }
 
   onClear() {
@@ -76,7 +85,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.getHolidays();
-    
+
     this.en = {
       firstDayOfWeek: 1,
       dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -113,17 +122,24 @@ export class CalendarComponent implements OnInit {
 
   getHolidays() {
     this.calendar.getHolidays().subscribe(holiday => {
-        this.holiday = holiday; 
-        this.generateInvalidDatesString();
+      this.holiday = holiday;
+      this.convertDates();
     })
   }
 
-  generateInvalidDatesString(){
+  convertDates() {
     this.holiday.forEach(element => {
       element.date = new Date(element.date);
       this.invalidDates.push(element.date);
-      //console.log(new Date(element.date).getDate());
-      console.log(element.date);
     });
   }
+
+  setMyStyles(date) {
+    for (var i = 0; i < this.invalidDates.length; i++) {
+      if (date.day == this.invalidDates[i].getDate() && date.month == this.invalidDates[i].getMonth() && date.year == this.invalidDates[i].getFullYear()) {
+        return true;
+      } 
+    }
+  }
+
 }
