@@ -1,12 +1,12 @@
 <div class="login-page">
   <div class="form">
     <form class="login-form" [formGroup]="loginForm" novalidate>
-      <input type="text" placeholder="username" formControlName="username"/>
-      <div *ngIf="username.errors.required || (username.dirty || username.touched)" 
+      <input type="text" placeholder="username" formControlName="username" #username/>
+      <div *ngIf="username.errors?.required || (username.dirty || username.touched)" 
       class="alert-danger">
         Username is required.
       </div>
-      <input type="password" placeholder="password" formControlName="password"/>
+      <input type="password" placeholder="password" formControlName="password" #password/>
       <div *ngIf="password.errors.required || (password.dirty || password.touched)" 
       class="alert-danger">
         Upassword is required.
