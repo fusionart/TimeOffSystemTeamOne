@@ -17,8 +17,7 @@ export interface LoginInfoInStorage {
 @Injectable()
 export class UserService {
   public currentUserKey: string = "currentUser";
-  public storage: Storage = localStorage; // <--- you may switch between sessionStorage or LocalStrage (only one place to change)
-
+  public storage: Storage = localStorage; 
   constructor() {}
 
   //Store userinfo from local storage

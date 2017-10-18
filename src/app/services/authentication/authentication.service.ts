@@ -19,9 +19,9 @@ export class AuthenticationService {
     "/login";
   public currentUserKey: string = "currentUser";
   public landingPage:string = "/login";
-  public storage: Storage = sessionStorage;
   public token: string;
-
+  private headers = new Headers({'Content-Type': 'application/json'});
+  
   constructor(
     private router: Router,
     private http: Http,
@@ -36,14 +36,25 @@ export class AuthenticationService {
     console.log(
       "service: " + JSON.stringify({ username: username, password: password })
     );
-    var header = new Headers({ "Content-Type": "application/json" });
+    let header = new Headers({ "Content-Type": "application/json" });
+    
+    let options = new RequestOptions({ headers: header });
+    
     return this.http
       .post(
         AuthenticationService.LOGIN_REQUEST,
-        JSON.stringify({ username: username, password: password })
+        JSON.stringify({ username: username, password: password }),
+        options
       )
       .map((response: Response) => {
-        let token = response.headers.get("authorization");
+        // return this.http
+        // .post(AuthenticationService.LOGIN_REQUEST, LoginRequestParam, options)
+        // .map((response: Response)=> {
+         
+        console.log(response.text());
+
+        
+        let token = response.text();
         if (token) {
             // set token property
             this.token = token;

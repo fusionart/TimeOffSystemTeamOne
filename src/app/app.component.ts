@@ -14,6 +14,8 @@ export class AppComponent {
     if (localStorage.getItem("currentUser") != null) {
       this.showUsername = true;
       return JSON.parse(localStorage.getItem("currentUser")).username;
-    } 
+    } else {
+      return false;
+    }
   }
 }
