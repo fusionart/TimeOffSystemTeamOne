@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
+import { Router } from "@angular/router";
 import { environment } from "./../../../environments/environment";
-import { Observable } from "rxjs/Observable";
+import { Observable, Subject } from "rxjs";
+import { UserService, LoginInfoInStorage } from "../user/user.service";
+import { ApiRequestService } from "../api-request/api-request.service";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 
@@ -12,67 +15,57 @@ export interface LoginRequestParam {
 
 @Injectable()
 export class AuthenticationService {
-  public static readonly CREATE_REQUEST = environment.apiUrl +
-    "/api/authenticate";
+  public static readonly LOGIN_REQUEST = environment.apiUrl +
+    "/login";
   public currentUserKey: string = "currentUser";
+  public landingPage:string = "/login";
   public storage: Storage = sessionStorage;
+  public token: string;
 
-  constructor(private http: Http) {}
+  constructor(
+    private router: Router,
+    private http: Http,
+    private userInfoService: UserService,
+    private apiRequest: ApiRequestService
+  ) {
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.token = currentUser && currentUser.token;
+  }
 
-
-
-  logi2n(username: string, password: string) {
+  login(username: string, password: string): Observable<boolean>  {
     console.log(
       "service: " + JSON.stringify({ username: username, password: password })
     );
     var header = new Headers({ "Content-Type": "application/json" });
     return this.http
       .post(
-        AuthenticationService.CREATE_REQUEST,
+        AuthenticationService.LOGIN_REQUEST,
         JSON.stringify({ username: username, password: password })
       )
       .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let user = response.json();
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("currentUser", JSON.stringify(user));
+        let token = response.headers.get("authorization");
+        if (token) {
+            // set token property
+            this.token = token;
+            // store username and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+            // return true to indicate successful login
+            console.log(localStorage.getItem("currentUser.username"));
+            
+            return true;
+        } else {
+            // return false to indicate failed login
+            return false;
         }
-
-        return user;
-      });
+  });
+    
   }
+  
+  logout(): void {
+    // clear token remove user from local storage to log user out
+    this.token = null;
+    localStorage.removeItem('currentUser');
+    console.log(" -------------------- logout -----------------------------");
 
-  login(username: string, password: string): Observable<any> {
-    console.log(localStorage.length);
-
-    let bodyData: LoginRequestParam = {
-      username: username,
-      password: password
-    };
-    console.log("service: ");
-    console.log(JSON.stringify(bodyData));
-    let cpHeaders = new Headers({ "Content-Type": "application/json" });
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http
-      .post(AuthenticationService.CREATE_REQUEST, bodyData, options)
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let user = response.json();
-        console.log(" user.token ---- " + user.token);
-        console.log(" localStorage ---- " + localStorage);
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          console.log(user);
-
-          console.log(localStorage.getItem("currentUser") + "Currnt user");
-        }
-        console.log(" user.token ---- " + user.token);
-
-        console.log(localStorage.getItem("currentUser") + "Currnt user");
-        console.log(localStorage.getItem("currentUser") + "Currnt user");
-        return user;
-      });
   }
 }
