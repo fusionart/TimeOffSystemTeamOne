@@ -1,40 +1,71 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
- 
-import { User } from '../../models/user';
- 
+import { Injectable } from "@angular/core";
+
+export interface UserInStorage {
+  userId: string;
+  email: string;
+  displayName: string;
+  token: string;
+}
+
+export interface LoginInfoInStorage {
+  success: boolean;
+  message: string;
+  landingPage: string;
+  user?: UserInStorage;
+}
+
 @Injectable()
 export class UserService {
-    constructor(private http: Http) { }
- 
-    getAll() {
-        return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
+  public currentUserKey: string = "currentUser";
+  public storage: Storage = localStorage; // <--- you may switch between sessionStorage or LocalStrage (only one place to change)
+
+  constructor() {}
+
+  //Store userinfo from local storage
+  storeUserInfo(userInfoString: string) {
+    this.storage.setItem(this.currentUserKey, userInfoString);
+  }
+
+  //Remove userinfo from local storage
+  removeUserInfo() {
+    localStorage.removeItem(this.currentUserKey);
+  }
+
+  //Get userinfo from local storage
+  getUserInfo(): UserInStorage | null {
+    try {
+      let userInfoString: string = this.storage.getItem(this.currentUserKey);
+      if (userInfoString) {
+        let userObj: UserInStorage = JSON.parse(
+          this.storage.getItem(this.currentUserKey)
+        );
+        return userObj;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
     }
- 
-    getById(id: number) {
-        return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+  }
+
+  isLoggedIn(): boolean {
+    return this.storage.getItem(this.currentUserKey) ? true : false;
+  }
+
+  //Get User's Display name from local storage
+  getUserName(): string {
+    let userObj: UserInStorage = this.getUserInfo();
+    if (userObj !== null) {
+      return userObj.displayName;
     }
- 
-    create(user: User) {
-        return this.http.post('/api/users', user, this.jwt()).map((response: Response) => response.json());
+    return "no-user";
+  }
+
+  getStoredToken(): string | null {
+    let userObj: UserInStorage = this.getUserInfo();
+    if (userObj !== null) {
+      return userObj.token;
     }
- 
-    update(user: User) {
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
-    }
- 
-    delete(id: number) {
-        return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
-    }
- 
-    // private helper methods
- 
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
+    return null;
+  }
 }
