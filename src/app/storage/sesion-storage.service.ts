@@ -4,33 +4,16 @@ import { User } from '../models/user';
 @Injectable()
 export class SesionStorageService {
 
-constructor() { }
-
-
-
-
-@Injectable()
-export class DataService
-{
-  storage:User[];
+  storage:User;
 
   constructor()
   {
-    this.storage = new Array<User>();
+    this.storage = new User();
   }
 
   getUsers()
   {
     this.storage = JSON.parse(localStorage.getItem('storage'));
-
-    if(localStorage.getItem('storage') === null)
-    {
-      this.storage = [{"firstName":"Test", "lastName":"Test", "userName":"test", "password":"test"}];
-    }
-    else if(this.storage.length == 0)
-    {
-      this.storage = [{"firstName":"Test", "lastName":"Test", "userName":"test", "password":"test"}];
-    }
     return this.storage;
   }
 

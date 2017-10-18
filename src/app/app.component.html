@@ -1,11 +1,15 @@
 <div class="container">
   <nav class="navbar navbar-toggleable-md navbar-inverse bg-faded">
-      <a routerLink="/login" routerLinkActive="active" class="navbar-brand">Login</a>
-      <a routerLink="/register-form" routerLinkActive="active" class="navbar-brand">Register</a>
-      <a routerLink="/list" routerLinkActive="active" class="navbar-brand">Requests</a>
+    <a *ngIf="!userName" routerLink="/login" routerLinkActive="active" class="navbar-brand">Login</a>
+    <a routerLink="/register-form" routerLinkActive="active" class="navbar-brand">Register</a>
+    <a routerLink="/list" routerLinkActive="active" class="navbar-brand">Requests</a>
     <a routerLink="/createRequest" routerLinkActive="active" class="navbar-brand">Create request</a>
+    <a *ngIf="userName" routerLink="/login">Logout</a>
   </nav>
 </div>
 <hr>
+<div class="container">
+  <h4 *ngIf="userName">Hello, {{userName}}</h4>
+</div>
 <alert></alert>
 <router-outlet></router-outlet>

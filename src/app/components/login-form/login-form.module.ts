@@ -9,6 +9,7 @@ import { LoginFormService } from "../../services/login-form/login-form.service";
 import { AlertService } from '../../services/alert/alert.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { UserService } from '../../services/user/user.service';
+import { ApiRequestService } from '../../services/api-request/api-request.service'
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { UserService } from '../../services/user/user.service';
         LoginFormService,
         AlertService,
         AuthenticationService,
-        UserService
+        UserService,
+        ApiRequestService
     ]
 })
 export class LoginFormModule {}
