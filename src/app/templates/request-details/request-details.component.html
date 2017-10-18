@@ -12,27 +12,33 @@
     </tr>
     <tr>
       <th>Status</th>
-      <td>approved</td>
+      <td>{{selectedRowData.status}}</td>
     </tr>
     <tr>
       <th>Submit Date</th>
-      <td>dates</td>
+      <td>{{selectedRowData.dateOfSubmit}}</td>
     </tr>
     <tr>
       <th>Type</th>
-      <td>PTO</td>
+      <td>
+        <img src="{{this.getTOimage(selectedRowData.type)}}" height="18" width="18"> {{selectedRowData.type}}
+      </td>
     </tr>
     <tr>
       <th>Reason</th>
-      <td>Some reasons</td>
+      <td>{{selectedRowData.reason}}</td>
     </tr>
     <tr>
       <th>Note</th>
-      <td>Some notes</td>
+      <td>{{selectedRowData.note}}</td>
+    </tr>
+    <tr>
+      <th>Total Days</th>
+      <td>{{selectedRowData.days}}</td>
     </tr>
     <tr>
       <th>Dates</th>
-      <td>Vacion days</td>
+      <td>{{selectedRowData.dateStart}} - {{selectedRowData.dateFinish}}</td>
     </tr>
     <tr>
       <th>Document</th>
@@ -43,6 +49,9 @@
       <td>No file uploaded</td>
     </tr>
   </table>
+  <div>
+    <app-calendar></app-calendar>
+  </div>
   <div>
     <button type="button" class="btn btn-success" (click)="goBack()">Back</button>
   </div>

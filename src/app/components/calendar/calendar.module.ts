@@ -1,3 +1,4 @@
+import { RequestListService } from './../../services/request-list/request-list.service';
 import { CalendarService } from './../../services/calendar/calendar.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -27,7 +28,8 @@ import { CalendarComponent } from './calendar.component';
         BrowserAnimationsModule
     ],
     providers: [
-        CalendarService
+        CalendarService,
+        RequestListService
     ],
     exports: [
         CalendarComponent

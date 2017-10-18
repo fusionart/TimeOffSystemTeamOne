@@ -11,3 +11,15 @@ p-dataTable >>> .statusColumn{
     width: 150px;
 }
 
+p-dataTable >>> .submitColumn{
+    width: 150px;
+}
+
+p-dataTable >>> .AbsenceColumn{
+    width: 250px;
+}
+
+.availablePTO{
+    padding-bottom: 5px;
+    padding-top: 10px;
+}

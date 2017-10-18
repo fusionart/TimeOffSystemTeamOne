@@ -1,4 +1,5 @@
-import { Dates } from './../../models/date';
+import { TimeOffRequest } from './../../models/timeOffRequest';
+import { RequestListService } from './../../services/request-list/request-list.service';
 import { Holiday } from './../../models/holiday';
 import { CalendarService } from './../../services/calendar/calendar.service';
 import { Component, OnInit } from '@angular/core';
@@ -38,9 +39,11 @@ export class CalendarComponent implements OnInit {
   holiday: Array<Holiday>;
   holidayDays: Array<Date>;
   greenDays: Date[];
+  selectedRowData: TimeOffRequest;
 
-  constructor(private calendar: CalendarService) {
+  constructor(private calendar: CalendarService, private requestListService: RequestListService) {
     this.holiday = Array<Holiday>();
+    this.selectedRowData = new TimeOffRequest;
   }
   onClickEvt($event, date) {
     // console.log("onClickEvent")
@@ -85,6 +88,13 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.getHolidays();
+    this.greenDays = [];
+    this.selectedRowData = this.requestListService.getRowData();
+    if (this.selectedRowData != null) {
+      this.makeGreenDays();
+    } else {
+      console.log("not maing green");
+    }
 
     this.en = {
       firstDayOfWeek: 1,
@@ -116,8 +126,8 @@ export class CalendarComponent implements OnInit {
     this.maxDate.setFullYear(nextYear);
 
     let invalidDate = new Date("10, 17, 2017");
-    invalidDate.setDate(today.getDate()-1);
-    this.greenDays = [invalidDate];
+    invalidDate.setDate(today.getDate() - 1);
+    //this.greenDays = [invalidDate];
     this.invalidDates = [];
   }
 
@@ -139,13 +149,32 @@ export class CalendarComponent implements OnInit {
     for (var i = 0; i < this.invalidDates.length; i++) {
       if (date.day == this.invalidDates[i].getDate() && date.month == this.invalidDates[i].getMonth() && date.year == this.invalidDates[i].getFullYear()) {
         return true;
-      } 
+      }
     }
   }
-  greenStyle(date){
-    if (date.day == this.greenDays[0].getDate() && date.month == this.greenDays[0].getMonth() && date.year == this.greenDays[0].getFullYear()) {
-      return true;
-    } 
+
+  greenStyle(date) {
+    if (this.greenDays.length > 0) {
+      for (var i = 0; i < this.greenDays.length; i++) {
+        if (date.day == this.greenDays[i].getDate() && date.month == this.greenDays[i].getMonth() && date.year == this.greenDays[i].getFullYear()) {
+          return true;
+        }
+      }
+    } else {
+      return false;
+    }
   }
 
+  makeGreenDays() {
+    if (this.selectedRowData != null) {
+      let firstDate = new Date(this.selectedRowData.dateStart);
+      let secondDate = new Date(this.selectedRowData.dateFinish);
+      firstDate.setDate(firstDate.getDate() - 1);
+      while (firstDate < secondDate) {
+        firstDate.setDate(firstDate.getDate() + 1);
+        this.greenDays.push(new Date(firstDate));
+      }
+      return this.greenDays;
+    }
+  }
 }

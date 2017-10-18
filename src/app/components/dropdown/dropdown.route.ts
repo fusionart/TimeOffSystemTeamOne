@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DropdownComponent } from './dropdown.component';
 
 export const appRoutes: Routes = [{
-    path: 'dropdown', component: DropdownComponent
+    path: '', component: DropdownComponent
 }];
 
 @NgModule({

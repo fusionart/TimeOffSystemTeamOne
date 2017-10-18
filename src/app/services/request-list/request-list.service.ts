@@ -5,17 +5,23 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { USERS } from "../../models/mock-user";
-import { REQUESTS } from "../../models/mock-request";
 import { User } from "../../models/user";
 import { TimeOffRequest } from "../../models/timeOffRequest";
 
 @Injectable()
 export class RequestListService {
     requests: Array<TimeOffRequest>;
+    selectedRowData: any;
     constructor(private http: Http) {
         this.requests = new Array<TimeOffRequest>();
     }
 
+    setRowData(data){
+        this.selectedRowData = data;
+    }
+    getRowData(){
+        return this.selectedRowData;
+    }
     public static readonly GET_REQUESTS = environment.apiUrl + "/api/request-list";
 
     extractData(response: Response) {

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../../models/user';
 import { TimeOffRequest } from "../../models/timeOffRequest";
@@ -16,12 +16,15 @@ export class RequestsListComponent implements OnInit {
   user: User;
   recordCount: number;
   amountOfRequests: number;
+  selectedRow: any;
+  selectedRowData: any;
 
   constructor(
     private requestListService: RequestListService,
     private route: ActivatedRoute,
-    private location: Location
-  ) {
+    private router: Router,
+    private location: Location) {
+    this.router = router;
   }
 
   ngOnInit() {
@@ -70,8 +73,14 @@ export class RequestsListComponent implements OnInit {
     return { label: tot, value: tot }
   });
 
-  getAmountOfRequests(){
+  getAmountOfRequests() {
     return this.amountOfRequests = this.requests.length;
+  }
+
+  onRowSelected(rowInfo) {
+    this.selectedRowData = rowInfo.data;
+    this.requestListService.setRowData(this.selectedRowData);
+    this.router.navigate(['/request-details']);
   }
 
 }
