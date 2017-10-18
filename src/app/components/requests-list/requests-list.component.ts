@@ -14,19 +14,22 @@ import 'rxjs/add/operator/switchMap';
 export class RequestsListComponent implements OnInit {
   requests: TimeOffRequest[] = [];
   user: User;
+  recordCount: number;
+  amountOfRequests: number;
 
   constructor(
     private requestListService: RequestListService,
     private route: ActivatedRoute,
     private location: Location
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.requestListService.getUser(1).then(user => (this.user = user));
-    this.requestListService
-      .getRequests()
-      .then(requests => (this.requests = requests));
+    //this.requestListService.getUser(1).then(user => (this.user = user));
+    this.requestListService.getRequests().subscribe(requests => (this.requests = requests));
+    this.recordCount = this.requests.length;
   }
+
   goBack(): void {
     this.location.back();
   }
@@ -54,5 +57,22 @@ export class RequestsListComponent implements OnInit {
     }
     return imageFileName;
   }
+
+  allTypesNames = ['', 'PTO', 'UPTO', 'SL'];
+
+  allTypes = this.allTypesNames.map((tot) => {
+    return { label: tot, value: tot }
+  });
+
+  statusNames = ['', 'approved', 'unapproved'];
+
+  status = this.statusNames.map((tot) => {
+    return { label: tot, value: tot }
+  });
+
+  getAmountOfRequests(){
+    return this.amountOfRequests = this.requests.length;
+  }
+
 }
 

@@ -1,3 +1,4 @@
+import { DataTableModule, ContextMenuModule, DropdownModule } from 'primeng/primeng';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,7 +14,10 @@ import { RequestListService } from '../../services/request-list/request-list.ser
   imports: [
     CommonModule,
     BrowserModule,
-    RequestsListRoutes
+    RequestsListRoutes,
+    DataTableModule,
+    DropdownModule,
+    ContextMenuModule
   ],
   providers: [RequestListService]
 })

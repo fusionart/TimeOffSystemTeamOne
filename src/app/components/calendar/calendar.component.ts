@@ -37,7 +37,7 @@ export class CalendarComponent implements OnInit {
 
   holiday: Array<Holiday>;
   holidayDays: Array<Date>;
-  invalidDaysString: string = "";
+  greenDays: Date[];
 
   constructor(private calendar: CalendarService) {
     this.holiday = Array<Holiday>();
@@ -116,7 +116,8 @@ export class CalendarComponent implements OnInit {
     this.maxDate.setFullYear(nextYear);
 
     let invalidDate = new Date("10, 17, 2017");
-    //invalidDate.setDate(today.getDate());
+    invalidDate.setDate(today.getDate()-1);
+    this.greenDays = [invalidDate];
     this.invalidDates = [];
   }
 
@@ -140,6 +141,11 @@ export class CalendarComponent implements OnInit {
         return true;
       } 
     }
+  }
+  greenStyle(date){
+    if (date.day == this.greenDays[0].getDate() && date.month == this.greenDays[0].getMonth() && date.year == this.greenDays[0].getFullYear()) {
+      return true;
+    } 
   }
 
 }
