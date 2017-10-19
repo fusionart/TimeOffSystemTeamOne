@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Location } from '@angular/common';
-import { User } from '../../models/user';
-import { Request } from '../../models/request';
-import { RequestListService } from '../../services/request-list.service';
-import 'rxjs/add/operator/switchMap';
+
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { Location } from "@angular/common";
+
+import { User } from "../../models/user";
+import { TimeOffRequest } from "../../models/timeOffRequest";
+import { RequestListService } from "../../services/request-list/request-list.service";
+import "rxjs/add/operator/switchMap";
 
 @Component({
   selector: 'app-requests-list',
@@ -12,13 +14,13 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['../../../assets/styles/requests-list.component.css']
 })
 export class RequestsListComponent implements OnInit {
-  requests: Request[] = [];
+  requests: TimeOffRequest[] = [];
   user: User;
 
   constructor(
     private requestListService: RequestListService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {

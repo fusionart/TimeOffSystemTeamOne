@@ -1,11 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { RequestsListComponent } from './requests-list.component';
-import { LoginFormComponent } from '../login-form/login-form.component';
+import { AuthGuard } from '../../guards/authentication-guard';
 
 export const appRoutes: Routes = [
-  { path: 'list', component: RequestsListComponent },
-  { path: 'createRequest', component: LoginFormComponent }
+  { path: 'list', component: RequestsListComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

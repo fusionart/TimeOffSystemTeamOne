@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { USERS } from '../models/mock-user';
-import { REQUESTS } from '../models/mock-request';
-import { User } from '../models/user';
-import { Request } from '../models/request';
+import { USERS } from "../../models/mock-user";
+import { REQUESTS } from "../../models/mock-request";
+import { User } from "../../models/user";
+import { TimeOffRequest } from "../../models/timeOffRequest";
 
 @Injectable()
 export class RequestListService {
@@ -10,15 +10,16 @@ export class RequestListService {
         return Promise.resolve(USERS);
     }
 
-    getRequests(): Promise<Request[]> {
+    getRequests(): Promise<TimeOffRequest[]> {
         return Promise.resolve(REQUESTS);
     }
 
     getUser(userId: number): Promise<User> {
         return this.getUsers()
-            .then(users => users.find(user => user.userId === userId));
+            .then(users => users.find(user => user.id === userId));
     }
-    getRequest(requestId: number): Promise<Request> {
+    
+    getRequest(requestId: number): Promise<TimeOffRequest> {
         return this.getRequests()
             .then(requests => requests.find(request => request.requestId === requestId));
     }
