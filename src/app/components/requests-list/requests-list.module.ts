@@ -1,3 +1,4 @@
+import { DataTableModule, ContextMenuModule, DropdownModule } from 'primeng/primeng';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +15,10 @@ import { AuthGuard } from '../../guards/authentication-guard';
   imports: [
     CommonModule,
     BrowserModule,
-    RequestsListRoutes
+    RequestsListRoutes,
+    DataTableModule,
+    DropdownModule,
+    ContextMenuModule
   ],
   providers: [
     RequestListService,

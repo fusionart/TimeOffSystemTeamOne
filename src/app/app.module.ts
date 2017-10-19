@@ -1,5 +1,6 @@
+import { RequestDetailsModule } from './components/request-details/request-details.module';
 import { DropdownNModule } from './components/dropdown/dropdown.module';
-import { CalendarModule } from 'primeng/primeng';
+import { CalendarModule, DataTableModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -29,6 +30,9 @@ import { UserService } from './services/user/user.service';
     RequestsListModule,
     CalendarNModule,
     CalendarModule,
+    DataTableModule,
+    DropdownNModule,
+    RequestDetailsModule,
     DropdownNModule,
     LoginFormModule
   ],

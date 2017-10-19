@@ -1,12 +1,10 @@
-
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { Location } from "@angular/common";
-
-import { User } from "../../models/user";
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { User } from '../../models/user';
 import { TimeOffRequest } from "../../models/timeOffRequest";
-import { RequestListService } from "../../services/request-list/request-list.service";
-import "rxjs/add/operator/switchMap";
+import { RequestListService } from '../../services/request-list/request-list.service';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-requests-list',
@@ -16,19 +14,25 @@ import "rxjs/add/operator/switchMap";
 export class RequestsListComponent implements OnInit {
   requests: TimeOffRequest[] = [];
   user: User;
+  recordCount: number;
+  amountOfRequests: number;
+  selectedRow: any;
+  selectedRowData: any;
 
   constructor(
     private requestListService: RequestListService,
     private route: ActivatedRoute,
-    private location: Location,
-  ) {}
+    private router: Router,
+    private location: Location) {
+    this.router = router;
+  }
 
   ngOnInit() {
-    this.requestListService.getUser(1).then(user => (this.user = user));
-    this.requestListService
-      .getRequests()
-      .then(requests => (this.requests = requests));
+    //this.requestListService.getUser(1).then(user => (this.user = user));
+    this.requestListService.getRequests().subscribe(requests => (this.requests = requests));
+    this.recordCount = this.requests.length;
   }
+
   goBack(): void {
     this.location.back();
   }
@@ -56,5 +60,28 @@ export class RequestsListComponent implements OnInit {
     }
     return imageFileName;
   }
+
+  allTypesNames = ['', 'PTO', 'UPTO', 'SL'];
+
+  allTypes = this.allTypesNames.map((tot) => {
+    return { label: tot, value: tot }
+  });
+
+  statusNames = ['', 'approved', 'unapproved'];
+
+  status = this.statusNames.map((tot) => {
+    return { label: tot, value: tot }
+  });
+
+  getAmountOfRequests() {
+    return this.amountOfRequests = this.requests.length;
+  }
+
+  onRowSelected(rowInfo) {
+    this.selectedRowData = rowInfo.data;
+    this.requestListService.setRowData(this.selectedRowData);
+    this.router.navigate(['/request-details']);
+  }
+
 }
 

@@ -7,5 +7,5 @@ export class TimeOffRequest {
   public status: string;
   public reason?: string;
   public note: string;
-  public submitDate?: string;
+  public dateOfSubmit?: string;
 }

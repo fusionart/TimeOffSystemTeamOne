@@ -5,27 +5,46 @@
   </nav>
   <h1>Requests</h1>
   <button type="button" class="btn btn-success" routerLink="/createRequest" routerLinkActive="active">Create Request</button>
-  <h3 class="lead text-muted text-center">You have <b>{{user?.availablePTO}}</b> days available for Paid Time Off.</h3>
+  <div class="availablePTO">
+    <h3 class="lead text-muted text-center">You have
+      <b>
+        <!-- {{user.availablePTO}} -->
+      </b> days available for Paid Time Off.</h3>
+  </div>
   <div>
-    <table class="table table-striped table-bordered">
-      <tr>
-        <th>#</th>
-        <th>Absence Type</th>
-        <th>Days</th>
-        <th>Dates</th>
-        <th>Submit Date</th>
-        <th>Status</th>
-      </tr>
-      <tr *ngFor="let request of requests, let i=index">
-        <th scope="row">{{i + 1}}</th>
-        <td><img src="{{this.getTOimage(this.request.type)}}"  height="18" width="18">{{this.request.type}}</td>
-        <td>{{this.request.days}}</td>
-        <td>{{this.request.startDate}} - {{this.request.finishDate}}</td>
-        <td>{{this.request.submitDate}}</td>
-        <td>{{this.request.status}}</td>
-      </tr>
-    </table>
-    <h3 class="lead text-muted text-center">You have <b>{{user?.availablePTO}}</b> days available for Paid Time Off.</h3>
+    <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow" (onRowSelect)="onRowSelected($event)">
+      <p-footer>There are {{getAmountOfRequests()}} requests</p-footer>
+      <p-column field="#" header="#" styleClass="numerationColumn">
+        <ng-template let-col let-file="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{ri+1}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals" [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
+        <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="allTypes" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+            styleClass="ui-column-filter"></p-dropdown>
+        </ng-template>
+        <ng-template let-col let-file="rowData" pTemplate="body">
+          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18"> {{file[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="days" header="Days" styleClass="daysColumn text-center"></p-column>
+      <p-column header="Dates"></p-column>
+      <p-column field="dateOfSubmit" header="Submit Date" [sortable]="true" styleClass="submitColumn text-center"></p-column>
+      <p-column field="status" header="Status" [sortable]="true" styleClass="statusColumn text-center" [filter]="true" filterPlaceholder="Status"
+        filterMatchMode="equals" [style]="{'overflow':'visible'}">
+        <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="status" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+            styleClass="ui-column-filter text-center"></p-dropdown>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+    <div class="availablePTO">
+      <h3 class="lead text-muted text-center">You have
+        <b>
+          <!-- {{user.availablePTO}} -->
+        </b> days available for Paid Time Off.</h3>
+    </div>
     <button type="button" class="btn btn-success" (click)="goBack()">Back</button>
   </div>
 </div>

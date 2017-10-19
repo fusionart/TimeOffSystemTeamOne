@@ -4,17 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { CalendarRoute } from './calendar.route';
+import { RequestDetailsRoute } from './request-details.route';
 import { CalendarModule } from 'primeng/primeng';
 import { TabViewModule } from 'primeng/primeng';
 import { CodeHighlighterModule } from 'primeng/primeng';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarNModule } from '../calendar/calendar.module';
 
-import { CalendarComponent } from './calendar.component';
+import { RequestDetailsComponent } from './request-details.component';
 
 @NgModule({
     declarations: [
-        CalendarComponent
+        RequestDetailsComponent
     ],
     imports: [
         BrowserModule,
@@ -23,16 +24,16 @@ import { CalendarComponent } from './calendar.component';
         ReactiveFormsModule,
         TabViewModule,
         CodeHighlighterModule,
-        CalendarRoute,
+        RequestDetailsRoute,
         CalendarModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        CalendarNModule
     ],
     providers: [
-        CalendarService,
         RequestListService
     ],
     exports: [
-        CalendarComponent
+        RequestDetailsComponent
     ],
 })
-export class CalendarNModule { }
+export class RequestDetailsModule { }
