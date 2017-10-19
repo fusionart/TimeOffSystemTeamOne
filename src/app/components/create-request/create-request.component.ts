@@ -3,7 +3,7 @@ import { TimeOffRequest } from "./../../models/timeOffRequest";
 import { CreateRequestService } from "./../../services/create-request/create-request.service";
 import { DropdownComponent } from "./../dropdown/dropdown.component";
 import { CalendarComponent } from "./../calendar/calendar.component";
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, NgZone } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -15,7 +15,7 @@ import { InputTextareaModule, InputTextModule } from "primeng/primeng";
 @Component({
   selector: "app-create-request",
   templateUrl:
-    "../../templates/create-request.component/create-request.component.html",
+  "../../templates/create-request.component/create-request.component.html",
   styleUrls: ["../../../assets/styles/create-request.component.css"]
 })
 export class CreateRequestComponent implements OnInit {
@@ -29,17 +29,18 @@ export class CreateRequestComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private createRequestService: CreateRequestService
-  ) {}
+    private createRequestService: CreateRequestService,
+    private ngZone: NgZone
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit() {
     this.timeOffRequest = new TimeOffRequest();
-    //this.timeOffRequest.days = this.cal.dates.length;
+    this.timeOffRequest.days = this.cal.dates.length;
     this.timeOffRequest.type = this.ddc.selectedTot.code;
     this.timeOffRequest.dateStart = this.cal.dates[0];
-    this.timeOffRequest.dateFinish = this.cal.dates[this.cal.dates.length-1];
+    this.timeOffRequest.dateFinish = this.cal.dates[this.cal.dates.length - 1];
     this.timeOffRequest.dateFinish = this.cal.dates[this.cal.dates.length - 1];
     this.timeOffRequest.reason = this.reasons;
     this.timeOffRequest.note = this.note;
@@ -47,9 +48,11 @@ export class CreateRequestComponent implements OnInit {
     this.createRequestService
       .addRequest(this.timeOffRequest)
       .subscribe(
-        response => console.log(response),
-        error => console.log(error)
+      response => console.log(response),
+      error => console.log(error)
       );
-    this.router.navigate(["/list"]);
+    this.ngZone.run(() => {
+      this.router.navigate(["/list"]);
+    });
   }
 }
