@@ -49,10 +49,13 @@
       <td>No file uploaded</td>
     </tr>
   </table>
-  <div>
+  <div class="ui-g-12">
     <app-calendar></app-calendar>
+    <div *ngIf="isNextMonth">
+      <app-calendar></app-calendar>
+    </div>
   </div>
-  <div>
+  <div class="ui-g-6">
     <button type="button" class="btn btn-success" (click)="goBack()">Back</button>
   </div>
 </div>
