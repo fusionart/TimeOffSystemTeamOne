@@ -16,6 +16,7 @@ import { LoginFormModule } from './components/login-form/login-form.module';
 import { AlertService} from './services/alert/alert.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { UserService } from './services/user/user.service';
+import { AdminPanelModule } from './components/admin-panel/admin-panel.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserService } from './services/user/user.service';
     DropdownNModule,
     RequestDetailsModule,
     DropdownNModule,
-    LoginFormModule
+    LoginFormModule,
+    AdminPanelModule
   ],
   providers: [
     AlertService,
