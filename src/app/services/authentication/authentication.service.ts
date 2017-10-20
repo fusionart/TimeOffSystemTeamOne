@@ -85,14 +85,13 @@ export class AuthenticationService {
     return this.http
     .post(AuthenticationService.USER_DETAILS_REQUEST, JSON.stringify({username: username}), options)
     .map((response: Response) => {  
-        console.log(" ------------------------------------ getCurrentuserDetails - Response -------------------------- ", response);
           localStorage.setItem(
-            "currentUser",
-            JSON.stringify(response)
-          );
-          console.log( "   ----------------------------- getCurrentuserDetails     2     ---------------------- ");
+            "currentUserDetails",
+            JSON.stringify(response.json())
+                    );
+          console.log( "   ----------------------------- getCurrentuserDetails - Results     ---------------------- ");
           console.log(localStorage.getItem("currentUser"));
-          console.log(localStorage.getItem("currentUser"));
+          console.log(localStorage.getItem("currentUserDetails"));
           return true;
         });
       }

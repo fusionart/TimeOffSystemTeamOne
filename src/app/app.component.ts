@@ -8,12 +8,32 @@ import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 })
 export class AppComponent {
   title = "app";
-  showUsername: boolean = false;
+  isAdministrator: boolean;
 
   get userName(): any {
     if (localStorage.getItem("currentUser") != null) {
-      this.showUsername = true;
       return JSON.parse(localStorage.getItem("currentUser")).username;
+    } else {
+;
+      return false;
+    }
+  }
+  get isAdmin(): any {
+    if (localStorage.getItem("currentUser") != null) {
+      this.isAdministrator = JSON.parse(localStorage.getItem("currentUserDetails")).admin;
+      console.log(this.isAdministrator);
+      if (this.isAdministrator) {
+        return "You have administrative rights";
+      } else {
+          return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  get userId(): any {
+    if (localStorage.getItem("currentUser") != null) {
+      return JSON.parse(localStorage.getItem("currentUserDetails")).userId;
     } else {
       return false;
     }
