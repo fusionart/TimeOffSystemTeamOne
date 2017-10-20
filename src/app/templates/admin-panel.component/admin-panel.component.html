@@ -1,3 +1,87 @@
-<p>
-  admin-panel works!
-</p>
+<div class="container">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-item" href="#">Home</a>
+    <span class="breadcrumb-item active">Admin panel</span>
+  </nav>
+  <h2>Requests - admin panel</h2>
+  <button type="button" class="btn btn-success btn-marg" routerLink="/register-form" routerLinkActive="active">New user</button>
+  <div class="content-section implementation">
+    <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5"
+      [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow"
+      (onRowSelect)="onRowSelected($event)">
+      <p-footer>There are {{getAmountOfRequests()}} requests</p-footer>
+      <p-column field="#" header="#" styleClass="numerationColumn">
+        <ng-template let-col let-file="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{ri+1}}</span>
+        </ng-template>
+      </p-column>
+      <p-column header="User"></p-column>
+      <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals"
+        [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
+        <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="allTypes" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+            styleClass="ui-column-filter"></p-dropdown>
+        </ng-template>
+        <ng-template let-col let-file="rowData" pTemplate="body">
+          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18"> {{file[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="days" header="Days" styleClass="daysColumn text-center"></p-column>
+      <p-column header="Dates"></p-column>
+      <p-column field="dateOfSubmit" header="Submit Date" [sortable]="true" styleClass="submitColumn text-center"></p-column>
+      <p-column field="status" header="Status" [sortable]="true" styleClass="statusColumn text-center" [filter]="true" filterPlaceholder="Status"
+        filterMatchMode="equals" [style]="{'overflow':'visible'}">
+        <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="status" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+            styleClass="ui-column-filter text-center"></p-dropdown>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+
+    <p-dialog header="Request Details" [(visible)]="displayDialog" [width]="400" showEffect="fade" [modal]="true" [resizable]="false">
+      <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="request">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <label for="type">Type</label>
+          </div>
+          <div class="ui-grid-col-8">
+            <input pInputText id="type" [(ngModel)]="request.type" [disabled]="true" />
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <label for="days">Days</label>
+          </div>
+          <div class="ui-grid-col-8">
+            <input pInputText id="days" [(ngModel)]="request.days" [disabled]="true" />
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <label for="reason">Reason</label>
+          </div>
+          <div class="ui-grid-col-8">
+            <input pInputText id="reason" [(ngModel)]="request.reason" [disabled]="true" />
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <label for="note">Note</label>
+          </div>
+          <div class="ui-grid-col-8">
+            <input pInputText id="note" [(ngModel)]="request.note" [disabled]="true" />
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton (click)="close()" label="Close">
+            <i class="fa fa-close"></i> Close</button>
+          <button type="button" pButton (click)="approve()" label="Approve">
+            <i class="fa fa-check"></i> Approve</button>
+        </div>
+      </p-footer>
+    </p-dialog>
+  </div>
+  <button type="button" class="btn btn-success back" (click)="goBack()">Back</button>
+</div>

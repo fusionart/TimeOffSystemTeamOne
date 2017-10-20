@@ -1,5 +1,5 @@
 export class TimeOffRequest {
-  public requestId?: number;
+  public id?: number;
   public type: string;
   public days?: number;
   public dateStart: Date;

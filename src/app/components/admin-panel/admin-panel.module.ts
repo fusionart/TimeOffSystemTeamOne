@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AdminPanelRoute } from './admin-panel.route';
 
 import { AdminPanelComponent } from './admin-panel.component';
+import { DataTableModule, DropdownModule, DialogModule } from 'primeng/primeng';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,11 @@ import { AdminPanelComponent } from './admin-panel.component';
         BrowserModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        DataTableModule,
+        DropdownModule,
+        DialogModule,
+        AdminPanelRoute
     ],
     providers: [
         
