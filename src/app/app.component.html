@@ -10,7 +10,8 @@
 <hr>
 
 <div class="container">
-  <h4 *ngIf="userName">Hello, {{userName}}</h4>
+  <h4 *ngIf="userName">Hello, {{userName}} (database id:  {{userId}}) </h4>
+  <h5 *ngIf="isAdmin">{{isAdmin}}</h5>
 </div>
 <alert></alert>
 <router-outlet></router-outlet>
