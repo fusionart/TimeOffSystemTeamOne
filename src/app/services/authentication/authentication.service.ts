@@ -16,15 +16,18 @@ export interface LoginRequestParam {
 @Injectable()
 export class AuthenticationService {
   public static readonly LOGIN_REQUEST = environment.apiUrl + "/login";
+  public static readonly USER_DETAILS_REQUEST = environment.apiUrl + "/api/user-info";
   public currentUserKey: string = "currentUser";
   public landingPage: string = "/login";
   public token: string;
   private headers = new Headers({ "Content-Type": "application/json" });
+  private requests: any[] = [];
+  private requestsUserInfo: any;
 
   constructor(
     private router: Router,
     private http: Http,
-    private userInfoService: UserService,
+    private userService: UserService,
     private apiRequest: ApiRequestService
   ) {
     var currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -59,6 +62,7 @@ export class AuthenticationService {
           );
           // return true to indicate successful login
           console.log(localStorage.getItem("currentUser"));
+          this.getCurrentuserDetails(username).subscribe(requests => (this.requestsUserInfo = requests));
 
           return true;
         } else {
@@ -67,6 +71,30 @@ export class AuthenticationService {
         }
       });
   }
+
+  getCurrentuserDetails(username: string): Observable<any> {
+    let userDetailsHeaders = new Headers({ "Content-Type": "application/json" });
+    let token = this.userService.getStoredToken();
+    if (token !== null) {
+      userDetailsHeaders.append("Authorization", token);
+    }
+    console.log(userDetailsHeaders, "     -------------- userDetailsHeaders ---------------");
+    
+    let options = new RequestOptions({ headers: userDetailsHeaders });
+
+    return this.http
+    .post(AuthenticationService.USER_DETAILS_REQUEST, JSON.stringify({username: username}), options)
+    .map((response: Response) => {  
+          localStorage.setItem(
+            "currentUserDetails",
+            JSON.stringify(response.json())
+                    );
+          console.log( "   ----------------------------- getCurrentuserDetails - Results     ---------------------- ");
+          console.log(localStorage.getItem("currentUser"));
+          console.log(localStorage.getItem("currentUserDetails"));
+          return true;
+        });
+      }
 
   logout(): void {
     // clear token remove user from local storage to log user out
