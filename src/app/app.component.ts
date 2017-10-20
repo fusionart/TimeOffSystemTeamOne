@@ -21,7 +21,7 @@ export class AppComponent {
   get isAdmin(): any {
     if (localStorage.getItem("currentUser") != null) {
       this.isAdministrator = JSON.parse(localStorage.getItem("currentUserDetails")).admin;
-      console.log(this.isAdministrator);
+      //console.log(this.isAdministrator);
       if (this.isAdministrator) {
         return "You have administrative rights";
       } else {

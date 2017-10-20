@@ -1,3 +1,4 @@
+import { AdminPanelService } from './../../services/admin-panel/admin-panel.service';
 import { TimeOffRequest } from './../../models/timeOffRequest';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,6 +22,7 @@ export class AdminPanelComponent implements OnInit {
   amountOfRequests: number;
   selectedRow: any;
   selectedRowData: any;
+  isApproved: boolean = false;
 
   displayDialog: boolean;
   request: TimeOffRequestInterface = new PrimeRequest();  //car
@@ -30,6 +32,7 @@ export class AdminPanelComponent implements OnInit {
 
   constructor(
     private requestListService: RequestListService,
+    private adminPanelService: AdminPanelService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location) {
@@ -37,6 +40,9 @@ export class AdminPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRequests();
+  }
+  getRequests() {
     this.requestListService.getRequests().subscribe(requests => (this.requests = requests));
     this.recordCount = this.requests.length;
   }
@@ -73,7 +79,6 @@ export class AdminPanelComponent implements OnInit {
     return this.amountOfRequests = this.requests.length;
   }
 
-
   showDialogToAdd() {
     this.newRequest = true;
     this.request = new PrimeRequest();
@@ -81,15 +86,17 @@ export class AdminPanelComponent implements OnInit {
   }
 
   approve() {
-    // let requests = [...this.requestsI];
-    // if (this.newRequest){
-    //   requests.push(this.request);
-    // }else{
-    //   requests[this.findSelectedRequestIndex()] = this.request;
-    //}
+    let approveObj = {
+      requestId: this.request.id, userId: JSON.parse(localStorage.getItem("currentUserDetails")).userId
+    }
 
-    console.log(this.findSelectedRequestIndex())
-    //this.requestsI = requests;
+    this.adminPanelService
+      .approveRequest(approveObj)
+      .subscribe(
+      response => { console.log(response), this.getRequests() },
+      error => console.log(error)
+      );
+
     this.request = null;
     this.displayDialog = false;
   }
@@ -102,6 +109,11 @@ export class AdminPanelComponent implements OnInit {
   onRowSelected(event) {
     this.newRequest = false;
     this.request = this.cloneRequest(event.data);
+    if (this.request.status != "approved") {
+      this.isApproved = true;
+    } else {
+      this.isApproved = false;
+    }
     this.displayDialog = true;
   }
 
@@ -113,15 +125,10 @@ export class AdminPanelComponent implements OnInit {
     return request;
   }
 
-  findSelectedRequestIndex(): number {
-    //return this.requestsI.indexOf(this.selectedRequest);
-    return this.request.id;
-  }
-
 }
 
 class PrimeRequest implements TimeOffRequestInterface {
 
-  constructor(public type?, public days?, public reason?, public note?, public id?) { }
+  constructor(public type?, public days?, public reason?, public note?, public id?, public status?) { }
 }
 

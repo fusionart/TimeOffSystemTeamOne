@@ -6,6 +6,8 @@ import { AdminPanelRoute } from './admin-panel.route';
 
 import { AdminPanelComponent } from './admin-panel.component';
 import { DataTableModule, DropdownModule, DialogModule } from 'primeng/primeng';
+import { AdminPanelService } from '../../services/admin-panel/admin-panel.service';
+import { RequestListService } from '../../services/request-list/request-list.service';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,8 @@ import { DataTableModule, DropdownModule, DialogModule } from 'primeng/primeng';
         AdminPanelRoute
     ],
     providers: [
-        
+        RequestListService,
+        AdminPanelService
     ],
     exports: [
         
