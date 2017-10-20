@@ -1,9 +1,9 @@
 <div class="container">
-    <nav class="breadcrumb">
-        <a class="breadcrumb-item" href="#">Home</a>
-        <a class="breadcrumb-item" href="#/list">Requests</a>
-        <span class="breadcrumb-item active">Create Requests</span>
-      </nav>
+  <nav class="breadcrumb">
+    <a class="breadcrumb-item" href="#">Home</a>
+    <a class="breadcrumb-item" href="#/list">Requests</a>
+    <span class="breadcrumb-item active">Create Requests</span>
+  </nav>
   <h2>Create Request</h2>
   <form (ngSubmit)="onSubmit()">
     <app-dropdown></app-dropdown>
@@ -19,7 +19,13 @@
       </h5>
       <textarea class="ui-g-12 ui-inputtextarea" rows="2" pInputTextarea [(ngModel)]="note" name="note"></textarea>
     </div>
-    <app-calendar></app-calendar>
+    <div class="ui-g-12 form-group ui-calendar">
+      <h5>
+        <i>Dates</i>
+      </h5>
+      <input class="ui-g-12" type="text" pInputText [(ngModel)]="inputDates" name="inputDates" [disabled]="true" />
+      <app-calendar (dateChange)='onSelected($event)'></app-calendar>
+    </div>
     <div class="ui-g-12 form-group">
       <h5>
         <i>Mail list</i>

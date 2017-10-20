@@ -14,8 +14,8 @@ export class CreateRequestService {
   constructor(private http: Http, private userService: UserService) {}
 
   addRequest1(timeOffRequest: TimeOffRequest): Observable<any> {
-    console.log("service: ");
-    console.log(JSON.stringify(timeOffRequest));
+    //console.log("service: ");
+    //console.log(JSON.stringify(timeOffRequest));
     let cpHeaders = new Headers({ "Content-Type": "application/json" });
 
     let options = new RequestOptions({ headers: cpHeaders });
@@ -25,8 +25,8 @@ export class CreateRequestService {
   }
 
   addRequest(timeOffRequest: TimeOffRequest): Observable<any> {
-    console.log("service: ");
-    console.log(JSON.stringify(timeOffRequest));
+    //console.log("service: ");
+    //console.log(JSON.stringify(timeOffRequest));
     let cpHeaders = new Headers({ "Content-Type": "application/json" });
 
     //token header

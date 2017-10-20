@@ -2,7 +2,7 @@ import { TimeOffRequest } from './../../models/timeOffRequest';
 import { RequestListService } from './../../services/request-list/request-list.service';
 import { Holiday } from './../../models/holiday';
 import { CalendarService } from './../../services/calendar/calendar.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SelectItem, Message } from 'primeng/components/common/api';
 import { Observable } from 'rxjs/Observable';
 
@@ -35,7 +35,11 @@ export class CalendarComponent implements OnInit {
   selectedHourFormat: string = '12';
   msgs: Message[] = [];
   activeIndex: number = 0;
-  inputDates: String;
+
+  @Output()
+  dateChange:EventEmitter<string> = new EventEmitter<string>();
+  @Input()
+  inputDates: string;
 
   holiday: Array<Holiday>;
   holidayDays: Array<Date>;
@@ -46,14 +50,12 @@ export class CalendarComponent implements OnInit {
     this.holiday = Array<Holiday>();
     this.selectedRowData = new TimeOffRequest;
   }
-  onClickEvt($event, date) {
-    // console.log("onClickEvent")
-    // console.log($event);
-    // console.log("onClickEvent")
-    // console.log(date);
-  }
-  onSelect($event) {
 
+  onClickEvt($event, date) {
+
+  }
+
+  onSelect($event) {
     let commar: String = ", ";
     this.inputDates = "";
     for (var i = 0; i < this.dates.length; i++) {
@@ -62,6 +64,7 @@ export class CalendarComponent implements OnInit {
       }
       this.inputDates += this.dates[i].getDate() + "/" + this.dates[i].getMonth() + "/" + this.dates[i].getFullYear() + commar;
     }
+    this.dateChange.emit(this.inputDates);
   }
 
   onBlur() {
@@ -74,6 +77,7 @@ export class CalendarComponent implements OnInit {
 
   onClear() {
     this.inputDates = "";
+    this.dateChange.emit(this.inputDates);
   }
 
   set hourFormat(hourFormat: string) {

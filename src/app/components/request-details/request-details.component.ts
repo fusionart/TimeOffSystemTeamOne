@@ -12,6 +12,8 @@ import { RequestListService } from '../../services/request-list/request-list.ser
 })
 export class RequestDetailsComponent implements OnInit {
   selectedRowData: TimeOffRequest;
+  isNextMonth: boolean = false;
+
   constructor(private router: Router, private requestListService: RequestListService) {
     this.selectedRowData = new TimeOffRequest;
   }
@@ -22,7 +24,13 @@ export class RequestDetailsComponent implements OnInit {
     } else {
       this.selectedRowData = new TimeOffRequest;
     }
+    this.showSecondCalendar();
+  }
 
+  showSecondCalendar() {
+    if (new Date(this.selectedRowData.dateStart).getMonth() != new Date(this.selectedRowData.dateFinish).getMonth()) {
+      this.isNextMonth = true;
+    }
   }
 
   goBack(): void {

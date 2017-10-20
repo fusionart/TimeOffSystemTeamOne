@@ -2,7 +2,7 @@ import { TimeOffRequest } from "./timeOffRequest";
 
 export const REQUESTS: TimeOffRequest[] = [
   {
-    requestId: 1,
+    id: 1,
     type: "PTO",
     days: 4,
     dateStart: new Date("2017-11-12"),
