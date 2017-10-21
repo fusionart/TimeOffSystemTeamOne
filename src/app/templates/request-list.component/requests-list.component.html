@@ -4,22 +4,25 @@
     <span class="breadcrumb-item active">Requests</span>
   </nav>
   <h1>Requests</h1>
-  <button type="button" class="btn btn-success" routerLink="/createRequest" routerLinkActive="active">Create Request</button>
+  <button type="button" class="btn btn-success" routerLink="/createRequest" routerLinkActive="active"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create Request</button>
   <div class="availablePTO">
     <h3 class="lead text-muted text-center">You have
       <b>
-        <!-- {{user.availablePTO}} -->
+        {{getCurentUserAvailablePto()}}
       </b> days available for Paid Time Off.</h3>
   </div>
   <div>
-    <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow" (onRowSelect)="onRowSelected($event)">
+    <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5"
+      [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow"
+      (onRowSelect)="onRowSelected($event)">
       <p-footer>There are {{getAmountOfRequests()}} requests</p-footer>
       <p-column field="#" header="#" styleClass="numerationColumn">
         <ng-template let-col let-file="rowData" let-ri="rowIndex" pTemplate="body">
           <span>{{ri+1}}</span>
         </ng-template>
       </p-column>
-      <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals" [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
+      <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals"
+        [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
         <ng-template pTemplate="filter" let-col>
           <p-dropdown [options]="allTypes" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
             styleClass="ui-column-filter"></p-dropdown>
@@ -42,9 +45,9 @@
     <div class="availablePTO">
       <h3 class="lead text-muted text-center">You have
         <b>
-          <!-- {{user.availablePTO}} -->
+          {{getCurentUserAvailablePto()}}
         </b> days available for Paid Time Off.</h3>
     </div>
-    <button type="button" class="btn btn-success" (click)="goBack()">Back</button>
+    <button type="button" class="btn btn-success" (click)="goBack()"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
   </div>
 </div>

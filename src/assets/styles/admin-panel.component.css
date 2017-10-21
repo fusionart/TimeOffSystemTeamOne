@@ -26,3 +26,13 @@ button.btn-marg{
 button.back{
     margin: 15px 0px;
 }
+
+button.detailView{
+    padding: 5px 10px;
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #FFFFFF;
+}
+button.detailView:hover{
+    background: #0e4263;
+}

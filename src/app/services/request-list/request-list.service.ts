@@ -2,8 +2,6 @@ import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { USERS } from "../../models/mock-user";
-import { REQUESTS } from "../../models/mock-request";
 import { User } from "../../models/user";
 import { TimeOffRequest } from "../../models/timeOffRequest";
 import { UserService } from '../user/user.service';
@@ -11,9 +9,12 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class RequestListService {
     requests: Array<TimeOffRequest>;
+    currentUser: User;
     selectedRowData: any;
+    loggedUser = JSON.parse(localStorage.getItem("currentUserDetails")).userId;
 
     public static readonly GET_REQUESTS = environment.apiUrl + "/api/request-list";
+    public static readonly GET_USER = environment.apiUrl + "/api/get-user?id=";
 
     constructor(private http: Http, private userService: UserService) {
         this.requests = new Array<TimeOffRequest>();
@@ -26,29 +27,18 @@ export class RequestListService {
         return this.selectedRowData;
     }
 
-    getUsers(): Promise<User[]> {
-        return Promise.resolve(USERS);
-    }
-
     extractData(response: Response) {
         return response.json();
     }
 
-    getUser(userId: number): Promise<User> {
-        return this.getUsers()
-            .then(users => users.find(user => user.id === userId));
-    }
-
     public getRequests(): Observable<TimeOffRequest[]> {
-        let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded"});
-        
-        //token header
+        let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+
         let token = this.userService.getStoredToken();
-        console.log(token);
         if (token !== null) {
-          cpHeaders.append("Authorization", token);
+            cpHeaders.append("Authorization", token);
         }
-    
+
         let options = new RequestOptions({ headers: cpHeaders });
 
         return this.http.get(RequestListService.GET_REQUESTS, options)
@@ -63,6 +53,31 @@ export class RequestListService {
                 return result;
             });
     }
+
+    public getCurrentUserData(): Observable<User[]> {
+        let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+
+        let token = this.userService.getStoredToken();
+        //console.log("token");
+        //console.log(token);
+        if (token !== null) {
+            cpHeaders.append("Authorization", token);
+        }
+
+        let options = new RequestOptions({ headers: cpHeaders });
+
+        return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
+            .map(this.extractData)
+            .map((currentUser: User) => {
+                let result: Array<User> = [];
+                if (currentUser) {
+                    result.push(currentUser);
+                }
+                //console.log(result);
+                return result;
+            });
+    }
+
     getTOFimage(typeTO: string): Promise<String> {
         let imageFileName = '/assets/images/';
         if (typeTO === 'PTO') {

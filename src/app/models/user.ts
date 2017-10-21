@@ -1,6 +1,6 @@
 export class User {
   public id: number;
-  public personId: string;
+  public personalId: string;
   public firstName: string;
   public secondName: string;
   public lastName: string;
@@ -9,11 +9,11 @@ export class User {
   public password: string;
   public position: string;
   public email: string;
-  public availablePTO: number;
-  public allPTO: number;
+  public ptoAvailable: number;
+  public ptoTotal: number;
   constructor(
     id,
-    personId,
+    personalId,
     firstName,
     secondName,
     lastName,
@@ -22,11 +22,11 @@ export class User {
     password,
     position,
     email,
-    availablePTO,
-    allPTO
+    ptoAvailable,
+    ptoTotal
   ) {
     this.id = id;
-    this.personId = personId
+    this.personalId = personalId;
     this.firstName = firstName;
     this.secondName = secondName;
     this.lastName = lastName;
@@ -35,7 +35,7 @@ export class User {
     this.password = password;
     this.position = position;
     this.email = email;
-    this.availablePTO = availablePTO;
-    this.allPTO = allPTO;
+    this.ptoAvailable = ptoAvailable;
+    this.ptoTotal = ptoTotal;
   }
 }

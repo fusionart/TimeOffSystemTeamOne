@@ -13,8 +13,7 @@ import { DropdownComponent } from './dropdown.component';
     imports: [
         FormsModule,
         BrowserModule,
-        DropdownModule,
-        DropdownRoute
+        DropdownModule
     ],
     providers: [
         

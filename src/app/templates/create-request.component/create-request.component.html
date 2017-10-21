@@ -11,19 +11,25 @@
       <h5>
         <i>Reason</i>
       </h5>
-      <textarea class="ui-g-12 ui-inputtextarea" rows="2" pInputTextarea [(ngModel)]="reasons" name="reasons"></textarea>
+      <textarea class="ui-g-12 ui-inputtextarea bRadius" rows="2" pInputTextarea [(ngModel)]="reasons" name="reasons"></textarea>
     </div>
     <div class="ui-g-12 form-group">
       <h5>
         <i>Note</i>
       </h5>
-      <textarea class="ui-g-12 ui-inputtextarea" rows="2" pInputTextarea [(ngModel)]="note" name="note"></textarea>
+      <textarea class="ui-g-12 ui-inputtextarea bRadius" rows="2" pInputTextarea [(ngModel)]="note" name="note"></textarea>
+    </div>
+    <div class="availablePTO">
+      <h3 class="lead text-muted text-center">You have
+        <b>
+          {{getCurentUserAvailablePto()}}
+        </b> days available for Paid Time Off.</h3>
     </div>
     <div class="ui-g-12 form-group ui-calendar">
       <h5>
         <i>Dates</i>
       </h5>
-      <input class="ui-g-12" type="text" pInputText [(ngModel)]="inputDates" name="inputDates" [disabled]="true" />
+      <input class="ui-g-12 bRadius" type="text" pInputText [(ngModel)]="inputDates" name="inputDates" [disabled]="true" />
       <app-calendar (dateChange)='onSelected($event)'></app-calendar>
     </div>
     <div class="ui-g-12 form-group">

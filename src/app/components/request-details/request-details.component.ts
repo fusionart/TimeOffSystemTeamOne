@@ -4,6 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { RequestListService } from '../../services/request-list/request-list.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-request-details',
@@ -12,6 +13,7 @@ import { RequestListService } from '../../services/request-list/request-list.ser
 })
 export class RequestDetailsComponent implements OnInit {
   selectedRowData: TimeOffRequest;
+  user: User[] = [];
   isNextMonth: boolean = false;
 
   constructor(private router: Router, private requestListService: RequestListService) {
@@ -19,10 +21,13 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRowData();
+    this.getCurrentUser();
+  }
+
+  getRowData() {
     if (this.requestListService.getRowData() != null) {
       this.selectedRowData = this.requestListService.getRowData();
-    } else {
-      this.selectedRowData = new TimeOffRequest;
     }
     this.showSecondCalendar();
   }
@@ -31,6 +36,16 @@ export class RequestDetailsComponent implements OnInit {
     if (new Date(this.selectedRowData.dateStart).getMonth() != new Date(this.selectedRowData.dateFinish).getMonth()) {
       this.isNextMonth = true;
     }
+  }
+
+  getCurrentUser() {
+    this.requestListService.getCurrentUserData().subscribe(user => (this.user = user));
+  }
+
+  getCurentUserPersonId() {
+    if (this.user.length >0) {
+      return this.user[0].personalId;
+    } 
   }
 
   goBack(): void {

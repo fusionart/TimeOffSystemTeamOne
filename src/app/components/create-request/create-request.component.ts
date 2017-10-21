@@ -1,3 +1,4 @@
+import { RequestListService } from './../../services/request-list/request-list.service';
 import { Router, ActivatedRoute } from "@angular/router";
 import { TimeOffRequest } from "./../../models/timeOffRequest";
 import { CreateRequestService } from "./../../services/create-request/create-request.service";
@@ -6,6 +7,7 @@ import { CalendarComponent } from "./../calendar/calendar.component";
 import { Component, OnInit, Input, ViewChild, NgZone } from "@angular/core";
 import { FormControl, FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { InputTextareaModule, InputTextModule } from "primeng/primeng";
+import { User } from '../../models/user';
 
 @Component({
   selector: "app-create-request",
@@ -20,20 +22,34 @@ export class CreateRequestComponent implements OnInit {
   timeOffRequest: TimeOffRequest;
   reasons: string;
   note: string;
+  user: User[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private createRequestService: CreateRequestService,
+    private requestListService: RequestListService,
     private ngZone: NgZone
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getCurrentUser();
+  }
 
-  onSelected($event): void{
+  getCurrentUser() {
+    this.requestListService.getCurrentUserData().subscribe(user => (this.user = user));
+  }
+
+  getCurentUserAvailablePto() {
+    if (this.user.length > 0) {
+      return this.user[0].ptoAvailable;
+    }
+  }
+
+  onSelected($event): void {
     this.inputDates = $event;
   }
-  
+
   onSubmit() {
     this.timeOffRequest = new TimeOffRequest();
     this.timeOffRequest.days = this.cal.dates.length;
