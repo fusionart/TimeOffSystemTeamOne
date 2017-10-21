@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
 
 
@@ -11,6 +11,9 @@ export class DropdownComponent implements OnInit {
 
   tot: SelectItem[];
   selectedTot: any;
+  @Output()
+  totChange:EventEmitter<string> = new EventEmitter<string>();
+  
   constructor() {
     this.tot = [];
     this.tot.push({ label: 'Paid Time Off', value: { id: 1, name: 'Paid Time Off', code: 'PTO' } });
@@ -19,6 +22,10 @@ export class DropdownComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  totChanged($event) {
+    this.totChange.emit($event);
   }
 
 }

@@ -2,7 +2,7 @@ import { TimeOffRequest } from './../../models/timeOffRequest';
 import { RequestListService } from './../../services/request-list/request-list.service';
 import { Holiday } from './../../models/holiday';
 import { CalendarService } from './../../services/calendar/calendar.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { SelectItem, Message } from 'primeng/components/common/api';
 import { Observable } from 'rxjs/Observable';
 
@@ -35,16 +35,15 @@ export class CalendarComponent implements OnInit {
   selectedHourFormat: string = '12';
   msgs: Message[] = [];
   activeIndex: number = 0;
-
-  @Output()
-  dateChange:EventEmitter<string> = new EventEmitter<string>();
-  @Input()
   inputDates: string;
-
   holiday: Array<Holiday>;
   holidayDays: Array<Date>;
   greenDays: Date[];
   selectedRowData: TimeOffRequest;
+  disabledDaysArray = [0, 6];
+
+  @Output()
+  outputs = new EventEmitter<{ selectedDates: string, selectedDays: number }>();
 
   constructor(private calendar: CalendarService, private requestListService: RequestListService) {
     this.holiday = Array<Holiday>();
@@ -64,41 +63,42 @@ export class CalendarComponent implements OnInit {
       }
       this.inputDates += this.dates[i].getDate() + "/" + this.dates[i].getMonth() + "/" + this.dates[i].getFullYear() + commar;
     }
-    this.dateChange.emit(this.inputDates);
+    this.outputs.emit({ selectedDates: this.inputDates, selectedDays: this.dates.length });
   }
 
-  onBlur() {
-
-  }
-
-  onFocus() {
-
+  disableCalendar() {
+    this.disabledDaysArray = [0, 1, 2, 3, 4, 5, 6]
   }
 
   onClear() {
+    this.dates = null;
     this.inputDates = "";
-    this.dateChange.emit(this.inputDates);
+    this.disabledDaysArray = [0, 6];
+    this.outputs.emit({ selectedDates: this.inputDates, selectedDays: 0 });
   }
 
-  set hourFormat(hourFormat: string) {
-    this.selectedHourFormat = hourFormat;
-    if (this.timeDateInput) {
-      this.timeDateInput = new Date(this.timeDateInput.getTime());
-    }
+  ptoInvalidaDates() {
+    this.minDate = new Date();
+    this.maxDate = new Date("12, 31, 2030");
   }
 
-  get hourFormat(): string {
-    return this.selectedHourFormat;
+  slInvalidaDates() {
+    this.minDate = new Date("01, 01, 2000");
+    this.maxDate = new Date();
+  }
+
+  showAllDates(){
+    this.maxDate = null;
+    this.minDate = null;
   }
 
   ngOnInit() {
     this.getHolidays();
+    this.disableCalendar();
     this.greenDays = [];
     this.selectedRowData = this.requestListService.getRowData();
     if (this.selectedRowData != null) {
       this.makeGreenDays();
-    } else {
-      console.log("not maing green");
     }
 
     this.en = {
@@ -116,22 +116,22 @@ export class CalendarComponent implements OnInit {
     this.types.push({ label: '12H Format', value: '12' });
     this.types.push({ label: '24H Format', value: '24' });
 
-    let today = new Date();
-    let month = today.getMonth();
-    let year = today.getFullYear();
-    let prevMonth = (month === 0) ? 11 : month - 1;
-    let prevYear = (prevMonth === 11) ? year - 1 : year;
-    let nextMonth = (month === 11) ? 0 : month + 1;
-    let nextYear = (nextMonth === 0) ? year + 1 : year;
-    this.minDate = new Date();
-    this.minDate.setMonth(prevMonth);
-    this.minDate.setFullYear(prevYear);
-    this.maxDate = new Date();
-    this.maxDate.setMonth(nextMonth);
-    this.maxDate.setFullYear(nextYear);
+    // let today = new Date();
+    // let month = today.getMonth();
+    // let year = today.getFullYear();
+    // let prevMonth = (month === 0) ? 11 : month - 1;
+    // let prevYear = (prevMonth === 11) ? year - 1 : year;
+    // let nextMonth = (month === 11) ? 0 : month + 1;
+    // let nextYear = (nextMonth === 0) ? year + 1 : year;
+    // this.minDate = new Date();
+    // this.minDate.setMonth(prevMonth);
+    // this.minDate.setFullYear(prevYear);
+    // this.maxDate = new Date();
+    // this.maxDate.setMonth(nextMonth);
+    // this.maxDate.setFullYear(nextYear);
 
     let invalidDate = new Date("10, 17, 2017");
-    invalidDate.setDate(today.getDate() - 1);
+    //invalidDate.setDate(today.getDate() - 1);
     //this.greenDays = [invalidDate];
     this.invalidDates = [];
   }

@@ -18,6 +18,7 @@ export class RequestsListComponent implements OnInit {
   amountOfRequests: number;
   selectedRow: any;
   selectedRowData: any;
+  currentuserAvailablePto: number;
 
   constructor(
     private requestListService: RequestListService,
@@ -25,6 +26,9 @@ export class RequestsListComponent implements OnInit {
     private router: Router,
     private location: Location) {
     this.router = router;
+    this.requestListService.listen().subscribe((m: any) => {
+      this.getRequests();
+    })
   }
 
   ngOnInit() {
@@ -38,13 +42,14 @@ export class RequestsListComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.requestListService.getCurrentUserData().subscribe(user => (this.user = user));
+    this.requestListService.getCurrentUserData().subscribe(
+      user => { this.user = user },
+      (err) => { console.log(err) },
+      () => { this.getCurentUserAvailablePto() });
   }
 
   getCurentUserAvailablePto() {
-    if (this.user.length >0) {
-      return this.user[0].ptoAvailable;
-    } 
+    this.currentuserAvailablePto = this.user[0].ptoAvailable;
   }
 
   goBack(): void {

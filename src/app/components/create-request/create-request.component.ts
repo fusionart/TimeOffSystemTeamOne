@@ -19,6 +19,12 @@ export class CreateRequestComponent implements OnInit {
   @ViewChild(DropdownComponent) private ddc: DropdownComponent;
 
   inputDates: string;
+  tot: any = "";
+  selectedDays: number = 0;
+  theDays: number;
+  showCalendar: boolean = false;
+  toClearCalendar: boolean = false;
+  disableCalendar: boolean = false;
   timeOffRequest: TimeOffRequest;
   reasons: string;
   note: string;
@@ -37,17 +43,78 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.requestListService.getCurrentUserData().subscribe(user => (this.user = user));
+    this.requestListService.getCurrentUserData().subscribe(
+      user => { this.user = user },
+      (err) => { console.log(err) },
+      () => { this.getCurentUserAvailablePto() });
   }
 
   getCurentUserAvailablePto() {
     if (this.user.length > 0) {
-      return this.user[0].ptoAvailable;
+      this.theDays = this.user[0].ptoAvailable;
     }
   }
 
-  onSelected($event): void {
-    this.inputDates = $event;
+  updatePto() {
+    if (this.tot.code == "PTO") {
+      this.theDays = this.user[0].ptoAvailable - this.selectedDays;
+      if ((this.user[0].ptoAvailable - this.selectedDays) == 0) {
+        this.cal.disableCalendar();
+      }
+    } else {
+      this.theDays = this.user[0].ptoAvailable;
+      this.disableCalendar = true;
+    }
+
+  }
+
+  onCalendarChange(calendarData: { selectedDates: string, selectedDays: number }): void {
+    this.inputDates = calendarData.selectedDates;
+    this.selectedDays = calendarData.selectedDays;
+    this.allowSubmit();
+    this.updatePto();
+  }
+
+  allowSubmit() {
+    if (this.tot != null && this.selectedDays > 0 && this.reasons != null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  allowClear() {
+    if (this.selectedDays > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  totChanged($event): void {
+    if ($event != null) {
+      this.tot = $event;
+      this.theDays = this.user[0].ptoAvailable;
+      switch (this.tot.id) {
+        case 1:
+          this.cal.ptoInvalidaDates();
+          break;
+        case 3:
+          this.cal.slInvalidaDates();
+          break;
+
+        default:
+          this.cal.showAllDates();
+          break;
+      }
+      if (this.cal != null) {
+        this.cal.onClear();
+      }
+    }
+  }
+
+  clearCalendar() {
+    this.cal.onClear();
   }
 
   onSubmit() {
@@ -66,8 +133,9 @@ export class CreateRequestComponent implements OnInit {
       response => console.log(response),
       error => console.log(error)
       );
-    this.ngZone.run(() => {
+      this.requestListService.filter("reload");
+    //this.ngZone.run(() => {
       this.router.navigate(["/list"]);
-    });
+    //});
   }
 }

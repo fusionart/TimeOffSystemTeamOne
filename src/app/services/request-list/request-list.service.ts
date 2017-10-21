@@ -5,9 +5,11 @@ import { Injectable } from '@angular/core';
 import { User } from "../../models/user";
 import { TimeOffRequest } from "../../models/timeOffRequest";
 import { UserService } from '../user/user.service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class RequestListService {
+    private _listners = new Subject<any>();
     requests: Array<TimeOffRequest>;
     currentUser: User;
     selectedRowData: any;
@@ -23,9 +25,18 @@ export class RequestListService {
     setRowData(data) {
         this.selectedRowData = data;
     }
+
     getRowData() {
         return this.selectedRowData;
     }
+
+    listen(): Observable<any> {
+        return this._listners.asObservable();
+     }
+ 
+     filter(filterBy: string) {
+        this._listners.next(filterBy);
+     }
 
     extractData(response: Response) {
         return response.json();
