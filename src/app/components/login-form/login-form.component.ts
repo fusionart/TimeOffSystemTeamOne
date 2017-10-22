@@ -19,7 +19,7 @@ export class LoginFormComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
@@ -31,13 +31,13 @@ export class LoginFormComponent implements OnInit {
     this.authenticationService
       .login(this.model.username, this.model.password)
       .subscribe(
-        data => {
-          this.router.navigate(['/list']);
-        },
-        error => {
-          this.alertService.error('Username or password is incorrect');
-          this.loading = false;
-        }
+      data => {
+        this.router.navigate(['/list']);
+      },
+      error => {
+        this.alertService.error('Username or password is incorrect');
+        this.loading = false;
+      }
       );
   }
 }

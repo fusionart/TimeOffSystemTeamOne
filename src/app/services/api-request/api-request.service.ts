@@ -1,13 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
-import {
-  Http,
-  Headers,
-  Response,
-  Request,
-  RequestOptions,
-  URLSearchParams,
-  RequestMethod
-} from "@angular/http";
+import { Http, Headers, Response, Request, RequestOptions, URLSearchParams, RequestMethod } from "@angular/http";
 import { Router } from "@angular/router";
 import { Observable, ReplaySubject, Subject } from "rxjs";
 import { UserService } from "../user/user.service";

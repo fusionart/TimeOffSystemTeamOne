@@ -21,14 +21,14 @@ export class CreateRequestComponent implements OnInit {
   inputDates: string;
   tot: any = "";
   selectedDays: number = 0;
-  theDays: number;
+  currentuserAvailablePto: number;
   showCalendar: boolean = false;
   toClearCalendar: boolean = false;
   disableCalendar: boolean = false;
   timeOffRequest: TimeOffRequest;
   reasons: string;
   note: string;
-  user: User[] = [];
+  user: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +36,9 @@ export class CreateRequestComponent implements OnInit {
     private createRequestService: CreateRequestService,
     private requestListService: RequestListService,
     private ngZone: NgZone
-  ) { }
+  ) {
+    //location.reload(true);
+  }
 
   ngOnInit() {
     this.getCurrentUser();
@@ -50,19 +52,19 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getCurentUserAvailablePto() {
-    if (this.user.length > 0) {
-      this.theDays = this.user[0].ptoAvailable;
+    if (this.user != null) {
+      this.currentuserAvailablePto = this.user.ptoAvailable;
     }
   }
 
   updatePto() {
     if (this.tot.code == "PTO") {
-      this.theDays = this.user[0].ptoAvailable - this.selectedDays;
-      if ((this.user[0].ptoAvailable - this.selectedDays) == 0) {
+      this.currentuserAvailablePto = this.user.ptoAvailable - this.selectedDays;
+      if ((this.user.ptoAvailable - this.selectedDays) == 0) {
         this.cal.disableCalendar();
       }
     } else {
-      this.theDays = this.user[0].ptoAvailable;
+      this.currentuserAvailablePto = this.user.ptoAvailable;
       this.disableCalendar = true;
     }
 
@@ -94,7 +96,7 @@ export class CreateRequestComponent implements OnInit {
   totChanged($event): void {
     if ($event != null) {
       this.tot = $event;
-      this.theDays = this.user[0].ptoAvailable;
+      this.currentuserAvailablePto = this.user.ptoAvailable;
       switch (this.tot.id) {
         case 1:
           this.cal.ptoInvalidaDates();
@@ -130,12 +132,12 @@ export class CreateRequestComponent implements OnInit {
     this.createRequestService
       .addRequest(this.timeOffRequest)
       .subscribe(
-      response => console.log(response),
+      response => {console.log(response), this.requestListService.filter("reload")},
       error => console.log(error)
       );
-      this.requestListService.filter("reload");
+    //this.requestListService.filter("reload");
     //this.ngZone.run(() => {
-      this.router.navigate(["/list"]);
+    this.router.navigate(["/list"]);
     //});
   }
 }

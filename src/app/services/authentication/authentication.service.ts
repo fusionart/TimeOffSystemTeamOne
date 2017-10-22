@@ -23,6 +23,8 @@ export class AuthenticationService {
   private headers = new Headers({ "Content-Type": "application/json" });
   private requests: any[] = [];
   private requestsUserInfo: any;
+  private _listners = new Subject<any>();
+  public isUser: boolean;
 
   constructor(
     private router: Router,
@@ -35,22 +37,21 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    console.log(
-      "service: " + JSON.stringify({ username: username, password: password })
-    );
+    //console.log("service: " + JSON.stringify({ username: username, password: password }));
+    this.isUser = false
     let header = new Headers({ "Content-Type": "application/json" });
 
     let options = new RequestOptions({ headers: header });
 
     return this.http
       .post(
-        AuthenticationService.LOGIN_REQUEST,
-        JSON.stringify({ username: username, password: password }),
-        options
+      AuthenticationService.LOGIN_REQUEST,
+      JSON.stringify({ username: username, password: password }),
+      options
       )
       .map((response: Response) => {
-        console.log(response);
-        console.log(response.text());
+        //console.log(response);
+        //console.log(response.text());
         let token = response.text();
         if (token) {
           // set token property
@@ -62,7 +63,7 @@ export class AuthenticationService {
           );
           // return true to indicate successful login
           console.log(localStorage.getItem("currentUser"));
-          this.getCurrentuserDetails(username).subscribe(requests => (this.requestsUserInfo = requests));
+          this.getCurrentuserDetails(username).subscribe(requests => { this.requestsUserInfo = requests }, (err) => { console.log(err) }, () => { this.filter("true"), this.setIsUser(true); });
 
           return true;
         } else {
@@ -79,27 +80,45 @@ export class AuthenticationService {
       userDetailsHeaders.append("Authorization", token);
     }
     console.log(userDetailsHeaders, "     -------------- userDetailsHeaders ---------------");
-    
+
     let options = new RequestOptions({ headers: userDetailsHeaders });
 
     return this.http
-    .post(AuthenticationService.USER_DETAILS_REQUEST, JSON.stringify({username: username}), options)
-    .map((response: Response) => {  
-          localStorage.setItem(
-            "currentUserDetails",
-            JSON.stringify(response.json())
-                    );
-          console.log( "   ----------------------------- getCurrentuserDetails - Results     ---------------------- ");
-          console.log(localStorage.getItem("currentUser"));
-          console.log(localStorage.getItem("currentUserDetails"));
-          return true;
-        });
-      }
+      .post(AuthenticationService.USER_DETAILS_REQUEST, JSON.stringify({ username: username }), options)
+      .map((response: Response) => {
+        localStorage.setItem(
+          "currentUserDetails",
+          JSON.stringify(response.json())
+        );
+        //console.log("   ----------------------------- getCurrentuserDetails - Results     ---------------------- ");
+        //console.log(localStorage.getItem("currentUser"));
+        //console.log(localStorage.getItem("currentUserDetails"));
+        return true;
+      });
+  }
 
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUserDetails");
+    this.router.navigate(['/login']);
     console.log(" -------------------- logout -----------------------------");
+  }
+
+  listen(): Observable<any> {
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string) {
+    this._listners.next(filterBy);
+  }
+
+  setIsUser(data) {
+    this.isUser = data;
+  }
+
+  getIsUser() {
+    return this.isUser;
   }
 }
