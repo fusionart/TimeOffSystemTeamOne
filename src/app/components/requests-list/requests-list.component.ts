@@ -13,11 +13,12 @@ import 'rxjs/add/operator/switchMap';
 })
 export class RequestsListComponent implements OnInit {
   requests: TimeOffRequest[] = [];
-  user: User;
+  user: User[] = [];
   recordCount: number;
   amountOfRequests: number;
   selectedRow: any;
   selectedRowData: any;
+  currentuserAvailablePto: number;
 
   constructor(
     private requestListService: RequestListService,
@@ -25,12 +26,30 @@ export class RequestsListComponent implements OnInit {
     private router: Router,
     private location: Location) {
     this.router = router;
+    this.requestListService.listen().subscribe((m: any) => {
+      this.getRequests();
+    })
   }
 
   ngOnInit() {
-    //this.requestListService.getUser(1).then(user => (this.user = user));
+    this.getRequests();
+    this.getCurrentUser()
+  }
+
+  getRequests() {
     this.requestListService.getRequests().subscribe(requests => (this.requests = requests));
     this.recordCount = this.requests.length;
+  }
+
+  getCurrentUser() {
+    this.requestListService.getCurrentUserData().subscribe(
+      user => { this.user = user },
+      (err) => { console.log(err) },
+      () => { this.getCurentUserAvailablePto() });
+  }
+
+  getCurentUserAvailablePto() {
+    this.currentuserAvailablePto = this.user[0].ptoAvailable;
   }
 
   goBack(): void {

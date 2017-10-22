@@ -4,7 +4,7 @@
     <span class="breadcrumb-item active">Admin panel</span>
   </nav>
   <h2>Requests - admin panel</h2>
-  <button type="button" class="btn btn-success btn-marg" routerLink="/register-form" routerLinkActive="active">New user</button>
+  <button type="button" class="btn btn-success btn-marg" routerLink="/register-form" routerLinkActive="active"><i class="fa fa-address-book-o" aria-hidden="true"></i> New user</button>
   <div class="content-section implementation">
     <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5"
       [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow"
@@ -75,13 +75,13 @@
       </div>
       <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-          <button type="button" pButton (click)="close()" label="Close">
+          <button class="detailView" type="button" pButton (click)="close()" label="Close">
             <i class="fa fa-close"></i> Close</button>
-          <button *ngIf="isApproved" type="button" pButton (click)="approve()" label="Approve">
+          <button *ngIf="isApproved" class="detailView" type="button" pButton (click)="approve()" label="Approve">
             <i class="fa fa-check"></i> Approve</button>
         </div>
       </p-footer>
     </p-dialog>
   </div>
-  <button type="button" class="btn btn-success back" (click)="goBack()">Back</button>
+  <button type="button" class="btn btn-success back" (click)="goBack()"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
 </div>

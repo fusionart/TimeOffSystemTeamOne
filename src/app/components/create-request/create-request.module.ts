@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 
 import { CreateRequestComponent } from './create-request.component';
+import { RequestListService } from '../../services/request-list/request-list.service';
 
 
 @NgModule({
@@ -27,6 +28,9 @@ import { CreateRequestComponent } from './create-request.component';
         CalendarNModule,
         DropdownNModule
     ],
-    providers: [CreateRequestService],
+    providers: [
+        CreateRequestService,
+        RequestListService
+    ],
 })
 export class CreateRequestModule { }

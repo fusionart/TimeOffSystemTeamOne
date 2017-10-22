@@ -13,29 +13,14 @@ export class CreateRequestService {
     "/api/new_request";
   constructor(private http: Http, private userService: UserService) {}
 
-  addRequest1(timeOffRequest: TimeOffRequest): Observable<any> {
-    //console.log("service: ");
-    //console.log(JSON.stringify(timeOffRequest));
-    let cpHeaders = new Headers({ "Content-Type": "application/json" });
-
-    let options = new RequestOptions({ headers: cpHeaders });
-    return this.http
-      .post(CreateRequestService.CREATE_REQUEST, timeOffRequest, options)
-      .map(success => success.status);
-  }
-
   addRequest(timeOffRequest: TimeOffRequest): Observable<any> {
-    //console.log("service: ");
-    //console.log(JSON.stringify(timeOffRequest));
     let cpHeaders = new Headers({ "Content-Type": "application/json" });
 
-    //token header
     let token = this.userService.getStoredToken();
-    console.log(token);
+    //console.log(token);
     if (token !== null) {
       cpHeaders.append("Authorization", token);
     }
-
 
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http

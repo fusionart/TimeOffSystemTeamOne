@@ -23,7 +23,6 @@ import { CalendarComponent } from './calendar.component';
         ReactiveFormsModule,
         TabViewModule,
         CodeHighlighterModule,
-        CalendarRoute,
         CalendarModule,
         BrowserAnimationsModule
     ],
