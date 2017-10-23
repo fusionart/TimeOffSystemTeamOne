@@ -8,4 +8,5 @@ export class TimeOffRequest {
   public reason?: string;
   public note: string;
   public dateOfSubmit?: string;
+  public userId?: number;
 }

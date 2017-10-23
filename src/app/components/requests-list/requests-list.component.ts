@@ -13,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class RequestsListComponent implements OnInit {
   requests: TimeOffRequest[] = [];
-  user: User[] = [];
+  user: User;
   recordCount: number;
   amountOfRequests: number;
   selectedRow: any;
@@ -42,6 +42,7 @@ export class RequestsListComponent implements OnInit {
   }
 
   getCurrentUser() {
+    console.log("component ---------- getCurrentUser --------------------------------");
     this.requestListService.getCurrentUserData().subscribe(
       user => { this.user = user },
       (err) => { console.log(err) },
@@ -49,7 +50,7 @@ export class RequestsListComponent implements OnInit {
   }
 
   getCurentUserAvailablePto() {
-    this.currentuserAvailablePto = this.user[0].ptoAvailable;
+    this.currentuserAvailablePto = this.user.ptoAvailable;
   }
 
   goBack(): void {

@@ -28,7 +28,7 @@ export class CreateRequestComponent implements OnInit {
   timeOffRequest: TimeOffRequest;
   reasons: string;
   note: string;
-  user: User[] = [];
+  user: User;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,19 +50,19 @@ export class CreateRequestComponent implements OnInit {
   }
 
   getCurentUserAvailablePto() {
-    if (this.user.length > 0) {
-      this.theDays = this.user[0].ptoAvailable;
+    if (this.user) {
+      this.theDays = this.user.ptoAvailable;
     }
   }
 
   updatePto() {
     if (this.tot.code == "PTO") {
-      this.theDays = this.user[0].ptoAvailable - this.selectedDays;
-      if ((this.user[0].ptoAvailable - this.selectedDays) == 0) {
+      this.theDays = this.user.ptoAvailable - this.selectedDays;
+      if ((this.user.ptoAvailable - this.selectedDays) == 0) {
         this.cal.disableCalendar();
       }
     } else {
-      this.theDays = this.user[0].ptoAvailable;
+      this.theDays = this.user.ptoAvailable;
       this.disableCalendar = true;
     }
 
@@ -94,7 +94,7 @@ export class CreateRequestComponent implements OnInit {
   totChanged($event): void {
     if ($event != null) {
       this.tot = $event;
-      this.theDays = this.user[0].ptoAvailable;
+      this.theDays = this.user.ptoAvailable;
       switch (this.tot.id) {
         case 1:
           this.cal.ptoInvalidaDates();

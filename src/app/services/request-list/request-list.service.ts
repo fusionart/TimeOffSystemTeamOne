@@ -42,7 +42,60 @@ export class RequestListService {
         return response.json();
     }
 
-    public getRequests(): Observable<TimeOffRequest[]> {
+    public getRequests1(): TimeOffRequest[] {
+        console.log("-------------------------------getRequests---------------------------");
+        console.log(this.currentUser);
+        return newFunction();
+    }
+
+
+    public getCurrentUserData(): Observable<User> {
+        let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+
+        let token = this.userService.getStoredToken();
+        //console.log("token");
+        //console.log(token);
+        if (token !== null) {
+            cpHeaders.append("Authorization", token);
+        }
+        let options = new RequestOptions({ headers: cpHeaders });
+
+        return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
+            .map(this.extractData)
+            .map((responseUser: User) => {
+                console.log(" ------------------------------------------getCurrentUserData-------------------------------------");
+                console.log(responseUser);
+                let result: User;
+                if (responseUser) {
+                    result = responseUser;
+                }
+                //console.log(result);
+                return result;
+            });
+    }
+
+    public  getRequests(): Observable<TimeOffRequest[]> {
+        let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+                
+                let token = this.userService.getStoredToken();
+                //console.log("token");
+                //console.log(token);
+                if (token !== null) {
+                    cpHeaders.append("Authorization", token);
+                }
+                let options = new RequestOptions({ headers: cpHeaders });       
+                return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
+               .map((response: Response) => {  
+                console.log(" ------------------------------------------getRequests-------------------------------------");
+                console.log(response.json().userRequests);      
+                console.log(" --------------------------***-------end of response print--------***------------------------");    
+                this.currentUser = response.json();
+                console.log(this.currentUser);
+                return response.json().userRequests;
+              });
+    }
+
+    public getAllRequests(): Observable<TimeOffRequest[]> {
         let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
 
         let token = this.userService.getStoredToken();
@@ -63,31 +116,27 @@ export class RequestListService {
                 }
                 return result;
             });
-    }
-
-    public getCurrentUserData(): Observable<User[]> {
-        let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
-
-        let token = this.userService.getStoredToken();
-        //console.log("token");
-        //console.log(token);
-        if (token !== null) {
-            cpHeaders.append("Authorization", token);
         }
+    // public getCurrentUserData(): Observable<User> {
+    //     let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
 
-        let options = new RequestOptions({ headers: cpHeaders });
+    //     let token = this.userService.getStoredToken();
+    //     //console.log("token");
+    //     //console.log(token);
+    //     if (token !== null) {
+    //         cpHeaders.append("Authorization", token);
+    //     }
+    //     let options = new RequestOptions({ headers: cpHeaders });       
+    //     return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
+    //    .map((response: Response) => {  
+    //     console.log(response);          
+    //     this.currentUser = response.json();
+    //     console.log(this.currentUser);
+    //     return this.currentUser;
+    //   });
 
-        return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
-            .map(this.extractData)
-            .map((currentUser: User) => {
-                let result: Array<User> = [];
-                if (currentUser) {
-                    result.push(currentUser);
-                }
-                //console.log(result);
-                return result;
-            });
-    }
+    // }
+
 
     getTOFimage(typeTO: string): Promise<String> {
         let imageFileName = '/assets/images/';
@@ -101,3 +150,7 @@ export class RequestListService {
         return Promise.resolve(imageFileName);
     }
 }
+function newFunction() {
+    return this.currentUser.getRequests();
+}
+

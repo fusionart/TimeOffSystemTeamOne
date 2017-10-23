@@ -13,7 +13,7 @@ import { User } from '../../models/user';
 })
 export class RequestDetailsComponent implements OnInit {
   selectedRowData: TimeOffRequest;
-  user: User[] = [];
+  user: User;
   isNextMonth: boolean = false;
 
   constructor(private router: Router, private requestListService: RequestListService) {
@@ -43,8 +43,8 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   getCurentUserPersonId() {
-    if (this.user.length >0) {
-      return this.user[0].personalId;
+    if (this.user) {
+      return this.user.personalId;
     } 
   }
 

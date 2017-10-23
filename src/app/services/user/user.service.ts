@@ -17,6 +17,7 @@ export interface LoginInfoInStorage {
 @Injectable()
 export class UserService {
   public currentUserKey: string = "currentUser";
+  public currentUserDetailsKey: string = "currentUserDetails";
   public storage: Storage = localStorage; 
   constructor() {}
 
@@ -58,6 +59,14 @@ export class UserService {
       return userObj.displayName;
     }
     return "no-user";
+  }
+
+  get userId(): number | null {
+    if (localStorage.getItem(this.currentUserDetailsKey) != null) {
+      return JSON.parse(localStorage.getItem(this.currentUserDetailsKey)).userId;
+    } else {
+      return null;
+    }
   }
 
   getStoredToken(): string | null {
