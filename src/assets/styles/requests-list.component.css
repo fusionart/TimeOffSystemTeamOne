@@ -23,3 +23,10 @@ p-dataTable >>> .AbsenceColumn{
     padding-bottom: 5px;
     padding-top: 10px;
 }
+
+input.showDays{
+    border: none;
+    background-color: white;
+    width: 22px;
+    text-align: center;
+}
