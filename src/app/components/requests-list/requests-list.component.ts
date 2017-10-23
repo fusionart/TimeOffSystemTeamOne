@@ -1,9 +1,11 @@
+import { AuthenticationService } from './../../services/authentication/authentication.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../../models/user';
 import { TimeOffRequest } from "../../models/timeOffRequest";
 import { RequestListService } from '../../services/request-list/request-list.service';
+import { FormControl } from "@angular/forms";
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -19,21 +21,38 @@ export class RequestsListComponent implements OnInit {
   selectedRow: any;
   selectedRowData: any;
   currentuserAvailablePto: number;
+  theDays: number;
 
   constructor(
     private requestListService: RequestListService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location) {
+    private location: Location,
+    private authe: AuthenticationService) {
     this.router = router;
     this.requestListService.listen().subscribe((m: any) => {
-      this.getRequests();
+      this.reloadGetRequests(m);
+    })
+    this.authe.listen().subscribe((m: any) => {
+      this.getCurrentUser();
     })
   }
 
   ngOnInit() {
     this.getRequests();
-    this.getCurrentUser()
+    if (this.authe.isUser == null) {
+      this.getCurrentUser();
+    }
+  }
+
+  reloadGetRequests(m) {
+    if (m === "reload") {
+      console.log("reload");
+      this.getCurrentUser();
+      this.getRequests();
+    } else {
+      console.log("no reload");
+    }
   }
 
   getRequests() {
@@ -50,7 +69,9 @@ export class RequestsListComponent implements OnInit {
   }
 
   getCurentUserAvailablePto() {
-    this.currentuserAvailablePto = this.user.ptoAvailable;
+    if (this.user != null) {
+      this.currentuserAvailablePto = this.user.ptoAvailable;
+    }
   }
 
   goBack(): void {
@@ -63,18 +84,6 @@ export class RequestsListComponent implements OnInit {
     let imageFileName = '/assets/images/';
     if (typeTOs.indexOf(typeTO) !== -1) {
       imageFileName += typeTO + '.png';
-    } else {
-      imageFileName += 'sick_leave.png';
-    }
-    return imageFileName;
-  }
-
-  getTOimage2(typeTO: string): String {
-    let imageFileName = '/assets/images/';
-    if (typeTO === 'PTO') {
-      imageFileName += 'PTO.png';
-    } else if (typeTO === 'UPTO') {
-      imageFileName += 'UPTO.png';
     } else {
       imageFileName += 'sick_leave.png';
     }

@@ -2,6 +2,7 @@ import { DataTableModule, ContextMenuModule, DropdownModule } from 'primeng/prim
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RequestsListComponent } from './requests-list.component';
 import { RequestsListRoutes } from './requests-list.routing';
@@ -16,6 +17,8 @@ import { AuthGuard } from '../../guards/authentication-guard';
     CommonModule,
     BrowserModule,
     RequestsListRoutes,
+    FormsModule,
+    ReactiveFormsModule,
     DataTableModule,
     DropdownModule,
     ContextMenuModule

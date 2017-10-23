@@ -9,8 +9,7 @@ import { UserService } from "../user/user.service";
 
 @Injectable()
 export class CreateRequestService {
-  public static readonly CREATE_REQUEST = environment.apiUrl +
-    "/api/new_request";
+  public static readonly CREATE_REQUEST = environment.apiUrl +"/api/new_request";
   constructor(private http: Http, private userService: UserService) {}
 
   addRequest(timeOffRequest: TimeOffRequest): Observable<any> {

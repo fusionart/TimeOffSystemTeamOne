@@ -1,6 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { Injectable } from '@angular/core';
 import { User } from "../../models/user";
 import { TimeOffRequest } from "../../models/timeOffRequest";
@@ -13,7 +14,6 @@ export class RequestListService {
     requests: Array<TimeOffRequest>;
     currentUser: User;
     selectedRowData: any;
-    loggedUser = JSON.parse(localStorage.getItem("currentUserDetails")).userId;
 
     public static readonly GET_REQUESTS = environment.apiUrl + "/api/request-list";
     public static readonly GET_USER = environment.apiUrl + "/api/get-user?id=";
@@ -32,11 +32,19 @@ export class RequestListService {
 
     listen(): Observable<any> {
         return this._listners.asObservable();
-     }
- 
-     filter(filterBy: string) {
+    }
+
+    filter(filterBy: string) {
         this._listners.next(filterBy);
-     }
+    }
+
+    get userId(): any {
+        if (localStorage.getItem("currentUser") != null) {
+           return JSON.parse(localStorage.getItem("currentUserDetails")).userId;
+        } else {
+            return false;
+        }
+    }
 
     extractData(response: Response) {
         return response.json();
@@ -59,8 +67,8 @@ export class RequestListService {
             cpHeaders.append("Authorization", token);
         }
         let options = new RequestOptions({ headers: cpHeaders });
-
-        return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
+        var loggedUser = this.userId;
+        return this.http.get(RequestListService.GET_USER + loggedUser, options)
             .map(this.extractData)
             .map((responseUser: User) => {
                 console.log(" ------------------------------------------getCurrentUserData-------------------------------------");
@@ -83,8 +91,9 @@ export class RequestListService {
                 if (token !== null) {
                     cpHeaders.append("Authorization", token);
                 }
-                let options = new RequestOptions({ headers: cpHeaders });       
-                return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
+                let options = new RequestOptions({ headers: cpHeaders });
+                var loggedUser = this.userId;       
+                return this.http.get(RequestListService.GET_USER + loggedUser, options)
                .map((response: Response) => {  
                 console.log(" ------------------------------------------getRequests-------------------------------------");
                 console.log(response.json().userRequests);      
@@ -104,6 +113,8 @@ export class RequestListService {
         }
 
         let options = new RequestOptions({ headers: cpHeaders });
+        
+        var loggedUser = this.userId;
 
         return this.http.get(RequestListService.GET_REQUESTS, options)
             .map(this.extractData)

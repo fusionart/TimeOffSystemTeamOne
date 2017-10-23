@@ -43,7 +43,7 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   getCurentUserPersonId() {
-    if (this.user) {
+    if (this.user != null) {
       return this.user.personalId;
     } 
   }
