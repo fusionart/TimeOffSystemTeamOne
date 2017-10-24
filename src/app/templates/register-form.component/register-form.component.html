@@ -1,118 +1,208 @@
 <div class="container">
-  <h1>Register</h1>
-  <form novalidate #f="ngForm" (ngSubmit)="OnSubmit(f)">
-    <div class="form-group">
-      <label>First Name</label>
-      <input 
-        type="text" 
-        class="form-control"
-        [(ngModel)]="fName"
-        name="firstname"
-        #firstName="ngModel"
-        minlength="2"
-        required
-      >
-      <div *ngIf="firstName.errors?.required 
+    <h1>Register</h1>
+    <form novalidate #f="ngForm" (ngSubmit)="OnSubmit(f)">
+      <div class="form-group">
+        <label>First Name</label>
+        <input 
+          type="text" 
+          class="form-control"
+          [(ngModel)]="fName"
+          name="firstname"
+          #firstName="ngModel"
+          minlength="2"
+          required
+        >
+        <div *ngIf="firstName.errors?.required 
+          && firstName.touched" class="alert alert-danger">
+          First Name is required
+        </div>
+        <div *ngIf="firstName.errors?.minlength 
+          && firstName.touched" class="alert alert-danger">
+          First Name should be at least 2 characters
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Second name</label>
+        <input 
+          type="text" 
+          class="form-control"
+          [(ngModel)]="sName"
+          name="secondName"
+          #secondName="ngModel"
+          minlength="2"
+          required
+        >
+        <div *ngIf="firstName.errors?.required 
         && firstName.touched" class="alert alert-danger">
         First Name is required
+        </div>
+        <div *ngIf="secondName.errors?.minlength 
+        && secondName.touched" class="alert alert-danger">
+        Second name should be at least 2 characters
+        </div>
       </div>
-      <div *ngIf="firstName.errors?.minlength 
-        && firstName.touched" class="alert alert-danger">
-        First Name should be at least 2 characters
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Last Name</label>
-      <input 
-        type="text" 
-        class="form-control"
-        [(ngModel)]="lName"
-        name="lastname"
-        #lastName="ngModel"
-        minlength="2"
-        required
-      >
-      <div *ngIf="lastName.errors?.required 
-        && lastName.touched" class="alert alert-danger">
-        Last Name is required
-      </div>
-      <div *ngIf="lastName.errors?.minlength 
-        && lastName.touched" class="alert alert-danger">
-        Last Name should be at least 2 characters
-      </div>
-    </div>
-    <div class="form-group">
-      <label>Username</label>
-      <input 
-        type="text" 
-        class="form-control"
-        [(ngModel)]="uName"
-        name="username"
-        #userName="ngModel"
-        minlength="2"
-        required
-      >
-      <div *ngIf="userName.errors?.required 
-        && userName.touched" class="alert alert-danger">
-        Username is required
-      </div>
-      <div *ngIf="userName.errors?.minlength 
-        && userName.touched" class="alert alert-danger">
-        Username should be at least 2 characters
-      </div>
-    </div>
-    <div class="form-group">
-        <label>E-mail</label>
+      <div class="form-group">
+        <label>Last Name</label>
         <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="email"
-          name="email"
+          [(ngModel)]="lName"
+          name="lastname"
+          #lastName="ngModel"
+          minlength="2"
           required
         >
-    </div>
-    <div class="form-group">
-        <label>Phone number</label>
+        <div *ngIf="lastName.errors?.required 
+          && lastName.touched" class="alert alert-danger">
+          Last Name is required
+        </div>
+        <div *ngIf="lastName.errors?.minlength 
+          && lastName.touched" class="alert alert-danger">
+          Last Name should be at least 2 characters
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
         <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="phone"
-          name="phone"
+          [(ngModel)]="uName"
+          name="username"
+          #userName="ngModel"
+          minlength="2"
           required
         >
-    </div>
-    <div class="form-group">
-      <label>Password</label>
+        <div *ngIf="userName.errors?.required 
+          && userName.touched" class="alert alert-danger">
+          Username is required
+        </div>
+        <div *ngIf="userName.errors?.minlength 
+          && userName.touched" class="alert alert-danger">
+          Username should be at least 2 characters
+        </div>
+      </div>
+      <div class="form-group">
+          <label>E-mail</label>
+          <input 
+            type="email" 
+            class="form-control"
+            [(ngModel)]="email"
+            name="emaill"
+            #emaill="ngModel"
+            required
+          >
+          <div *ngIf="emaill.errors?.required 
+          && emaill.touched" class="alert alert-danger">
+          Email is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input 
+          type="text" 
+          class="form-control"
+          [(ngModel)]="addr"
+          name="address"
+          #address="ngModel"
+          minlength="2"
+          required
+        >
+        <div *ngIf="address.errors?.required 
+        && address.touched" class="alert alert-danger">
+        Adress is required
+        </div>
+        <div *ngIf="address.errors?.minlength 
+        && address.touched" class="alert alert-danger">
+        Adress should be at least 2 characters
+        </div>
+      </div>
+         <div class="form-group">
+         <label>Position</label>
       <input 
-        type="password" 
+        type="text" 
         class="form-control"
-        [(ngModel)]="pass"
-        name="password"
-        #userPassword="ngModel"
+        [(ngModel)]="posit"
+        name="position"
+        #position="ngModel"
+        minlength="2"
         required
       >
-      <div *ngIf="userPassword.errors?.required 
-        && userPassword.touched" class="alert alert-danger">
-        Password is required
+      <div *ngIf="position.errors?.required 
+      && position.touched" class="alert alert-danger">
+      Position is required
       </div>
-    </div>
-    <div class="form-group">
-      <label>Repeat Password</label>
-      <input 
-        type="password" 
-        class="form-control"
-        [(ngModel)]="rPass"
-        name="repeatpassword"
-        #repeatPassword="ngModel"
-        required
-      >
-      <div *ngIf="repeatPassword.errors?.required 
-        && repeatPassword.touched" class="alert alert-danger">
-        Repeat Password is required
+      <div *ngIf="position.errors?.minlength 
+      && position.touched" class="alert alert-danger">
+      position should be at least 2 characters
       </div>
+      </div>
+      <div class="form-group">
+       <label>PersonalId</label>
+       <input 
+      type="text" 
+      class="form-control"
+      [(ngModel)]="persId"
+      name="personalId"
+      #personalId="ngModel"
+      minlength="2"
+      required
+       >
+       <div *ngIf="personalId.errors?.required 
+    && personalId.touched" class="alert alert-danger">
+    personalId is required
     </div>
-    <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">
-      Register
-    </button>
-  </form>
-</div>
+    <div *ngIf="personalId.errors?.minlength 
+    && personalId.touched" class="alert alert-danger">
+    personalId should be at least 2 characters
+    </div>
+    </div> 
+      <div class="form-group">
+          <label>Phone number</label>
+          <input 
+            type="text" 
+            class="form-control"
+            [(ngModel)]="telephone"
+            name="phone"
+            minlength="8"
+            required
+          >
+          <div *ngIf="phone.errors?.minlength 
+          && phone.touched" class="alert alert-danger">
+          Phone number should be at least 8 characters
+          </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input 
+          type="password" 
+          class="form-control"
+          [(ngModel)]="password"
+          name="pass"
+          #pass="ngModel"
+          required
+        >
+        <div *ngIf="pass.errors?.required 
+          && pass.touched" class="alert alert-danger">
+          Password is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Repeat Password</label>
+        <input 
+          type="password" 
+          class="form-control"
+          [(ngModel)]="rPass"
+          name="repeatpassword"
+          #repeatPassword="ngModel"
+          required
+        >
+        <div *ngIf="repeatPassword.errors?.required 
+          && repeatPassword.touched" class="alert alert-danger">
+          Repeat Password is required
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">
+        Register
+      </button>
+    </form>
+  </div>
