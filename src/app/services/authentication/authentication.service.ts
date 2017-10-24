@@ -90,9 +90,9 @@ export class AuthenticationService {
           "currentUserDetails",
           JSON.stringify(response.json())
         );
-        //console.log("   ----------------------------- getCurrentuserDetails - Results     ---------------------- ");
+        console.log("   ----------------------------- getCurrentuserDetails - Results     ---------------------- ");
         //console.log(localStorage.getItem("currentUser"));
-        //console.log(localStorage.getItem("currentUserDetails"));
+        console.log(localStorage.getItem("currentUserDetails"));
         return true;
       });
   }
@@ -100,8 +100,9 @@ export class AuthenticationService {
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("currentUserDetails");
+    // localStorage.removeItem("currentUser");
+    // localStorage.removeItem("currentUserDetails");
+    localStorage.clear();
     this.router.navigate(['/login']);
     console.log(" -------------------- logout -----------------------------");
   }
