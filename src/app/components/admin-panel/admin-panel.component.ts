@@ -43,7 +43,7 @@ export class AdminPanelComponent implements OnInit {
     this.getRequests();
   }
   getRequests() {
-    this.requestListService.getRequests().subscribe(requests => (this.requests = requests));
+    this.requestListService.getAllRequests().subscribe(requests => (this.requests = requests));
     this.recordCount = this.requests.length;
   }
 
