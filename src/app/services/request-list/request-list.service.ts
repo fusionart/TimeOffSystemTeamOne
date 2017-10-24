@@ -14,12 +14,13 @@ export class RequestListService {
     requests: Array<TimeOffRequest>;
     currentUser: User;
     selectedRowData: any;
-
+    userId: any;
     public static readonly GET_REQUESTS = environment.apiUrl + "/api/request-list";
     public static readonly GET_USER = environment.apiUrl + "/api/get-user?id=";
 
     constructor(private http: Http, private userService: UserService) {
         this.requests = new Array<TimeOffRequest>();
+        this.userId = JSON.parse(localStorage.getItem("currentUserDetails")).userId;
     }
 
     setRowData(data) {
@@ -38,22 +39,16 @@ export class RequestListService {
         this._listners.next(filterBy);
     }
 
-    get userId(): any {
-        if (localStorage.getItem("currentUser") != null) {
-           return JSON.parse(localStorage.getItem("currentUserDetails")).userId;
-        } else {
-            return false;
-        }
-    }
+    // get userId(): any {
+    //     if (localStorage.getItem("currentUser") != null) {
+    //        return JSON.parse(localStorage.getItem("currentUserDetails")).userId;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     extractData(response: Response) {
         return response.json();
-    }
-
-    public getRequests1(): TimeOffRequest[] {
-        console.log("-------------------------------getRequests---------------------------");
-        console.log(this.currentUser);
-        return newFunction();
     }
 
 
@@ -61,8 +56,6 @@ export class RequestListService {
         let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
 
         let token = this.userService.getStoredToken();
-        //console.log("token");
-        //console.log(token);
         if (token !== null) {
             cpHeaders.append("Authorization", token);
         }
@@ -71,13 +64,10 @@ export class RequestListService {
         return this.http.get(RequestListService.GET_USER + loggedUser, options)
             .map(this.extractData)
             .map((responseUser: User) => {
-                console.log(" ------------------------------------------getCurrentUserData-------------------------------------");
-                console.log(responseUser);
                 let result: User;
                 if (responseUser) {
                     result = responseUser;
                 }
-                //console.log(result);
                 return result;
             });
     }
@@ -86,20 +76,13 @@ export class RequestListService {
         let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
                 
                 let token = this.userService.getStoredToken();
-                //console.log("token");
-                //console.log(token);
                 if (token !== null) {
                     cpHeaders.append("Authorization", token);
                 }
                 let options = new RequestOptions({ headers: cpHeaders });
-                var loggedUser = this.userId;       
-                return this.http.get(RequestListService.GET_USER + loggedUser, options)
-               .map((response: Response) => {  
-                console.log(" ------------------------------------------getRequests-------------------------------------");
-                console.log(response.json().userRequests);      
-                console.log(" --------------------------***-------end of response print--------***------------------------");    
+                return this.http.get(RequestListService.GET_USER + this.userId, options)
+               .map((response: Response) => {    
                 this.currentUser = response.json();
-                console.log(this.currentUser);
                 return response.json().userRequests;
               });
     }
@@ -114,7 +97,7 @@ export class RequestListService {
 
         let options = new RequestOptions({ headers: cpHeaders });
         
-        var loggedUser = this.userId;
+        // var loggedUser = this.userId;
 
         return this.http.get(RequestListService.GET_REQUESTS, options)
             .map(this.extractData)

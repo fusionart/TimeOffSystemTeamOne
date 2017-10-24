@@ -61,7 +61,6 @@ export class RequestsListComponent implements OnInit {
   }
 
   getCurrentUser() {
-    console.log("component ---------- getCurrentUser --------------------------------");
     this.requestListService.getCurrentUserData().subscribe(
       user => { this.user = user },
       (err) => { console.log(err) },
