@@ -1,3 +1,5 @@
+import { TimeOffRequest } from "./timeOffRequest";
+
 export class User {
   public id: number;
   public personalId: string;
@@ -11,6 +13,7 @@ export class User {
   public email: string;
   public ptoAvailable: number;
   public ptoTotal: number;
+  public requests?: TimeOffRequest[];
   constructor(
     id,
     personalId,
@@ -23,7 +26,8 @@ export class User {
     position,
     email,
     ptoAvailable,
-    ptoTotal
+    ptoTotal,
+    requests
   ) {
     this.id = id;
     this.personalId = personalId;
@@ -37,5 +41,9 @@ export class User {
     this.email = email;
     this.ptoAvailable = ptoAvailable;
     this.ptoTotal = ptoTotal;
+    this.requests = requests;
+  }
+  public getRequests() {
+    return this.requests;
   }
 }
