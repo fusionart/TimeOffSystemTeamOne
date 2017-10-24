@@ -11,7 +11,7 @@ import { User } from "./../../models/user";
 export class RegisterFormComponent {
 
   constructor(
-    private registerUserService: RegisterUserService;
+    private registerUserService: RegisterUserService
   ) { }
 
   OnSubmit(form: NgForm) {
