@@ -14,24 +14,48 @@ export class RegisterFormComponent {
     private registerUserService: RegisterUserService
   ) { }
 
-  OnSubmit(form: NgForm) {
+  id: number;
+  persId: string;
+  fName: string;
+  sName: string;
+  lName: string;
+  isAdmin: boolean;
+  uName: string;
+  addr: string;
+  telephone: string;
+  password: string;
+  posit: string;
+  email: string;
+  ptoAvailable: number;
+  ptoTotal: number;
+
+  repPassword: string;
+  noMatch: boolean;
+
+  OnSubmit(form: NgForm) {   
     let user = new User(
-      null,
-      "100",
-      "Petra",
-      "Ivanova",
-      "Ivanova",
-      false,
-      "gotinata1",
-      "12345678",
-      "cooker",
-      "petra@petra.petra",
-      20,
-      30,
-      3
-      );
+      this.id,
+      this.fName,
+      this.sName,
+      this.lName,
+      this.isAdmin = false,
+      this.uName,
+      this.addr,
+      this.telephone,
+      this.password,
+      this.posit,
+      this.email,
+      this.ptoAvailable = null,
+      this.ptoTotal = null)
       this.registerUserService.addRequest(user)
     console.log(form)
+  }
+
+  OnRegister() {
+    if(this.password != this.repPassword)
+    {
+      this.noMatch = true;
+    }
   }
 
 }
