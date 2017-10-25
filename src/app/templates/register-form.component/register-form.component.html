@@ -1,6 +1,9 @@
 <div class="container">
     <h1>Register</h1>
     <form novalidate #f="ngForm" (ngSubmit)="OnSubmit(f)">
+        <div *ngIf="noMatch" class="alert alert-danger">
+            Passwords do not match
+            </div>
       <div class="form-group">
         <label>First Name</label>
         <input 
@@ -163,6 +166,7 @@
             class="form-control"
             [(ngModel)]="telephone"
             name="phone"
+            #phone="ngModel"
             minlength="8"
             required
           >
@@ -200,9 +204,6 @@
           && repeatPassword.touched" class="alert alert-danger">
           Repeat Password is required
         </div>
-        </div>
-        <div *ngIf="noMatch" class="alert alert-danger">
-        Passwords do not match
         </div>
         <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">
         Register
