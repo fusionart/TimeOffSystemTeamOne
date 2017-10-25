@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Register</h1>
-    <form novalidate #f="ngForm" (ngSubmit)="OnSubmit(f)">
+    <form novalidate #f="ngForm" (ngSubmit)="OnSubmit()">
         <div *ngIf="noMatch" class="alert alert-danger">
             Passwords do not match
             </div>
