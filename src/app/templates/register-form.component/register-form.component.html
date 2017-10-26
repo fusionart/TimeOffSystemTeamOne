@@ -9,18 +9,18 @@
         <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="fName"
-          name="firstname"
-          #firstName="ngModel"
+          [(ngModel)]="firstName"
+          name="fname"
+          #fName="ngModel"
           minlength="2"
           required
         >
-        <div *ngIf="firstName.errors?.required 
-          && firstName.touched" class="alert alert-danger">
+        <div *ngIf="fName.errors?.required 
+          && fName.touched" class="alert alert-danger">
           First Name is required
         </div>
-        <div *ngIf="firstName.errors?.minlength 
-          && firstName.touched" class="alert alert-danger">
+        <div *ngIf="fName.errors?.minlength 
+          && fName.touched" class="alert alert-danger">
           First Name should be at least 2 characters
         </div>
         </div>
@@ -29,18 +29,18 @@
           <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="sName"
-          name="secondName"
-          #secondName="ngModel"
+          [(ngModel)]="secondName"
+          name="sName"
+          #sName="ngModel"
           minlength="2"
           required
         >
-        <div *ngIf="firstName.errors?.required 
-        && firstName.touched" class="alert alert-danger">
-        First Name is required
+        <div *ngIf="sName.errors?.required 
+        && sName.touched" class="alert alert-danger">
+        Second name is required
         </div>
-        <div *ngIf="secondName.errors?.minlength 
-        && secondName.touched" class="alert alert-danger">
+        <div *ngIf="sName.errors?.minlength 
+        && sName.touched" class="alert alert-danger">
         Second name should be at least 2 characters
         </div>
         </div>
@@ -49,18 +49,18 @@
         <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="lName"
-          name="lastname"
-          #lastName="ngModel"
+          [(ngModel)]="lastName"
+          name="lName"
+          #lName="ngModel"
           minlength="2"
           required
         >
-        <div *ngIf="lastName.errors?.required 
-          && lastName.touched" class="alert alert-danger">
+        <div *ngIf="lName.errors?.required 
+          && lName.touched" class="alert alert-danger">
           Last Name is required
         </div>
-        <div *ngIf="lastName.errors?.minlength 
-          && lastName.touched" class="alert alert-danger">
+        <div *ngIf="lName.errors?.minlength 
+          && lName.touched" class="alert alert-danger">
           Last Name should be at least 2 characters
         </div>
         </div>
@@ -69,18 +69,18 @@
         <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="uName"
-          name="username"
-          #userName="ngModel"
+          [(ngModel)]="username"
+          name="uName"
+          #uName="ngModel"
           minlength="2"
           required
         >
-        <div *ngIf="userName.errors?.required 
-          && userName.touched" class="alert alert-danger">
+        <div *ngIf="uName.errors?.required 
+          && uName.touched" class="alert alert-danger">
           Username is required
         </div>
-        <div *ngIf="userName.errors?.minlength 
-          && userName.touched" class="alert alert-danger">
+        <div *ngIf="uName.errors?.minlength 
+          && uName.touched" class="alert alert-danger">
           Username should be at least 2 characters
         </div>
         </div>
@@ -104,18 +104,18 @@
         <input 
           type="text" 
           class="form-control"
-          [(ngModel)]="addr"
-          name="address"
-          #address="ngModel"
+          [(ngModel)]="address"
+          name="addr"
+          #addr="ngModel"
           minlength="2"
           required
         >
-        <div *ngIf="address.errors?.required 
-        && address.touched" class="alert alert-danger">
+        <div *ngIf="addr.errors?.required 
+        && addr.touched" class="alert alert-danger">
         Adress is required
         </div>
-        <div *ngIf="address.errors?.minlength 
-        && address.touched" class="alert alert-danger">
+        <div *ngIf="addr.errors?.minlength 
+        && addr.touched" class="alert alert-danger">
         Adress should be at least 2 characters
         </div>
         </div>
@@ -124,19 +124,19 @@
         <input 
         type="text" 
         class="form-control"
-        [(ngModel)]="posit"
-        name="position"
-        #position="ngModel"
+        [(ngModel)]="position"
+        name="posit"
+        #posit="ngModel"
         minlength="2"
         required
         >
-        <div *ngIf="position.errors?.required 
-        && position.touched" class="alert alert-danger">
+        <div *ngIf="posit.errors?.required 
+        && posit.touched" class="alert alert-danger">
         Position is required
         </div>
-        <div *ngIf="position.errors?.minlength 
-        && position.touched" class="alert alert-danger">
-        position should be at least 2 characters
+        <div *ngIf="posit.errors?.minlength 
+        && posit.touched" class="alert alert-danger">
+        The position should be at least 2 characters
         </div>
         </div>
         <div class="form-group">
@@ -144,18 +144,18 @@
         <input 
         type="text" 
         class="form-control"
-        [(ngModel)]="persId"
-        name="personalId"
-        #personalId="ngModel"
+        [(ngModel)]="personalId"
+        name="persId"
+        #persId="ngModel"
         minlength="2"
         required
         >
-        <div *ngIf="personalId.errors?.required 
-        && personalId.touched" class="alert alert-danger">
-        personalId is required
+        <div *ngIf="persId.errors?.required 
+        && persId.touched" class="alert alert-danger">
+        Personal Id is required
         </div>
-        <div *ngIf="personalId.errors?.minlength 
-        && personalId.touched" class="alert alert-danger">
+        <div *ngIf="persId.errors?.minlength 
+        && persId.touched" class="alert alert-danger">
         personalId should be at least 2 characters
         </div>
         </div> 

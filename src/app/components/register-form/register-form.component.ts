@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RegisterUserService } from './../../services/register-user/register-user.service';
-import { User } from "./../../models/user";
+import { registerUserRequest } from "./../../models/requestModels/registerUserRequest";
 
 @Component({
   selector: 'app-register-form',
@@ -15,17 +15,17 @@ export class RegisterFormComponent {
   ) { }
 
   id: number;
-  persId: string;
-  fName: string;
-  sName: string;
-  lName: string;
-  isAdmin: boolean;
-  uName: string;
-  addr: string;
+  username: string;
+  password: string;  
+  personalId: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  email: string;  
+  address: string;  
   telephone: string;
-  password: string;
-  posit: string;
-  email: string;
+  position: string;
+  isAdmin: boolean;  
   ptoAvailable: number;
   ptoTotal: number;
 
@@ -33,21 +33,21 @@ export class RegisterFormComponent {
   noMatch: boolean;
 
   OnSubmit(form: NgForm) {   
-    let user = new User(
+    let user = new registerUserRequest(
       this.id,
-      this.fName,
-      this.sName,
-      this.lName,
-      this.isAdmin = false,
-      this.uName,
-      this.addr,
-      this.telephone,
+      this.username,
       this.password,
-      this.posit,
+      this.personalId,
+      this.firstName,
+      this.secondName,
+      this.lastName,
       this.email,
-      this.ptoAvailable = null,
-      this.ptoTotal = null)
-      this.registerUserService.addRequest(user)
+      this.address,
+      this.telephone,
+      this.position,
+      this.isAdmin,
+      this.ptoAvailable,
+      this.ptoTotal)
     console.log(form)
   }
 
