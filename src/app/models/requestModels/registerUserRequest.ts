@@ -1,4 +1,4 @@
-export class registerUserRequest {
+export class RegisterUserRequest {
     public id: number;
 	public username: string;
 	public password: string;

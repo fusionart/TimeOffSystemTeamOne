@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RegisterUserService } from './../../services/register-user/register-user.service';
-import { registerUserRequest } from "./../../models/requestModels/registerUserRequest";
+import { RegisterUserRequest } from "./../../models/requestModels/RegisterUserRequest";
 
 @Component({
   selector: 'app-register-form',
@@ -10,9 +11,7 @@ import { registerUserRequest } from "./../../models/requestModels/registerUserRe
 })
 export class RegisterFormComponent {
 
-  constructor(
-    private registerUserService: RegisterUserService
-  ) { }
+  user: RegisterUserRequest;
 
   id: number;
   username: string;
@@ -32,8 +31,13 @@ export class RegisterFormComponent {
   repPassword: string;
   noMatch: boolean;
 
+  constructor(
+    private router:Router,
+    private registerUserService: RegisterUserService
+  ) { }
+
   OnSubmit(form: NgForm) {   
-    let user = new registerUserRequest(
+      this.user = new RegisterUserRequest(
       this.id,
       this.username,
       this.password,
@@ -47,9 +51,16 @@ export class RegisterFormComponent {
       this.position,
       this.isAdmin,
       this.ptoAvailable,
-      this.ptoTotal)
-    console.log(form)
-  }
+      this.ptoTotal);
+      console.log(this.user);
+      this.registerUserService.registerUser(this.user).subscribe(
+        response => {
+          console.log(response);
+        },
+        error => console.log(error)
+      );
+      this.router.navigate(['/login']);      
+        }
 
   OnRegister() {
     if(this.password != this.repPassword)
