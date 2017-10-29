@@ -15,7 +15,7 @@
           <span>{{ri+1}}</span>
         </ng-template>
       </p-column>
-      <p-column header="User"></p-column>
+      <p-column field="personalId" header="User"></p-column>
       <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals"
         [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
         <ng-template pTemplate="filter" let-col>
@@ -27,7 +27,7 @@
         </ng-template>
       </p-column>
       <p-column field="days" header="Days" styleClass="daysColumn text-center"></p-column>
-      <p-column header="Dates"></p-column>
+      <p-column field="allDates" header="Dates"></p-column>
       <p-column field="dateOfSubmit" header="Submit Date" [sortable]="true" styleClass="submitColumn text-center"></p-column>
       <p-column field="status" header="Status" [sortable]="true" styleClass="statusColumn text-center" [filter]="true" filterPlaceholder="Status"
         filterMatchMode="equals" [style]="{'overflow':'visible'}">

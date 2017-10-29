@@ -35,12 +35,13 @@ export class RequestsListComponent implements OnInit {
     })
     this.authe.listen().subscribe((m: any) => {
       this.getCurrentUser();
+      this.getRequests();
     })
   }
 
   ngOnInit() {
-    this.getRequests();
     if (this.authe.isUser == null) {
+      this.getRequests();
       this.getCurrentUser();
     }
   }

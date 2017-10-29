@@ -25,10 +25,10 @@ export class AdminPanelComponent implements OnInit {
   isApproved: boolean = false;
 
   displayDialog: boolean;
-  request: TimeOffRequestInterface = new PrimeRequest();  //car
-  selectedRequest: TimeOffRequestInterface; //selectedCar
-  newRequest: boolean; //newCar
-  requestsI: TimeOffRequestInterface[]; //cars
+  request: TimeOffRequestInterface = new PrimeRequest();
+  selectedRequest: TimeOffRequestInterface;
+  newRequest: boolean;
+  requestsI: TimeOffRequestInterface[];
 
   constructor(
     private requestListService: RequestListService,
@@ -42,6 +42,7 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit() {
     this.getRequests();
   }
+
   getRequests() {
     this.requestListService.getAllRequests().subscribe(requests => (this.requests = requests));
     this.recordCount = this.requests.length;

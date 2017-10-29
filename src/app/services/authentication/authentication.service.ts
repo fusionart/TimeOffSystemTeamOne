@@ -44,11 +44,7 @@ export class AuthenticationService {
     let options = new RequestOptions({ headers: header });
 
     return this.http
-      .post(
-      AuthenticationService.LOGIN_REQUEST,
-      JSON.stringify({ username: username, password: password }),
-      options
-      )
+      .post(AuthenticationService.LOGIN_REQUEST, JSON.stringify({ username: username, password: password }), options)
       .map((response: Response) => {
         //console.log(response);
         //console.log(response.text());
@@ -62,7 +58,6 @@ export class AuthenticationService {
             JSON.stringify({ username: username, token: token })
           );
           // return true to indicate successful login
-          console.log(localStorage.getItem("currentUser"));
           this.getCurrentuserDetails(username).subscribe(requests => { this.requestsUserInfo = requests }, (err) => { console.log(err) }, () => { this.filter("true"), this.setIsUser(true); });
 
           return true;

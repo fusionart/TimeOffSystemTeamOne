@@ -42,6 +42,7 @@ export class CreateRequestComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
+    this.requestListService.setRowData(null);
   }
 
   getCurrentUser() {
