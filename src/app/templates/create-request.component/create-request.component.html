@@ -36,6 +36,11 @@
         </h5>
         <input class="ui-g-12 bRadius" type="text" pInputText [(ngModel)]="inputDates" name="inputDates" [disabled]="true" />
         <app-calendar (outputs)='onCalendarChange($event)'></app-calendar>
+        <h5>Info</h5>
+        <ul>
+          <li>Click on <b>EVERY</b> date you want to select</li>
+          <li><span class="r">red</span> color dates are Official Holidays (not working days)</li>
+        </ul>
       </div>
       <div class="ui-g-12">
         <button [disabled]="allowClear()" type="button" class="btn btn-primary ui-g-2" (click)="clearCalendar()"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear calendar</button>

@@ -13,10 +13,11 @@ import { AlertComponent } from './components/alert/alert.component';
 import { RequestsListModule } from './components/requests-list/requests-list.module';
 import { CalendarNModule } from './components/calendar/calendar.module';
 import { LoginFormModule } from './components/login-form/login-form.module';
-import { AlertService} from './services/alert/alert.service';
+import { AlertService } from './services/alert/alert.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { UserService } from './services/user/user.service';
 import { AdminPanelModule } from './components/admin-panel/admin-panel.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AdminPanelModule } from './components/admin-panel/admin-panel.module';
     RequestDetailsModule,
     DropdownNModule,
     LoginFormModule,
-    AdminPanelModule
+    AdminPanelModule,
+    NgbModule.forRoot()
   ],
   providers: [
     AlertService,

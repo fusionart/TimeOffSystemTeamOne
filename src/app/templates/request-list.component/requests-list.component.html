@@ -28,7 +28,8 @@
             styleClass="ui-column-filter"></p-dropdown>
         </ng-template>
         <ng-template let-col let-file="rowData" pTemplate="body">
-          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18"> {{file[col.field]}}
+          <ng-template #tipContent>Time off type: <b>{{onFocusT(file[col.field])}}</b>!</ng-template>
+          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18" [ngbTooltip]="tipContent" #t="ngbTooltip"> {{file[col.field]}}
         </ng-template>
       </p-column>
       <p-column field="days" header="Days" styleClass="daysColumn text-center"></p-column>
