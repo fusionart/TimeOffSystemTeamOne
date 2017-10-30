@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../../services/authentication/authentication.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { User } from '../../models/user';
@@ -7,6 +7,7 @@ import { TimeOffRequest } from "../../models/timeOffRequest";
 import { RequestListService } from '../../services/request-list/request-list.service';
 import { FormControl } from "@angular/forms";
 import 'rxjs/add/operator/switchMap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-requests-list',
@@ -22,6 +23,9 @@ export class RequestsListComponent implements OnInit {
   selectedRowData: any;
   currentuserAvailablePto: number;
   theDays: number;
+  ptoType: string;
+
+  @ViewChild('t') public tooltip: NgbTooltip;
 
   constructor(
     private requestListService: RequestListService,
@@ -35,12 +39,13 @@ export class RequestsListComponent implements OnInit {
     })
     this.authe.listen().subscribe((m: any) => {
       this.getCurrentUser();
+      this.getRequests();
     })
   }
 
   ngOnInit() {
-    this.getRequests();
     if (this.authe.isUser == null) {
+      this.getRequests();
       this.getCurrentUser();
     }
   }
@@ -109,6 +114,16 @@ export class RequestsListComponent implements OnInit {
     this.selectedRowData = rowInfo.data;
     this.requestListService.setRowData(this.selectedRowData);
     this.router.navigate(['/request-details']);
+  }
+
+  onFocusT(type) {
+    if (type == "PTO") {
+      return this.ptoType = "Paid time off";
+    } else if (type == "UPTO") {
+      return this.ptoType = "Unpaid time off";
+    } else if (type == "SL") {
+      return this.ptoType = "Sick leave";
+    }
   }
 
 }

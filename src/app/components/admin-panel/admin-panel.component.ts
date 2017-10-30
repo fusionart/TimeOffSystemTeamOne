@@ -1,11 +1,12 @@
 import { AdminPanelService } from './../../services/admin-panel/admin-panel.service';
 import { TimeOffRequest } from './../../models/timeOffRequest';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RequestListService } from '../../services/request-list/request-list.service';
 import { Location } from '@angular/common';
 import { User } from '../../models/user';
 import { TimeOffRequestInterface } from '../../models/timeOffRequestInterface';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-panel',
@@ -14,8 +15,6 @@ import { TimeOffRequestInterface } from '../../models/timeOffRequestInterface';
 })
 export class AdminPanelComponent implements OnInit {
 
-  encapsulation: ViewEncapsulation.None
-
   requests: TimeOffRequest[] = [];
   user: User;
   recordCount: number;
@@ -23,12 +22,15 @@ export class AdminPanelComponent implements OnInit {
   selectedRow: any;
   selectedRowData: any;
   isApproved: boolean = false;
+  ptoType: string;
 
   displayDialog: boolean;
-  request: TimeOffRequestInterface = new PrimeRequest();  //car
-  selectedRequest: TimeOffRequestInterface; //selectedCar
-  newRequest: boolean; //newCar
-  requestsI: TimeOffRequestInterface[]; //cars
+  request: TimeOffRequestInterface = new PrimeRequest();
+  selectedRequest: TimeOffRequestInterface;
+  newRequest: boolean;
+  requestsI: TimeOffRequestInterface[];
+
+  @ViewChild('t') public tooltip: NgbTooltip;
 
   constructor(
     private requestListService: RequestListService,
@@ -42,6 +44,7 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit() {
     this.getRequests();
   }
+
   getRequests() {
     this.requestListService.getAllRequests().subscribe(requests => (this.requests = requests));
     this.recordCount = this.requests.length;
@@ -123,6 +126,16 @@ export class AdminPanelComponent implements OnInit {
       request[prop] = c[prop];
     }
     return request;
+  }
+
+  onFocusT(type) {
+    if (type == "PTO") {
+      return this.ptoType = "Paid time off";
+    } else if (type == "UPTO") {
+      return this.ptoType = "Unpaid time off";
+    } else if (type == "SL") {
+      return this.ptoType = "Sick leave";
+    }
   }
 
 }
