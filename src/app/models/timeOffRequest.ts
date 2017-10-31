@@ -9,5 +9,5 @@ export class TimeOffRequest {
   public note: string;
   public dateOfSubmit?: string;
   public userId?: number;
-  public selectedDays?: any[];
+  public selectedDays?: Date[];
 }
