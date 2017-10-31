@@ -15,16 +15,16 @@ export class RegisterFormComponent {
 
   id: number;
   username: string;
-  password: string;  
+  password: string;
   personalId: string;
   firstName: string;
   secondName: string;
   lastName: string;
-  email: string;  
-  address: string;  
+  email: string;
+  address: string;
   telephone: string;
   position: string;
-  isAdmin: boolean;  
+  isAdmin: boolean;
   ptoAvailable: number;
   ptoTotal: number;
 
@@ -32,12 +32,12 @@ export class RegisterFormComponent {
   noMatch: boolean;
 
   constructor(
-    private router:Router,
+    private router: Router,
     private registerUserService: RegisterUserService
   ) { }
 
-  OnSubmit(form: NgForm) {   
-      this.user = new RegisterUserRequest(
+  OnSubmit(form: NgForm) {
+    this.user = new RegisterUserRequest(
       this.id,
       this.username,
       this.password,
@@ -52,21 +52,19 @@ export class RegisterFormComponent {
       this.isAdmin,
       this.ptoAvailable,
       this.ptoTotal);
-      console.log(this.user);
+    console.log(this.user);
+
+    if (this.password != this.repPassword) {
+      this.noMatch = true;
+      console.log(this.noMatch);
+    } else {
       this.registerUserService.registerUser(this.user).subscribe(
         response => {
           console.log(response);
         },
         error => console.log(error)
       );
-      this.router.navigate(['/login']);      
-        }
-
-  OnRegister() {
-    if(this.password != this.repPassword)
-    {
-      this.noMatch = true;
+      this.router.navigate(['/login']);
     }
   }
-
 }
