@@ -8,3 +8,12 @@
      width: 22px;
      text-align: center;
  }
+
+ span.r{
+     background-color: red;
+     border-radius: 3px;
+     border: 1px solid rgb(255, 0, 0);
+     color: white;
+     padding: 2px;
+     text-align: center;
+ }

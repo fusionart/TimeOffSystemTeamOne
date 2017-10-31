@@ -4,7 +4,8 @@
     <span class="breadcrumb-item active">Admin panel</span>
   </nav>
   <h2>Requests - admin panel</h2>
-  <button type="button" class="btn btn-success btn-marg" routerLink="/register-form" routerLinkActive="active"><i class="fa fa-address-book-o" aria-hidden="true"></i> New user</button>
+  <button type="button" class="btn btn-success btn-marg" routerLink="/register-form" routerLinkActive="active">
+    <i class="fa fa-address-book-o" aria-hidden="true"></i> New user</button>
   <div class="content-section implementation">
     <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5"
       [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow"
@@ -15,7 +16,7 @@
           <span>{{ri+1}}</span>
         </ng-template>
       </p-column>
-      <p-column header="User"></p-column>
+      <p-column field="personalId" header="User"></p-column>
       <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals"
         [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
         <ng-template pTemplate="filter" let-col>
@@ -23,11 +24,13 @@
             styleClass="ui-column-filter"></p-dropdown>
         </ng-template>
         <ng-template let-col let-file="rowData" pTemplate="body">
-          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18"> {{file[col.field]}}
+        <ng-template #tipContent>Time off type:
+            <b>{{onFocusT(file[col.field])}}</b>!</ng-template>
+          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18" [ngbTooltip]="tipContent" #t="ngbTooltip"> {{file[col.field]}}
         </ng-template>
       </p-column>
       <p-column field="days" header="Days" styleClass="daysColumn text-center"></p-column>
-      <p-column header="Dates"></p-column>
+      <p-column field="allDates" header="Dates"></p-column>
       <p-column field="dateOfSubmit" header="Submit Date" [sortable]="true" styleClass="submitColumn text-center"></p-column>
       <p-column field="status" header="Status" [sortable]="true" styleClass="statusColumn text-center" [filter]="true" filterPlaceholder="Status"
         filterMatchMode="equals" [style]="{'overflow':'visible'}">
@@ -83,5 +86,6 @@
       </p-footer>
     </p-dialog>
   </div>
-  <button type="button" class="btn btn-success back" (click)="goBack()"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
+  <button type="button" class="btn btn-success back" (click)="goBack()">
+    <i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
 </div>

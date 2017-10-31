@@ -14,13 +14,11 @@ export class RequestListService {
     requests: Array<TimeOffRequest>;
     currentUser: User;
     selectedRowData: any;
-    userId: any;
     public static readonly GET_REQUESTS = environment.apiUrl + "/api/request-list";
     public static readonly GET_USER = environment.apiUrl + "/api/get-user?id=";
 
     constructor(private http: Http, private userService: UserService) {
         this.requests = new Array<TimeOffRequest>();
-        this.userId = JSON.parse(localStorage.getItem("currentUserDetails")).userId;
     }
 
     setRowData(data) {
@@ -39,18 +37,17 @@ export class RequestListService {
         this._listners.next(filterBy);
     }
 
-    // get userId(): any {
-    //     if (localStorage.getItem("currentUser") != null) {
-    //        return JSON.parse(localStorage.getItem("currentUserDetails")).userId;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+    get userId(): any {
+        if (localStorage.getItem("currentUser") != null) {
+           return JSON.parse(localStorage.getItem("currentUserDetails")).userId;
+        } else {
+            return false;
+        }
+    }
 
     extractData(response: Response) {
         return response.json();
     }
-
 
     public getCurrentUserData(): Observable<User> {
         let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
@@ -72,7 +69,7 @@ export class RequestListService {
             });
     }
 
-    public  getRequests(): Observable<TimeOffRequest[]> {
+    public getRequests(): Observable<TimeOffRequest[]> {
         let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
                 
                 let token = this.userService.getStoredToken();
@@ -96,8 +93,6 @@ export class RequestListService {
         }
 
         let options = new RequestOptions({ headers: cpHeaders });
-        
-        // var loggedUser = this.userId;
 
         return this.http.get(RequestListService.GET_REQUESTS, options)
             .map(this.extractData)
@@ -111,26 +106,6 @@ export class RequestListService {
                 return result;
             });
         }
-    // public getCurrentUserData(): Observable<User> {
-    //     let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
-
-    //     let token = this.userService.getStoredToken();
-    //     //console.log("token");
-    //     //console.log(token);
-    //     if (token !== null) {
-    //         cpHeaders.append("Authorization", token);
-    //     }
-    //     let options = new RequestOptions({ headers: cpHeaders });       
-    //     return this.http.get(RequestListService.GET_USER + this.loggedUser, options)
-    //    .map((response: Response) => {  
-    //     console.log(response);          
-    //     this.currentUser = response.json();
-    //     console.log(this.currentUser);
-    //     return this.currentUser;
-    //   });
-
-    // }
-
 
     getTOFimage(typeTO: string): Promise<String> {
         let imageFileName = '/assets/images/';

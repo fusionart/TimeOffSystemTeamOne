@@ -42,6 +42,7 @@ export class CreateRequestComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
+    this.requestListService.setRowData(null);
   }
 
   getCurrentUser() {
@@ -128,6 +129,7 @@ export class CreateRequestComponent implements OnInit {
     this.timeOffRequest.dateFinish = this.cal.dates[this.cal.dates.length - 1];
     this.timeOffRequest.reason = this.reasons;
     this.timeOffRequest.note = this.note;
+    this.timeOffRequest.selectedDays = this.cal.dates;
 
     this.createRequestService
       .addRequest(this.timeOffRequest)

@@ -44,11 +44,13 @@ export class RequestDetailsComponent implements OnInit {
 
   getCurentUserPersonId() {
     if (this.user != null) {
-      return this.user.personalId;
+      let personId = this.user.firstName + " " +this.user.lastName;
+      return personId;
     } 
   }
 
   goBack(): void {
+    this.requestListService.filter("reload");
     this.router.navigate(['/list']);
   }
 
