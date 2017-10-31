@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { RegisterFormComponent } from './register-form.component';
 import { RegisterFormRoutes } from './register-form.routes';
+import { RegisterUserService } from './../../services/register-user/register-user.service';
+
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { RegisterFormRoutes } from './register-form.routes';
     FormsModule,
     RegisterFormRoutes
   ],
-  providers: []
+  providers: [
+    RegisterUserService
+  ]
 })
 export class RegisterFormModule { }
