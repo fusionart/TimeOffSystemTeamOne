@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit {
     let commar: String = ", ";
     this.inputDates = "";
     this.dates.sort((n1:any,n2:any) => n1 - n2);
-    console.log(this.dates);
+    console.log(this.dates[0].getDay());
     for (var i = 0; i < this.dates.length; i++) {
       if (i == this.dates.length - 1) {
         commar = "";
