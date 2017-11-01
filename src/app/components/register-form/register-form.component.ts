@@ -64,7 +64,7 @@ export class RegisterFormComponent {
         },
         error => console.log(error)
       );
-      this.router.navigate(['/login']);
+      this.router.navigate(['/admin-panel']);
     }
   }
 }
