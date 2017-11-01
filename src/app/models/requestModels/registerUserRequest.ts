@@ -12,7 +12,7 @@ export class RegisterUserRequest {
     public position: string;
     public isAdmin: boolean;
     public ptoAvailable: number;
-    public ptoTotal: string;
+    public ptoTotal: number;
     constructor(
         id,
         username,
@@ -41,7 +41,7 @@ export class RegisterUserRequest {
         this.telephone = telephone;
         this.position = position;
         this.isAdmin = false;
-        this.ptoAvailable = 0;
-        this.ptoTotal = null;
+        this.ptoAvailable = ptoTotal;
+        this.ptoTotal = ptoTotal;
     }
 }
