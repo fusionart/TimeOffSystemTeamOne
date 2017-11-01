@@ -44,7 +44,8 @@ export class RequestsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authe.isUser == null) {
+    console.log(this.authe.isUser)
+    if (this.authe.isUser == null || this.authe.isUser == true) {
       this.getRequests();
       this.getCurrentUser();
     }
