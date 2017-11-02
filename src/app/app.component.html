@@ -5,7 +5,8 @@
     <a *ngIf="isAdmin" routerLink="/admin-panel" routerLinkActive="active" class="navbar-brand">Admin panel</a>
     <a routerLink="/list" routerLinkActive="active" class="navbar-brand">Requests</a>
     <a routerLink="/createRequest" routerLinkActive="active" class="navbar-brand">Create request</a>
-    <button *ngIf="userName" type="button" class="btn btn-primary btn-sm" routerLink="/login">Logout</button>
+    <a *ngIf="userName" routerLink="/login"><img class="image" src="https://www.shareicon.net/download/2016/12/12/862833_close_512x512.png"></a>
+    
   </nav>
 </div>
 <hr>
