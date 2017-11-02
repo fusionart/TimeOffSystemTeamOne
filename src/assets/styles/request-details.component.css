@@ -1,0 +1,10 @@
+.table tr{
+    line-height: 10px;
+    padding: 0;
+}
+.table th{
+    width: 30%;
+}
+.table tr{
+    width: 70%;
+}

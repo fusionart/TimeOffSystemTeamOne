@@ -1,0 +1,61 @@
+<div class="container">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-item" href="#">Home</a>
+    <a class="breadcrumb-item" href="#/list">Requests</a>
+    <span class="breadcrumb-item active">Request details</span>
+  </nav>
+  <h2>Request detail</h2>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Person ID</th>
+      <td>{{getCurentUserPersonId()}}</td>
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td>{{selectedRowData.status}}</td>
+    </tr>
+    <tr>
+      <th>Submit Date</th>
+      <td>{{selectedRowData.dateOfSubmit}}</td>
+    </tr>
+    <tr>
+      <th>Type</th>
+      <td>
+        <img src="{{this.getTOimage(selectedRowData.type)}}" height="18" width="18"> {{selectedRowData.type}}
+      </td>
+    </tr>
+    <tr>
+      <th>Reason</th>
+      <td>{{selectedRowData.reason}}</td>
+    </tr>
+    <tr>
+      <th>Note</th>
+      <td>{{selectedRowData.note}}</td>
+    </tr>
+    <tr>
+      <th>Total Days</th>
+      <td>{{selectedRowData.days}}</td>
+    </tr>
+    <tr>
+      <th>Dates</th>
+      <td>{{selectedRowData.dateStart}} - {{selectedRowData.dateFinish}}</td>
+    </tr>
+    <tr>
+      <th>Document</th>
+      <td>No document</td>
+    </tr>
+    <tr>
+      <th>Scan</th>
+      <td>No file uploaded</td>
+    </tr>
+  </table>
+  <div class="ui-g-12">
+    <app-calendar></app-calendar>
+    <div *ngIf="isNextMonth">
+      <app-calendar></app-calendar>
+    </div>
+  </div>
+  <div class="ui-g-6">
+    <button type="button" class="btn btn-success" (click)="goBack()"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
+  </div>
+</div>
