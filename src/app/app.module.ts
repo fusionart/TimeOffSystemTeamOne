@@ -3,7 +3,6 @@ import { DropdownNModule } from './components/dropdown/dropdown.module';
 import { CalendarModule, DataTableModule } from 'primeng/primeng';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 
@@ -47,4 +46,5 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
