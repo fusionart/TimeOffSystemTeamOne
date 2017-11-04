@@ -1,0 +1,7 @@
+<div class="ui-g-12 ">
+  <h5>
+    <i>Absence Type</i>
+  </h5>
+  <p-dropdown [options]="tot" [(ngModel)]="selectedTot" [style]="{'width':'100%'}" placeholder="Select a time off type" (ngModelChange)="totChanged($event)"></p-dropdown>
+  <!-- <p>Selected type: {{selectedTot ? selectedTot.id : 'none'}}</p> -->
+</div>

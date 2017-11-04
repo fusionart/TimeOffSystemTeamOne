@@ -1,0 +1,246 @@
+<div class="container">
+  <h2>Register</h2>
+  <form novalidate #f="ngForm" (ngSubmit)="OnSubmit()">
+    <div *ngIf="noMatch" class="alert alert-danger">
+      Passwords do not match
+    </div>
+    <div class="sections">
+        <div class="left-section">
+            <div class="account-names">
+              <p>Names</p>
+                <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="firstName" 
+                    name="fname" 
+                    #fName="ngModel" 
+                    minlength="2" 
+                    placeholder="Enter first name..."
+                    required>
+                    <div *ngIf="fName.errors?.required 
+                        && fName.touched" class="alert alert-danger">
+                      First Name is required
+                    </div>
+                    <div *ngIf="fName.errors?.minlength 
+                        && fName.touched" class="alert alert-danger">
+                      First Name should be at least 2 characters
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="secondName" 
+                    name="sName" 
+                    #sName="ngModel" 
+                    minlength="2"
+                    placeholder="Enter second name..."
+                    required>
+                    <div *ngIf="sName.errors?.required 
+                      && sName.touched" class="alert alert-danger">
+                      Second name is required
+                    </div>
+                    <div *ngIf="sName.errors?.minlength 
+                      && sName.touched" class="alert alert-danger">
+                      Second name should be at least 2 characters
+                    </div>
+                  </div>
+        
+                  <div class="d-inline form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="lastName" 
+                    name="lName" 
+                    #lName="ngModel" 
+                    minlength="2" 
+                    placeholder="Enter third name..."
+                    required>
+                    <div *ngIf="lName.errors?.required 
+                        && lName.touched" class="alert alert-danger">
+                      Last Name is required
+                    </div>
+                    <div *ngIf="lName.errors?.minlength 
+                        && lName.touched" class="alert alert-danger">
+                      Last Name should be at least 2 characters
+                    </div>
+                  </div>
+            </div>
+        
+            <div class="account-info">
+                <p>Account info</p>
+                <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="username" 
+                    name="uName" 
+                    #uName="ngModel" 
+                    minlength="2" 
+                    placeholder="Enter username name..."
+                    required>
+                    <div *ngIf="uName.errors?.required 
+                        && uName.touched" class="alert alert-danger">
+                      Username is required
+                    </div>
+                    <div *ngIf="uName.errors?.minlength 
+                        && uName.touched" class="alert alert-danger">
+                      Username should be at least 2 characters
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                      <input 
+                      type="password" 
+                      class="form-control" 
+                      [(ngModel)]="password" 
+                      name="pass" 
+                      #pass="ngModel" 
+                      placeholder="Enter password..."
+                      required>
+                      <div *ngIf="pass.errors?.required 
+                          && pass.touched" class="alert alert-danger">
+                        Password is required
+                      </div>
+                    </div>
+        
+                    <div class="form-group">
+                      <input 
+                      type="password" 
+                      class="form-control" 
+                      [(ngModel)]="repPassword" 
+                      name="repeatPassword" 
+                      #repeatPassword="ngModel" 
+                      placeholder="Confirm password..."
+                      required>
+                      <div *ngIf="repeatPassword.errors?.required 
+                          && repeatPassword.touched" class="alert alert-danger">
+                        Repeat Password is required
+                      </div>
+                    </div>
+            </div>
+        </div>
+       
+        <div class="right-section">
+            <div class="other-information">
+                <p>Other information</p>
+                <div class="form-group">
+                    <input 
+                    type="email" 
+                    class="form-control" 
+                    [(ngModel)]="email" 
+                    name="emaill" 
+                    #emaill="ngModel" 
+                    placeholder="Enter email..."
+                    required>
+                    <div *ngIf="emaill.errors?.required 
+                        && emaill.touched" class="alert alert-danger">
+                      Email is required
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="address" 
+                    name="addr" 
+                    #addr="ngModel" 
+                    minlength="2" 
+                    placeholder="Enter address..."
+                    required>
+                    <div *ngIf="addr.errors?.required 
+                      && addr.touched" class="alert alert-danger">
+                      Adress is required
+                    </div>
+                    <div *ngIf="addr.errors?.minlength 
+                      && addr.touched" class="alert alert-danger">
+                      Adress should be at least 2 characters
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="position" 
+                    name="posit" 
+                    #posit="ngModel" 
+                    minlength="2" 
+                    placeholder="Enter position..."
+                    required>
+                    <div *ngIf="posit.errors?.required 
+                      && posit.touched" class="alert alert-danger">
+                      Position is required
+                    </div>
+                    <div *ngIf="posit.errors?.minlength 
+                      && posit.touched" class="alert alert-danger">
+                      The position should be at least 2 characters
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="personalId" 
+                    name="persId" 
+                    #persId="ngModel" 
+                    minlength="2" 
+                    placeholder="Enter personal ID..."
+                    required>
+                    <div *ngIf="persId.errors?.required 
+                      && persId.touched" class="alert alert-danger">
+                      Personal Id is required
+                    </div>
+                    <div *ngIf="persId.errors?.minlength 
+                      && persId.touched" class="alert alert-danger">
+                      personalId should be at least 2 characters
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                    <input 
+                    type="text" 
+                    class="form-control" 
+                    [(ngModel)]="telephone" 
+                    name="phone" 
+                    #phone="ngModel" 
+                    minlength="8" 
+                    placeholder="Enter phone number..."
+                    required>
+                    <div *ngIf="phone.errors?.minlength 
+                        && phone.touched" class="alert alert-danger">
+                      Phone number should be at least 8 characters
+                    </div>
+                  </div>
+        
+                  <div class="form-group">
+                    <input 
+                    type="number"
+                    min="1"
+                    max="22" 
+                    class="form-control" 
+                    [(ngModel)]="ptoTotal" 
+                    name="ptoTot" 
+                    #ptoTot="ngModel" 
+                    minlength="2"
+                    placeholder="Enter PTO available..."
+                    required>
+                    <div *ngIf="ptoTot.errors?.required 
+                        && ptoTot.touched" class="alert alert-danger">
+                      The field is required
+                    </div>
+                  </div>
+            </div>
+            
+            <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">
+               Register
+            </button>
+
+        </div>
+    </div>
+  </form>
+</div>

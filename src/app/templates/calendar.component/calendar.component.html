@@ -1,0 +1,9 @@
+<div class="ui-g-12 ui-md-4">
+  <p-calendar [(ngModel)]="dates" selectionMode="multiple" [locale]="en" readonlyInput="true" dateFormat="dd/mm/yy" [inline]="true"
+    [disabledDays]="disabledDaysArray" [disabledDates]="invalidDates" yearRange="2000:2030" (onSelect)="onSelect($event)"
+    (onClearClick)="onClear($event)" (click)="onClickEvt($event,date)" [minDate]="minDate" [maxDate]="maxDate">
+    <ng-template pTemplate="date" let-date>
+      <span [ngStyle]="{backgroundColor: (setMyStyles(date)) ? 'red' : (greenStyle(date)) ? 'green' : 'inherit'}" style="border-radius:10%">{{date.day}}</span>
+    </ng-template>
+  </p-calendar>
+</div>

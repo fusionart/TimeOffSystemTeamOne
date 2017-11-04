@@ -1,0 +1,32 @@
+p-dataTable >>> .numerationColumn{
+    width: 35px;
+    font-weight: bold;
+}
+
+p-dataTable >>> .daysColumn{
+    width: 80px;
+}
+
+p-dataTable >>> .statusColumn{
+    width: 150px;
+}
+
+p-dataTable >>> .submitColumn{
+    width: 150px;
+}
+
+p-dataTable >>> .AbsenceColumn{
+    width: 250px;
+}
+
+.availablePTO{
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+input.showDays{
+    border: none;
+    background-color: white;
+    width: 25px;
+    text-align: center;
+}

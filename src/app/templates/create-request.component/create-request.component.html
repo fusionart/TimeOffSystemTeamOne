@@ -1,0 +1,59 @@
+<div class="container">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-item" href="#">Home</a>
+    <a class="breadcrumb-item" href="#/list">Requests</a>
+    <span class="breadcrumb-item active">Create Requests</span>
+  </nav>
+  <h2>Create Request</h2>
+  <form (ngSubmit)="onSubmit()">
+    <app-dropdown (totChange)='totChanged($event)'></app-dropdown>
+    <div class="ui-g-12 form-group">
+      <h5>
+        <i>Reason</i>
+      </h5>
+      <textarea class="ui-g-12 ui-inputtextarea bRadius" rows="2" pInputTextarea [(ngModel)]="reasons" name="reasons"></textarea>
+    </div>
+    <div class="ui-g-12 form-group">
+      <h5>
+        <i>Note</i>
+      </h5>
+      <textarea class="ui-g-12 ui-inputtextarea bRadius" rows="2" pInputTextarea [(ngModel)]="note" name="note"></textarea>
+    </div>
+    <!-- <div class="ui-g-12" *ngIf="!showCalendar">
+      <h4 class=" help-block text-danger">Please select
+        <b>Absence Type</b> to show calendar</h4>
+    </div> -->
+    <div >
+      <div class="availablePTO">
+        <h3 class="lead text-muted text-center">You have
+          <b>
+            <input class="showDays" type="text" [(ngModel)]="currentuserAvailablePto" name="currentuserAvailablePto" [disabled]="true" />
+          </b> days available for Paid Time Off.</h3>
+      </div>
+      <div class="ui-g-12 form-group ui-calendar">
+        <h5>
+          <i>Dates</i>
+        </h5>
+        <input class="ui-g-12 bRadius" type="text" pInputText [(ngModel)]="inputDates" name="inputDates" [disabled]="true" />
+        <app-calendar (outputs)='onCalendarChange($event)'></app-calendar>
+        <h5>Info</h5>
+        <ul>
+          <li>Click on <b>EVERY</b> date you want to select</li>
+          <li><span class="r">red</span> color dates are Official Holidays (not working days)</li>
+        </ul>
+      </div>
+      <div class="ui-g-12">
+        <button [disabled]="allowClear()" type="button" class="btn btn-primary ui-g-2" (click)="clearCalendar()"><i class="fa fa-trash-o" aria-hidden="true"></i> Clear calendar</button>
+      </div>
+    </div>
+    <div class="ui-g-12 form-group">
+      <h5>
+        <i>Mail list</i>
+      </h5>
+      <input class="ui-g-6" type="text" pInputText [(ngModel)]="mailList" [ngModelOptions]="{standalone: true}" />
+    </div>
+    <div class="ui-g-12 form-group">
+      <button [disabled]="allowSubmit()" type="submit" class="btn btn-success btn-marg ui-g-2"><i class="fa fa-envelope" aria-hidden="true"></i> Create</button>
+    </div>
+  </form>
+</div>

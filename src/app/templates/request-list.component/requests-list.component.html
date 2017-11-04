@@ -1,0 +1,54 @@
+<div class="container">
+  <nav class="breadcrumb">
+    <a class="breadcrumb-item" href="#">Home</a>
+    <span class="breadcrumb-item active">Requests</span>
+  </nav>
+  <h2>Requests</h2>
+  <button type="button" class="btn btn-success" routerLink="/createRequest" routerLinkActive="active"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Create Request</button>
+  <div class="availablePTO">
+    <h3 class="lead text-muted text-center">You have
+      <b>
+        <input class="showDays" type="text" [(ngModel)]="currentuserAvailablePto" name="currentuserAvailablePto" [disabled]="true" />
+      </b> days available for Paid Time Off.</h3>
+  </div>
+  <div>
+    <p-dataTable #dt [value]="requests" sortField="#" sortOrder="1" emptyMessage="No time offs found" [paginator]="true" [rows]="5"
+      [rowsPerPageOptions]="[5,10,15,20]" [totalRecords]="recordCount" [pageLinks]="5" selectionMode="single" [(selection)]="selectedRow"
+      (onRowSelect)="onRowSelected($event)">
+      <p-footer>There are {{getAmountOfRequests()}} requests</p-footer>
+      <p-column field="#" header="#" styleClass="numerationColumn">
+        <ng-template let-col let-file="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{ri+1}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="type" header="Absence Type" [sortable]="true" [filter]="true" filterPlaceholder="Type of time off" filterMatchMode="equals"
+        [style]="{'overflow':'visible'}" styleClass="AbsenceColumn">
+        <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="allTypes" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+            styleClass="ui-column-filter"></p-dropdown>
+        </ng-template>
+        <ng-template let-col let-file="rowData" pTemplate="body">
+          <ng-template #tipContent>Time off type: <b>{{onFocusT(file[col.field])}}</b>!</ng-template>
+          <img src="{{this.getTOimage(file[col.field])}}" height="18" width="18" [ngbTooltip]="tipContent" #t="ngbTooltip"> {{file[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="days" header="Days" styleClass="daysColumn text-center"></p-column>
+      <p-column field="allDates" styleClass="text-center" header="Dates"></p-column>
+      <p-column field="dateOfSubmit" header="Submit Date" [sortable]="true" styleClass="submitColumn text-center"></p-column>
+      <p-column field="status" header="Status" [sortable]="true" styleClass="statusColumn text-center" [filter]="true" filterPlaceholder="Status"
+        filterMatchMode="equals" [style]="{'overflow':'visible'}">
+        <ng-template pTemplate="filter" let-col>
+          <p-dropdown [options]="status" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+            styleClass="ui-column-filter text-center"></p-dropdown>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+    <div class="availablePTO">
+      <h3 class="lead text-muted text-center">You have
+        <b>
+          <input class="showDays" type="text" [(ngModel)]="currentuserAvailablePto" name="currentuserAvailablePto" [disabled]="true" />
+        </b> days available for Paid Time Off.</h3>
+    </div>
+    <button type="button" class="btn btn-success" (click)="goBack()"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</button>
+  </div>
+</div>
