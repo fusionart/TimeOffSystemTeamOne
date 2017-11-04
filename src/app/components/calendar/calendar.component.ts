@@ -174,6 +174,7 @@ export class CalendarComponent implements OnInit {
 
   makeGreenDays() {
     if (this.selectedRowData != null) {
+      this.calendar.getTimeOffDates(this.selectedRowData.id);
       let firstDate = new Date(this.selectedRowData.dateStart);
       let secondDate = new Date(this.selectedRowData.dateFinish);
       firstDate.setDate(firstDate.getDate() - 1);

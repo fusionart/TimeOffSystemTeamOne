@@ -80,6 +80,8 @@
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
           <button class="detailView" type="button" pButton (click)="close()" label="Close">
             <i class="fa fa-close"></i> Close</button>
+            <button *ngIf="isApproved" class="detailView" type="button" pButton (click)="cancel()" label="Cancel">
+              <i class="fa fa-check"></i> Cancel</button>
           <button *ngIf="isApproved" class="detailView" type="button" pButton (click)="approve()" label="Approve">
             <i class="fa fa-check"></i> Approve</button>
         </div>

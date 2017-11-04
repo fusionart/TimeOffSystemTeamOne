@@ -10,21 +10,23 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class CalendarService {
   public static readonly GET_HOLIDAYS = environment.apiUrl + "/api/holiday-list";
+  public static readonly GET_TIMEOFFDATES = environment.apiUrl + "/api/time-off-dates";
   holiday: Array<Holiday>;
-  constructor(private http: Http, private userService: UserService) { 
+  timeOffDates: Array<Date>;
+  constructor(private http: Http, private userService: UserService) {
     this.holiday = new Array<Holiday>();
   }
 
-  extractData(response: Response){
+  extractData(response: Response) {
     return response.json();
-}
+  }
 
   public getHolidays(): Observable<Holiday[]> {
-    let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded"});
-    
+    let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+
     //token header
     let token = this.userService.getStoredToken();
-    console.log(token);
+    //console.log(token);
     if (token !== null) {
       cpHeaders.append("Authorization", token);
     }
@@ -32,15 +34,40 @@ export class CalendarService {
     let options = new RequestOptions({ headers: cpHeaders });
 
     return this.http.get(CalendarService.GET_HOLIDAYS, options)
-        .map(this.extractData)
-        .map((holiday: Array<Holiday>) => {
-            let result: Array<Holiday> = [];
-            if (holiday) {
-              holiday.forEach((holiday) => {
-                    result.push(holiday);
-                });
-            }
-            return result;
-        });
-}
+      .map(this.extractData)
+      .map((holiday: Array<Holiday>) => {
+        let result: Array<Holiday> = [];
+        if (holiday) {
+          holiday.forEach((holiday) => {
+            result.push(holiday);
+          });
+        }
+        return result;
+      });
+  }
+
+  public getTimeOffDates(id: number): Observable<Date[]> {
+    let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+    //token header
+    let token = this.userService.getStoredToken();
+    //console.log(token);
+    if (token !== null) {
+      cpHeaders.append("Authorization", token);
+    }
+
+    let options = new RequestOptions({ headers: cpHeaders });
+
+    return this.http.get(CalendarService.GET_TIMEOFFDATES + id, options)
+      .map(this.extractData)
+      .map((timeOffDates: Array<Date>) => {
+        let result: Array<Date> = [];
+        if (timeOffDates) {
+          timeOffDates.forEach((timeOffDates) => {
+            result.push(timeOffDates);
+          });
+        }
+        console.log(result);
+        return result;
+      });
+  }
 }
