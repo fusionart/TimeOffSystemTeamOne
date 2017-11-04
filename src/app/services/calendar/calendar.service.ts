@@ -10,11 +10,12 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class CalendarService {
   public static readonly GET_HOLIDAYS = environment.apiUrl + "/api/holiday-list";
-  public static readonly GET_TIMEOFFDATES = environment.apiUrl + "/api/time-off-dates";
+  public static readonly GET_TIMEOFFDATES = environment.apiUrl + "/api/time-off-dates?requestId=";
   holiday: Array<Holiday>;
   timeOffDates: Array<Date>;
   constructor(private http: Http, private userService: UserService) {
     this.holiday = new Array<Holiday>();
+    this.timeOffDates = new Array<Date>();
   }
 
   extractData(response: Response) {
@@ -46,18 +47,15 @@ export class CalendarService {
       });
   }
 
-  public getTimeOffDates(id: number): Observable<Date[]> {
+  public getTimeOffDates(requestId: number): Observable<Date[]> {
     let cpHeaders = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
-    //token header
     let token = this.userService.getStoredToken();
-    //console.log(token);
     if (token !== null) {
       cpHeaders.append("Authorization", token);
     }
 
     let options = new RequestOptions({ headers: cpHeaders });
-
-    return this.http.get(CalendarService.GET_TIMEOFFDATES + id, options)
+    return this.http.get(CalendarService.GET_TIMEOFFDATES + requestId, options)
       .map(this.extractData)
       .map((timeOffDates: Array<Date>) => {
         let result: Array<Date> = [];
@@ -66,7 +64,6 @@ export class CalendarService {
             result.push(timeOffDates);
           });
         }
-        console.log(result);
         return result;
       });
   }

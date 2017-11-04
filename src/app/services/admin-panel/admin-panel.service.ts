@@ -47,11 +47,8 @@ export class AdminPanelService {
   }
 
   approveRequest(approveObj: any): Observable<any> {
-    //console.log("service: ");
-    //console.log(JSON.stringify(timeOffRequest));
     let cpHeaders = new Headers({ "Content-Type": "application/json" });
 
-    //token header
     let token = this.userService.getStoredToken();
     console.log(token);
     if (token !== null) {
@@ -65,11 +62,8 @@ export class AdminPanelService {
   }
 
   cancelRequest(approveObj: any): Observable<any> {
-    //console.log("service: ");
-    //console.log(JSON.stringify(timeOffRequest));
     let cpHeaders = new Headers({ "Content-Type": "application/json" });
 
-    //token header
     let token = this.userService.getStoredToken();
     console.log(token);
     if (token !== null) {
