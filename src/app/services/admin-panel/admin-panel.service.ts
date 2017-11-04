@@ -12,6 +12,7 @@ export class AdminPanelService {
 
   public static readonly GET_REQUESTS = environment.apiUrl + "/api/request-list";
   public static readonly APPROVE_REQUEST = environment.apiUrl + "/api/approve";
+  public static readonly CANCEL_REQUEST = environment.apiUrl + "/api/cancel-request";
 
   constructor(private http: Http, private userService: UserService) {
     this.requests = new Array<TimeOffRequest>();
@@ -46,11 +47,8 @@ export class AdminPanelService {
   }
 
   approveRequest(approveObj: any): Observable<any> {
-    //console.log("service: ");
-    //console.log(JSON.stringify(timeOffRequest));
     let cpHeaders = new Headers({ "Content-Type": "application/json" });
 
-    //token header
     let token = this.userService.getStoredToken();
     console.log(token);
     if (token !== null) {
@@ -60,6 +58,21 @@ export class AdminPanelService {
     let options = new RequestOptions({ headers: cpHeaders });
     return this.http
       .post(AdminPanelService.APPROVE_REQUEST, approveObj, options)
+      .map(success => success.status);
+  }
+
+  cancelRequest(approveObj: any): Observable<any> {
+    let cpHeaders = new Headers({ "Content-Type": "application/json" });
+
+    let token = this.userService.getStoredToken();
+    console.log(token);
+    if (token !== null) {
+      cpHeaders.append("Authorization", token);
+    }
+
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this.http
+      .post(AdminPanelService.CANCEL_REQUEST, approveObj, options)
       .map(success => success.status);
   }
 

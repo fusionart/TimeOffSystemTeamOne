@@ -8,4 +8,5 @@ export interface TimeOffRequestInterface {
     reason?;
     note?;
     dateOfSubmit?;
+    userId?;
 }

@@ -38,6 +38,7 @@ export class CalendarComponent implements OnInit {
   inputDates: string;
   holiday: Array<Holiday>;
   holidayDays: Array<Date>;
+  timeOffDates: Array<Date>;
   greenDays: Date[];
   selectedRowData: TimeOffRequest;
   disabledDaysArray = [0, 6];
@@ -57,7 +58,7 @@ export class CalendarComponent implements OnInit {
   onSelect($event) {
     let commar: String = ", ";
     this.inputDates = "";
-    this.dates.sort((n1:any,n2:any) => n1 - n2);
+    this.dates.sort((n1: any, n2: any) => n1 - n2);
     console.log(this.dates[0].getDay());
     for (var i = 0; i < this.dates.length; i++) {
       if (i == this.dates.length - 1) {
@@ -89,7 +90,7 @@ export class CalendarComponent implements OnInit {
     this.maxDate = new Date();
   }
 
-  showAllDates(){
+  showAllDates() {
     this.maxDate = null;
     this.minDate = null;
   }
@@ -132,9 +133,7 @@ export class CalendarComponent implements OnInit {
     // this.maxDate.setMonth(nextMonth);
     // this.maxDate.setFullYear(nextYear);
 
-    let invalidDate = new Date("10, 17, 2017");
-    //invalidDate.setDate(today.getDate() - 1);
-    //this.greenDays = [invalidDate];
+    //let invalidDate = new Date("10, 17, 2017");
     this.invalidDates = [];
   }
 
@@ -174,13 +173,13 @@ export class CalendarComponent implements OnInit {
 
   makeGreenDays() {
     if (this.selectedRowData != null) {
-      let firstDate = new Date(this.selectedRowData.dateStart);
-      let secondDate = new Date(this.selectedRowData.dateFinish);
-      firstDate.setDate(firstDate.getDate() - 1);
-      while (firstDate < secondDate) {
-        firstDate.setDate(firstDate.getDate() + 1);
-        this.greenDays.push(new Date(firstDate));
-      }
+      this.calendar.getTimeOffDates(this.selectedRowData.id).subscribe(timeOffDates => { this.timeOffDates = timeOffDates }, (err) => { console.log(err) },
+        () => {
+          for (var i = 0; i < this.timeOffDates.length; i++) {
+            console.log(new Date(this.timeOffDates[i]));
+            this.greenDays.push(new Date(this.timeOffDates[i]));
+          }
+        });
       return this.greenDays;
     }
   }

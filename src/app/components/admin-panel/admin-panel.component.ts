@@ -104,6 +104,21 @@ export class AdminPanelComponent implements OnInit {
     this.displayDialog = false;
   }
 
+  cancel() {
+    let approveObj = {
+      requestId: this.request.id, requestDays: this.request.days, requestType: this.request.type, userId: JSON.parse(localStorage.getItem("currentUserDetails")).userId, requestUserId: this.request.userId
+    }
+    this.adminPanelService
+      .cancelRequest(approveObj)
+      .subscribe(
+      response => { console.log(response), this.getRequests() },
+      error => console.log(error)
+      );
+
+    this.request = null;
+    this.displayDialog = false;
+  }
+
   close() {
     this.request = null;
     this.displayDialog = false;
@@ -142,6 +157,6 @@ export class AdminPanelComponent implements OnInit {
 
 class PrimeRequest implements TimeOffRequestInterface {
 
-  constructor(public type?, public days?, public reason?, public note?, public id?, public status?) { }
+  constructor(public type?, public days?, public reason?, public note?, public id?, public status?, public userId?) { }
 }
 

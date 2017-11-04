@@ -27,6 +27,6 @@ p-dataTable >>> .AbsenceColumn{
 input.showDays{
     border: none;
     background-color: white;
-    width: 22px;
+    width: 25px;
     text-align: center;
 }
